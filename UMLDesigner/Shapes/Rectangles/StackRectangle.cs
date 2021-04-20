@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using UMLDesigner.Interfaces;
+
+namespace UMLDesigner.Shapes.Rectangles
+{
+    public class StackRectangle : IRectangle
+    {
+        public string Name { get; set; }
+        public static int _countOfClasses = 0;
+
+        private Rectangle _nameRect;
+        private Rectangle _fieldsRect;
+        private Rectangle _propetiesRect;
+        private Rectangle _otherRect;
+
+        private int _nameHeight = 50;
+        private int _fieldsHeight = 25;
+        private int _propertiesHeight = 25;
+        private int _otherHeight;
+
+        public bool isRollUp = false;
+        public int Height { get; private set; }
+        public List<string> Fields { get; set; }
+        public List<string> Properties { get; set; }
+        public List<string> Other { get; set; }
+        public List<PointerShape> Connections { get; set; }
+        public StackRectangle()
+        {
+            Connections = new List<PointerShape>();
+            Fields = new List<string>();
+            Properties = new List<string>();
+            Other = new List<string>();
+            Name = "Classes" + _countOfClasses++;
+        }
+
+        public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont)
+        {
+            if (isRollUp == true)
+            {
+                line = 1;
+            }
+            Pen pen = new Pen(color, penWidth);
+            SolidBrush drawBrush = new SolidBrush(Color.Black);
+
+            StringFormat drawFormat = new StringFormat();
+            drawFormat.Alignment = StringAlignment.Center;
+            drawFormat.LineAlignment = StringAlignment.Center;
+
+            _nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
+            _fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _fieldsHeight);
+            _propetiesRect = new Rectangle(startPoint.X, _fieldsRect.Y + _fieldsHeight, size.X, _propertiesHeight);
+            _otherHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight;
+            _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
+
+            MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _nameRect);
+            MyGraphics.GetInstance()._graphics.DrawString(Name, nameFont, drawBrush, _nameRect, drawFormat);
+            if (line > 1)
+            {
+                drawFormat.Alignment = StringAlignment.Near;
+                if (Fields.Count >= 1)
+                {
+                    _fieldsHeight = 25 * Fields.Count;
+                    _fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _fieldsHeight);
+                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _fieldsRect);
+                    int tempY = 0;
+                    foreach (string s in Fields)
+                    {
+                        Rectangle tmpRect = new Rectangle(startPoint.X, _fieldsRect.Y + tempY, size.X, 25);
+                        MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                        tempY = tempY + 25;
+                    }
+                }
+                else
+                {
+                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _fieldsRect);
+                }
+            }
+            if (line > 2)
+            {
+                if (Properties.Count >= 1)
+                {
+                    _propertiesHeight = 25 * Properties.Count;
+                    _propetiesRect = new Rectangle(startPoint.X, _fieldsRect.Y + _fieldsHeight, size.X, _propertiesHeight);
+                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _propetiesRect);
+                    int tempY = 0;
+                    foreach (string s in Properties)
+                    {
+                        Rectangle tmpRect = new Rectangle(startPoint.X, _propetiesRect.Y + tempY, size.X, 25);
+                        MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                        tempY = tempY + 25;
+                    }
+                }
+                else
+                {
+                    _propetiesRect = new Rectangle(startPoint.X, _fieldsRect.Y + _fieldsHeight, size.X, _propertiesHeight);
+                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _propetiesRect);
+                }
+            }
+            if (line > 3)
+            {
+                if (Other.Count >= 1)
+                {
+                    if (_otherHeight > Other.Count * 25)
+                    {
+                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                    }
+                    else
+                    {
+                        _otherHeight = 25 * Other.Count;
+                        _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
+                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                    }
+                    if (Other.Count > 1)
+                    {
+                        int tempY = 0;
+                        foreach (string s in Other)
+                        {
+                            Rectangle tmpRect = new Rectangle(startPoint.X, _otherRect.Y + tempY, size.X, 25);
+                            MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                            tempY = tempY + 25;
+                        }
+                    }
+                }
+                else
+                {
+                    if (size.Y <= _nameHeight + _fieldsHeight + _propertiesHeight + 25)
+                    {
+                        _otherHeight = 25;
+                    }
+                    else
+                    {
+                        _otherHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight;
+                    }
+                    _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
+                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                }
+                Height = _nameHeight + _fieldsHeight + _propertiesHeight + _otherHeight;
+            }
+
+            int smalLineY = 10;
+            int indentLastX = 15;
+            AddShadowLinesRectangle(pen, color, penWidth, size, MyGraphics.GetInstance()._graphics, startPoint, smalLineY, indentLastX);
+            Point nextPointForLine = new Point((startPoint.X - indentLastX), (startPoint.Y - smalLineY));
+            AddShadowLinesRectangle(pen, color, penWidth, size, MyGraphics.GetInstance()._graphics, nextPointForLine, smalLineY, indentLastX);
+        }
+
+        public void AddShadowLinesRectangle(Pen pen, Color color, float penWidth, Point size, Graphics graphics, Point startPoint, int smalLineY, int indentLastX)
+        {
+            int smallLineVertical = smalLineY;
+            int indentRectangle = indentLastX;
+            int bigLineHorizontal = size.X;
+            int bigLineVertical = size.Y;
+
+            graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle), (startPoint.Y), (startPoint.X + size.X - indentRectangle), (startPoint.Y - smallLineVertical));
+            graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle), (startPoint.Y - smallLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical));
+            graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical + bigLineVertical));
+            graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical + bigLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal + indentRectangle), (startPoint.Y - smallLineVertical + bigLineVertical));
+        }
+    }
+}
