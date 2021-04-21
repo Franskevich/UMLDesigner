@@ -41,6 +41,7 @@ namespace UMLDesigner
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
         {
+            MyGraphics.GetInstance().GetMainGraphics();
             StartPoint = e.Location;
             Draw();
             _endCreate = true;
@@ -57,7 +58,6 @@ namespace UMLDesigner
             {
                 Draw();
                 MyGraphics.GetInstance().SetTmpBitmapAsMain();
-
             }
         }
 
@@ -73,5 +73,24 @@ namespace UMLDesigner
             _pen.DashPattern = dashPattern;
             graphics.DrawRectangle(_pen, startPoint.X, startPoint.Y, size.X, size.Y);
         }
+
+        public void Pick()
+        {
+            DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+            MyGraphics.GetInstance().GetMainGraphics();
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
+
+            MyGraphics.GetInstance().GetTmpGraphics();
+            Draw();
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+
+
+        }
+
     }
 }

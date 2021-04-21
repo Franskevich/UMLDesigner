@@ -20,6 +20,9 @@ namespace UMLDesigner
         StackClass,
         ClassWithFourRectangle,
         Structure,
-        Delegate
+        Delegate,
+        Move,
+        Retangle,
+        Pointer
     }
 }

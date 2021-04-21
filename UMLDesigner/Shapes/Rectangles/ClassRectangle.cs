@@ -81,7 +81,7 @@ namespace UMLDesigner.Shapes.Rectangles
 
 
 
-            MyGraphics.GetInstance().GetMainGraphics();
+            //MyGraphics.GetInstance().GetMainGraphics();
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
