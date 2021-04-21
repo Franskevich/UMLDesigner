@@ -33,6 +33,7 @@ namespace UMLDesigner
         MyGraphics _graphics;
         private Point _clickPoint;
 
+        bool _changerText = false;
 
         public MainForm()
         {
@@ -162,7 +163,48 @@ namespace UMLDesigner
                 _currentFactory = null;
             }
 
+
+            if (_changerText == true)
+            {
+                var appleR = AbstractRectangle.GetCurrentRectangle(e);
+
+                if (!(appleR is null))
+                {
+                    //MyGraphics.GetInstance().GetMainGraphics();
+
+
+                    appleR.NameFont = new Font("Arial", 42);
+                    
+                    _changerText = false;
+                    MyGraphics.GetInstance().SetTmpBitmapAsMain();
+                   //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                }
+            }
+
+
         }
+
+
+
+
+        //public IShape PickOut(MouseEventArgs e)
+        //{
+        //    foreach (IShape _currentShape in _shapes)
+        //    {
+        //        if (_currentShape is AbstractRectangle)
+        //        {
+        //            if (e.Location.X > _currentShape.StartPoint.X &&
+        //                e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
+        //                e.Location.Y > _currentShape.StartPoint.Y &&
+        //                e.Location.Y < _currentShape.StartPoint.Y + _currentShape.EndPoint.Y)
+        //            {
+        //                return _currentShape;
+        //            }
+        //        }
+        //    }
+        //    return _currentShape = null;
+        //}
+
         private void SnapArrow(Point clickPoint)
         {
         }
@@ -354,6 +396,12 @@ namespace UMLDesigner
         private void ButtonMove_Click(object sender, EventArgs e)
         {
             _act = ActShapes.Move;
+        }
+
+        private void buttonChangeText_Click(object sender, EventArgs e)
+        {
+            _changerText = true;
+           
         }
     }
 }
