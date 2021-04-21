@@ -73,7 +73,6 @@ namespace UMLDesigner
                 if(_currentShape != null)
                 {
                     MyGraphics.GetInstance().GetMainGraphics();
-
                     _clickPoint = e.Location;
                 }
                 else
@@ -102,9 +101,8 @@ namespace UMLDesigner
         {
             if (_act == ActShapes.Move)
             {
-                if (_currentShape != null)
+                if (_currentShape is AbstractRectangle)
                 {
-
                     //MyGraphics.GetInstance()._graphics.Clear(Color.White);
                     MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.Move(e.X - _clickPoint.X, e.Y - _clickPoint.Y);
@@ -115,12 +113,13 @@ namespace UMLDesigner
                     _clickPoint = e.Location;
 
                 }
-                else
+                else if(_currentShape is AbstractPointer)
                 {
+                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.Pink);
                 }
             }
 
-                if (_currentShape != null && _currentFactory != null)
+            if (_currentShape != null && _currentFactory != null)
             {
                 _currentShape.OnMouseMove(e, _shapes);
             }
@@ -133,7 +132,6 @@ namespace UMLDesigner
 
                 if (_currentShape != null)
                 {
-
                     _currentShape = null;
                     MyGraphics.GetInstance().SetTmpBitmapAsMain();
                 }
@@ -179,6 +177,43 @@ namespace UMLDesigner
                         e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
                         e.Location.Y > _currentShape.StartPoint.Y &&
                         e.Location.Y < _currentShape.StartPoint.Y + _currentShape.EndPoint.Y)
+                    {
+                        return _currentShape;
+                    }
+                }
+                else
+                {
+                    AbstractPointer tmpPointer = (AbstractPointer)_currentShape;
+                    Point point1 = tmpPointer.StartPoint;
+                    Point point2 = tmpPointer.InsidePoint1;
+                    Point point3 = tmpPointer.InsidePoint2;
+                    Point point4 = tmpPointer.EndPoint;
+
+                    if(point1.X > point4.X)
+                    {
+                        Point tmpPoint = point4;
+                        point4 = point1;
+                        point1 = tmpPoint;
+                    }
+                    if(point2.Y > point3.Y)
+                    {
+                        Point tmpPoint = point3;
+                        point3 = point2;
+                        point2 = tmpPoint;
+                    }
+
+                    if ((e.Location.X > point1.X &&
+                        e.Location.X < point2.X &&
+                        e.Location.Y > point1.Y-3 &&
+                        e.Location.Y < point1.Y+3) || 
+                        (e.Location.X > point3.X &&
+                        e.Location.X < point4.X &&
+                        e.Location.Y > point4.Y - 3 &&
+                        e.Location.Y < point4.Y + 3) ||
+                        (e.Location.X < point2.X + 3 &&
+                        e.Location.X > point2.X - 3 &&
+                        e.Location.Y > point2.Y &&
+                        e.Location.Y < point3.Y)) 
                     {
                         return _currentShape;
                     }
@@ -358,6 +393,7 @@ namespace UMLDesigner
         private void ButtonMove_Click(object sender, EventArgs e)
         {
             _act = ActShapes.Move;
+            _currentShape = null;
         }
     }
 }

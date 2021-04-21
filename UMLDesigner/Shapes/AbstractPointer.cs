@@ -204,6 +204,11 @@ namespace UMLDesigner
 
         public void Move(int deltaX, int deltaY)
         {
+            InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 10, StartPoint.Y);
+            MyGraphics.GetInstance().GetTmpGraphics();
+            Draw();
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+
         }
     }
 }

@@ -95,12 +95,16 @@ namespace UMLDesigner
             foreach (AbstractPointer pointer in ConnectionsEnd)
             {
                 pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y + deltaY);
+                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
+                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
             }
             foreach (AbstractPointer pointer in ConnectionsStart)
             {
                 pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y + deltaY);
+                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
+                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
             }
-            Draw();
+            //Draw();
 
             MyGraphics.GetInstance().GetTmpGraphics();
             Draw();
