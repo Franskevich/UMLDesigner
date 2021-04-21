@@ -15,9 +15,9 @@ namespace UMLDesigner
     {
         public Graphics _graphics;
         public Bitmap _mainBitmap;
-        public List<IShape> Shapes { get; set;}
+        public  List<IShape> Shapes { get; set;}
 
-        public PictureBox pictureBox { get; set; }
+        public PictureBox pictureBox { get; set;}
 
         private static MyGraphics _instance;
         public Bitmap _tmpBitmap;
