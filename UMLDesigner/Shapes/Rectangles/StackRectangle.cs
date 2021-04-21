@@ -60,8 +60,12 @@ namespace UMLDesigner.Shapes.Rectangles
             _otherHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight;
             _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
 
-            MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _nameRect);
-            MyGraphics.GetInstance()._graphics.DrawString(Name, nameFont, drawBrush, _nameRect, drawFormat);
+            MyGraphics.GetInstance().GetMainGraphics();
+            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+
+            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            currentTmpGraphics.DrawRectangle(pen, _nameRect);
+            currentTmpGraphics.DrawString(Name, nameFont, drawBrush, _nameRect, drawFormat);
             if (line > 1)
             {
                 drawFormat.Alignment = StringAlignment.Near;
@@ -69,18 +73,18 @@ namespace UMLDesigner.Shapes.Rectangles
                 {
                     _fieldsHeight = 25 * Fields.Count;
                     _fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _fieldsHeight);
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _fieldsRect);
+                    currentTmpGraphics.DrawRectangle(pen, _fieldsRect);
                     int tempY = 0;
                     foreach (string s in Fields)
                     {
                         Rectangle tmpRect = new Rectangle(startPoint.X, _fieldsRect.Y + tempY, size.X, 25);
-                        MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                        currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
                         tempY = tempY + 25;
                     }
                 }
                 else
                 {
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _fieldsRect);
+                    currentTmpGraphics.DrawRectangle(pen, _fieldsRect);
                 }
             }
             if (line > 2)
@@ -89,19 +93,19 @@ namespace UMLDesigner.Shapes.Rectangles
                 {
                     _propertiesHeight = 25 * Properties.Count;
                     _propetiesRect = new Rectangle(startPoint.X, _fieldsRect.Y + _fieldsHeight, size.X, _propertiesHeight);
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _propetiesRect);
+                    currentTmpGraphics.DrawRectangle(pen, _propetiesRect);
                     int tempY = 0;
                     foreach (string s in Properties)
                     {
                         Rectangle tmpRect = new Rectangle(startPoint.X, _propetiesRect.Y + tempY, size.X, 25);
-                        MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                        currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
                         tempY = tempY + 25;
                     }
                 }
                 else
                 {
                     _propetiesRect = new Rectangle(startPoint.X, _fieldsRect.Y + _fieldsHeight, size.X, _propertiesHeight);
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _propetiesRect);
+                    currentTmpGraphics.DrawRectangle(pen, _propetiesRect);
                 }
             }
             if (line > 3)
@@ -110,13 +114,13 @@ namespace UMLDesigner.Shapes.Rectangles
                 {
                     if (_otherHeight > Other.Count * 25)
                     {
-                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
                     }
                     else
                     {
                         _otherHeight = 25 * Other.Count;
                         _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
-                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
                     }
                     if (Other.Count > 1)
                     {
@@ -124,7 +128,7 @@ namespace UMLDesigner.Shapes.Rectangles
                         foreach (string s in Other)
                         {
                             Rectangle tmpRect = new Rectangle(startPoint.X, _otherRect.Y + tempY, size.X, 25);
-                            MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                            currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
                             tempY = tempY + 25;
                         }
                     }
@@ -140,16 +144,16 @@ namespace UMLDesigner.Shapes.Rectangles
                         _otherHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight;
                     }
                     _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                    currentTmpGraphics.DrawRectangle(pen, _otherRect);
                 }
                 Height = _nameHeight + _fieldsHeight + _propertiesHeight + _otherHeight;
             }
 
             int smalLineY = 10;
             int indentLastX = 15;
-            AddShadowLinesRectangle(pen, color, penWidth, size, MyGraphics.GetInstance()._graphics, startPoint, smalLineY, indentLastX);
+            AddShadowLinesRectangle(pen, color, penWidth, size, currentTmpGraphics, startPoint, smalLineY, indentLastX);
             Point nextPointForLine = new Point((startPoint.X - indentLastX), (startPoint.Y - smalLineY));
-            AddShadowLinesRectangle(pen, color, penWidth, size, MyGraphics.GetInstance()._graphics, nextPointForLine, smalLineY, indentLastX);
+            AddShadowLinesRectangle(pen, color, penWidth, size, currentTmpGraphics, nextPointForLine, smalLineY, indentLastX);
         }
 
         public void AddShadowLinesRectangle(Pen pen, Color color, float penWidth, Point size, Graphics graphics, Point startPoint, int smalLineY, int indentLastX)

@@ -275,8 +275,9 @@ namespace UMLDesigner
 
         private void buttonDelegate_Click(object sender, EventArgs e)
         {
-            _act = ActShapes.Delegate;
-            _isEntity = true;
+            _currentFactory = new DelegateRectangleFactory();
+            _currentShape = _currentFactory.GetShape();
+
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
