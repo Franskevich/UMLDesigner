@@ -41,6 +41,7 @@ namespace UMLDesigner.Shapes.Rectangles
             Name = "Enum" + _countOfEnums++;
         }
 
+
         public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont)
         {
             if (isRollUp == true)
@@ -57,8 +58,15 @@ namespace UMLDesigner.Shapes.Rectangles
             _nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
             _otherHeight = size.Y - _nameHeight;
             _otherRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _otherHeight);
-            MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _nameRect);
-            MyGraphics.GetInstance()._graphics.DrawString(Name, nameFont, drawBrush, new RectangleF(_nameRect.X, _nameRect.Y + _nameRect.Height / 4, _nameRect.Width, _nameRect.Height / 2), drawFormat);
+
+
+            MyGraphics.GetInstance().GetMainGraphics();
+            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+
+
+            currentTmpGraphics.DrawRectangle(pen, _nameRect);
+            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            currentTmpGraphics.DrawString(Name, nameFont, drawBrush, new RectangleF(_nameRect.X, _nameRect.Y + _nameRect.Height / 4, _nameRect.Width, _nameRect.Height / 2), drawFormat);
             if (line > 1)
             {
                 drawFormat.Alignment = StringAlignment.Near;
@@ -66,19 +74,19 @@ namespace UMLDesigner.Shapes.Rectangles
                 {
                     if (_otherHeight > Other.Count * 25)
                     {
-                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
                     }
                     else
                     {
                         _otherHeight = 25 * Other.Count;
                         _otherRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _otherHeight);
-                        MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
                     }
                     int tempY = 0;
                     foreach (string s in Other)
                     {
                         Rectangle tmpRect = new Rectangle(startPoint.X, _otherRect.Y + tempY, size.X, 25);
-                        MyGraphics.GetInstance()._graphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
+                        currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
                         tempY = tempY + 25;
                     }
                 }
@@ -93,7 +101,7 @@ namespace UMLDesigner.Shapes.Rectangles
                         _otherHeight = size.Y - _nameHeight;
                     }
                     _otherRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _otherHeight);
-                    MyGraphics.GetInstance()._graphics.DrawRectangle(pen, _otherRect);
+                    currentTmpGraphics.DrawRectangle(pen, _otherRect);
                 }
                 Height = _nameHeight + _otherHeight;
             }
