@@ -89,11 +89,16 @@ namespace UMLDesigner
                     if (t._endCreate == true)
                     {
                         _currentShape = _currentFactory.GetShape();
+                        _currentShape.Color = SetColor();
+                        _currentShape.PenWidth = SetPenWidth();
+
                     }
                 }
          
                 if (_currentShape != null)
                 {
+                    _currentShape.Color = SetColor();
+                    _currentShape.PenWidth = SetPenWidth();
                     _currentShape.OnMouseDown(e, _shapes);
                 }
             }
@@ -193,6 +198,22 @@ namespace UMLDesigner
             colorDialog1.ShowDialog();
             buttonColor.BackColor = colorDialog1.Color;
             _color = colorDialog1.Color;
+        }
+
+        public Color SetColor()
+        {
+            return colorDialog1.Color;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            _penWidth = trackBar1.Value;
+
+        }
+
+        public int SetPenWidth()
+        {
+            return trackBar1.Value;
         }
 
         private void buttonAssociation_Click(object sender, EventArgs e)
@@ -296,19 +317,6 @@ namespace UMLDesigner
             _act = ActShapes.Retangle;
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            _penWidth = trackBar1.Value;
-
-            /*Graphics grafTemporary;
-            grafTemporary = Graphics.FromImage(_tempBitmap);
-            grafTemporary.Clear(Color.White);
-            foreach (var shape in _shapes)
-            {
-                shape.PenWidth = _penWidth;
-                shape.Draw(grafTemporary);
-            }*/
-        }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
