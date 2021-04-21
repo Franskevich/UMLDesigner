@@ -70,15 +70,37 @@ namespace UMLDesigner
             if(_act == ActShapes.Move)
             {
                 _currentShape = PickOut(e);
-                if(_currentShape != null)
+                if(_currentShape is AbstractRectangle)
                 {
                     MyGraphics.GetInstance().GetMainGraphics();
                     _clickPoint = e.Location;
                 }
+                else if(_currentShape is AbstractPointer)
+                {
+                    SolidBrush tmpBrusn = new SolidBrush(Color.Red);
+                    AbstractPointer tpmPointer = (AbstractPointer)_currentShape;
+                    Graphics tmpGraphics = MyGraphics.GetInstance().GetTmpGraphics();
+                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.StartPoint.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.StartPoint.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
+                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.EndPoint.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.EndPoint.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
+                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint1.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.InsidePoint1.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
+                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint2.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.InsidePoint2.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
+                    MyGraphics.GetInstance().SetImageToTmpBitmap();
+                    MyGraphics.GetInstance().GetMainGraphics();
+
+                    //MyGraphics.GetInstance().SetImageToTmpBitmap();
+                }
                 else
                 {
-                   // MyGraphics.GetInstance().SetImageToMainBitmap();
+                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+                    foreach (var shape in _shapes)
+                    {
+                        shape.Draw();
+                    }
+                    MyGraphics.GetInstance().SetImageToMainBitmap();
+
                 }
+
+
             }
             else if(!(_currentFactory is null))
             {
@@ -115,7 +137,7 @@ namespace UMLDesigner
                 }
                 else if(_currentShape is AbstractPointer)
                 {
-                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.Pink);
+                    //MyGraphics.GetInstance().GetMainGraphics().Clear(Color.Pink);
                 }
             }
 
@@ -201,7 +223,6 @@ namespace UMLDesigner
                         point3 = point2;
                         point2 = tmpPoint;
                     }
-
                     if ((e.Location.X > point1.X &&
                         e.Location.X < point2.X &&
                         e.Location.Y > point1.Y-3 &&
