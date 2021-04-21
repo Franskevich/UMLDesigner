@@ -23,14 +23,14 @@ namespace UMLDesigner.Shapes.Arrows
             if (endPoint.X > startPoint.X)
             {
                 Point[] curvePoints = { new Point(endPoint.X - 2 * height, endPoint.Y), new Point(endPoint.X - height, endPoint.Y - width), endPoint, new Point(endPoint.X - height, endPoint.Y + width) };
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.Black), curvePoints);
+                currentTmpGraphics.FillPolygon(new SolidBrush(color), curvePoints);
                 currentTmpGraphics.DrawPolygon(pen, curvePoints);
             }
             else
             {
                 Point[] curvePoints = { new Point(endPoint.X + height, endPoint.Y - width), endPoint, new Point(endPoint.X + height, endPoint.Y + width), new Point(endPoint.X + 2 * height, endPoint.Y) };
 
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.Black), curvePoints);
+                currentTmpGraphics.FillPolygon(new SolidBrush(color), curvePoints);
                 currentTmpGraphics.DrawPolygon(pen, curvePoints);
             }
         }

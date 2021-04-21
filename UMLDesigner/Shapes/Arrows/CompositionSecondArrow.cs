@@ -27,7 +27,7 @@ namespace UMLDesigner.Shapes.Arrows
                 currentTmpGraphics.DrawLines(pen, curvePoints);
 
                 Point[] rhombusPoints = { startPoint, new Point(startPoint.X + height, startPoint.Y - width), new Point(startPoint.X + 2 * height, startPoint.Y), new Point(startPoint.X + height, startPoint.Y + width) };
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.Black), rhombusPoints);
+                currentTmpGraphics.FillPolygon(new SolidBrush(color), rhombusPoints);
                 currentTmpGraphics.DrawPolygon(pen, rhombusPoints);
             }
             else
@@ -36,7 +36,7 @@ namespace UMLDesigner.Shapes.Arrows
                 currentTmpGraphics.DrawLines(pen, curvePoints);
 
                 Point[] rhombusPoints = { startPoint, new Point(startPoint.X - height, startPoint.Y - width), new Point(startPoint.X - 2 * height, startPoint.Y), new Point(startPoint.X - height, startPoint.Y + width) };
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.Black), rhombusPoints);
+                currentTmpGraphics.FillPolygon(new SolidBrush(color), rhombusPoints);
                 currentTmpGraphics.DrawPolygon(pen, rhombusPoints);
             }
         }
