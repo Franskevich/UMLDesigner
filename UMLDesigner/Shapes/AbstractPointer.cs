@@ -184,7 +184,7 @@ namespace UMLDesigner
 
         public void Move(int deltaX, int deltaY)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

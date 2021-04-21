@@ -48,7 +48,7 @@ namespace UMLDesigner.Shapes.Rectangles
             PropertiesPoints = new List<Rectangle>();
             OtherPoints = new List<Rectangle>();
 
-            Name = "Class" + _countOfClasses++;
+            Name = "Classfgdughfuhfjhfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" + _countOfClasses++;
         }
 
 
@@ -93,11 +93,11 @@ namespace UMLDesigner.Shapes.Rectangles
         {
             var _brush = Brushes.Red;
 
-            MyGraphics.GetInstance().GetMainGraphics();
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             StringFormat _stringFormat = new StringFormat();
             graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
             _stringFormat.Alignment = StringAlignment.Center;
             _stringFormat.LineAlignment = StringAlignment.Center;
 

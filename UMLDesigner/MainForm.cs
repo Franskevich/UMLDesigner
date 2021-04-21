@@ -171,13 +171,19 @@ namespace UMLDesigner
                 if (!(appleR is null))
                 {
                     //MyGraphics.GetInstance().GetMainGraphics();
-
+                    //MyGraphics.GetInstance().SetTmpBitmapAsMain();
+                    //MyGraphics.GetInstance().GetBitmap();
 
                     appleR.NameFont = new Font("Arial", 42);
-                    
+
+                    //MyGraphics.GetInstance().SetTmpBitmapAsMain();
+
+                    MyGraphics.GetInstance().GetTmpGraphics();
+                   
+                    MyGraphics.GetInstance().SetImageToTmpBitmap();
                     _changerText = false;
-                    MyGraphics.GetInstance().SetTmpBitmapAsMain();
-                   //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                 }
             }
 
@@ -378,14 +384,20 @@ namespace UMLDesigner
             _currentShape = null;
             _currentFactory = null;
 
-            _shapes.RemoveAt(_shapes.Count - 1);
-            MyGraphics.GetInstance().GetMainGraphics();
+            _changerText = false;
 
-            foreach (var shape in _shapes)
+            if(_shapes.Count != 0)
             {
-                shape.Draw();
+                _shapes.RemoveAt(_shapes.Count - 1);
+                MyGraphics.GetInstance().GetMainGraphics();
+
+                foreach (var shape in _shapes)
+                {
+                    shape.Draw();
+                }
+                pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
             }
-            pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -401,7 +413,7 @@ namespace UMLDesigner
         private void buttonChangeText_Click(object sender, EventArgs e)
         {
             _changerText = true;
-           
+            
         }
     }
 }

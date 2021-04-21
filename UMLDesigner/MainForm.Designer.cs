@@ -261,7 +261,7 @@ namespace UMLDesigner
             // 
             // buttonMove
             // 
-            this.buttonMove.Location = new System.Drawing.Point(554, 11);
+            this.buttonMove.Location = new System.Drawing.Point(660, 18);
             this.buttonMove.Name = "buttonMove";
             this.buttonMove.Size = new System.Drawing.Size(60, 25);
             this.buttonMove.TabIndex = 19;
@@ -283,9 +283,8 @@ namespace UMLDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1484, 861);
-            this.Controls.Add(this.buttonMove);
             this.ClientSize = new System.Drawing.Size(1696, 1148);
+            this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);

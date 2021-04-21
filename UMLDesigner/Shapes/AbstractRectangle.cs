@@ -19,7 +19,7 @@ namespace UMLDesigner
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
-        public Font NameFont = new Font("Arial", 18);
+        public Font NameFont = new Font("Arial", 6);
         public Font ArgumentFont = new Font("Arial", 16);
 
         public int line = 4;
