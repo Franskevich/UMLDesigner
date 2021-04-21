@@ -20,7 +20,11 @@ namespace UMLDesigner
         public Color Color { get; set; }
         public int PenWidth { get; set; }
         public Font NameFont = new Font("Arial", 18);
-        public Font ArgumentFont = new Font("Arial", 16);        
+        public Font ArgumentFont = new Font("Arial", 16);
+        
+        public List<AbstractPointer> ConnectionsStart { get; set; }
+        public List<AbstractPointer> ConnectionsEnd { get; set; }
+
 
         public int line = 4;
 
@@ -32,6 +36,9 @@ namespace UMLDesigner
             Color = Color.Black;
             PenWidth = 1;
             EndPoint = new Point(160, 220);
+            ConnectionsStart = new List<AbstractPointer>();
+            ConnectionsEnd = new List<AbstractPointer>();
+
         }
 
         public void Draw()
@@ -84,6 +91,16 @@ namespace UMLDesigner
         public void Move(int deltaX, int deltaY)
         {
             StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
+
+            foreach (AbstractPointer pointer in ConnectionsEnd)
+            {
+                pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y + deltaY);
+            }
+            foreach (AbstractPointer pointer in ConnectionsStart)
+            {
+                pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y + deltaY);
+            }
+            Draw();
 
             MyGraphics.GetInstance().GetTmpGraphics();
             Draw();

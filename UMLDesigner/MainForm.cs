@@ -134,7 +134,6 @@ namespace UMLDesigner
 
                     _currentShape = null;
                     MyGraphics.GetInstance().SetTmpBitmapAsMain();
-                    //MyGraphics.GetInstance().GetTmpGraphics();
                 }
 
             }
@@ -144,6 +143,7 @@ namespace UMLDesigner
                 pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                 if (_currentShape is AbstractPointer)
                 {
+
                     AbstractPointer t = (AbstractPointer)_currentShape;
                     if (t._endCreate == true)
                     {
