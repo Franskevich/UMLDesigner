@@ -72,12 +72,13 @@ namespace UMLDesigner
                 _currentShape = PickOut(e);
                 if(_currentShape != null)
                 {
+                    MyGraphics.GetInstance().GetMainGraphics();
+
                     _clickPoint = e.Location;
                 }
                 else
                 {
-
-                    MyGraphics.GetInstance().SetImageToMainBitmap();
+                   // MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
             }
             else if(!(_currentFactory is null))
@@ -130,7 +131,10 @@ namespace UMLDesigner
 
                 if (_currentShape != null)
                 {
+
                     _currentShape = null;
+                    MyGraphics.GetInstance().SetTmpBitmapAsMain();
+                    //MyGraphics.GetInstance().GetTmpGraphics();
                 }
 
             }
@@ -327,11 +331,14 @@ namespace UMLDesigner
 
         private void Cancel()
         {
+
             Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
             _currentShape = null;
             _currentFactory = null;
 
             _shapes.RemoveAt(_shapes.Count - 1);
+            MyGraphics.GetInstance().GetMainGraphics();
+
             foreach (var shape in _shapes)
             {
                 shape.Draw();
