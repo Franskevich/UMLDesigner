@@ -18,9 +18,16 @@ namespace UMLDesigner
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
+        
+        public List<string> NameLabel { get; set; }
+        public List<string> Fields { get; set; }
+        public List<string> Properties { get; set; }
+        public List<string> Methods { get; set; }
+
         public int PenWidth { get; set; }
+
         public Font NameFont = new Font("Arial", 6);
-        public Font ArgumentFont = new Font("Arial", 16);
+        public Font ArgumentFont = new Font("Arial", 8);
 
         public int line = 4;
 
@@ -32,6 +39,11 @@ namespace UMLDesigner
             Color = Color.Black;
             PenWidth = 1;
             EndPoint = new Point(160, 220);
+
+            NameLabel = new List<string>();
+            Fields = new List<string>();
+            Properties = new List<string>();
+            Methods = new List<string>();
         }
 
         public void Draw()
@@ -122,23 +134,30 @@ namespace UMLDesigner
 
             foreach (AbstractRectangle shape in MyGraphics.GetInstance().Shapes)
             {
-                int _endX = shape.StartPoint.X + shape.EndPoint.X;
-                int _endY = shape.StartPoint.Y + shape.EndPoint.Y;
+                //int _endX = shape.StartPoint.X + shape.EndPoint.X;
+                //int _endY = shape.StartPoint.Y + shape.EndPoint.Y;
 
-                if ((e.X >= shape.StartPoint.X) && (e.Y >= shape.StartPoint.Y)
-                 && (e.X <= _endX) && (e.Y <= _endY))
-                {
-                    //_tmpShape = new EntityShape(shape.StartPoint, _color, _penWidth, _act);
-                    //_tmpShape.Draw(_graphics);
+                //if ((e.X >= shape.StartPoint.X) && (e.Y >= shape.StartPoint.Y)
+                // && (e.X <= _endX) && (e.Y <= _endY))
+                //{
+
+                //    return shape;
+
+                //}
+
+             
+         
+                    if (e.Location.X > shape.StartPoint.X &&
+                        e.Location.X < shape.StartPoint.X + shape.EndPoint.X &&
+                        e.Location.Y > shape.StartPoint.Y &&
+                        e.Location.Y < shape.StartPoint.Y + shape.EndPoint.Y)
+                    {
+                        return shape;
+                    }
+        
+            
 
 
-                    //_tempBitmap = (Bitmap)_mainBitmap.Clone();
-                    //_graphics = Graphics.FromImage(_tempBitmap);
-                    //pictureBox1.Image = _tempBitmap;
-                    //GC.Collect();
-                    return shape;
-
-                }
             }
 
             return null;

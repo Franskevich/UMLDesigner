@@ -119,11 +119,12 @@ namespace UMLDesigner
                 }
             }
 
-                if (_currentShape != null && _currentFactory != null)
+            if (_currentShape != null && _currentFactory != null)
             {
                 _currentShape.OnMouseMove(e, _shapes);
             }
         }
+
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (_act == ActShapes.Move)
@@ -132,7 +133,6 @@ namespace UMLDesigner
 
                 if (_currentShape != null)
                 {
-
                     _currentShape = null;
                     MyGraphics.GetInstance().SetTmpBitmapAsMain();
                     //MyGraphics.GetInstance().GetTmpGraphics();
@@ -163,31 +163,34 @@ namespace UMLDesigner
                 _currentFactory = null;
             }
 
-
-            if (_changerText == true)
+            ////////////////////////////////////////
+            if (_act == ActShapes.ChangeText)
             {
-                var appleR = AbstractRectangle.GetCurrentRectangle(e);
-
-                if (!(appleR is null))
+                var rectangle = AbstractRectangle.GetCurrentRectangle(e);
+                if (rectangle != null)
                 {
-                    //MyGraphics.GetInstance().GetMainGraphics();
-                    //MyGraphics.GetInstance().SetTmpBitmapAsMain();
-                    //MyGraphics.GetInstance().GetBitmap();
+                    FormForText formText = new FormForText();
+                    formText.ShowDialog();
 
-                    appleR.NameFont = new Font("Arial", 42);
+                    //FormForText ttt = new FormForText();
 
-                    //MyGraphics.GetInstance().SetTmpBitmapAsMain();
+                    rectangle.Methods = FormForText.TextField;
 
-                    MyGraphics.GetInstance().GetTmpGraphics();
-                   
-                    MyGraphics.GetInstance().SetImageToTmpBitmap();
-                    _changerText = false;
-                    //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
-                    //pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+
+                   //MyGraphics.GetInstance().GetMainGraphics();
+
+                    
+
+                    //rectangle.Color = Color.White;
+
+                    //rectangle.Draw();
+
+                    //rectangle.Color = Color.Red;
+                    //rectangle.Draw();
+
+                    MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
             }
-
-
         }
 
 
@@ -412,8 +415,8 @@ namespace UMLDesigner
 
         private void buttonChangeText_Click(object sender, EventArgs e)
         {
-            _changerText = true;
-            
+            _act = ActShapes.ChangeText;
+
         }
     }
 }
