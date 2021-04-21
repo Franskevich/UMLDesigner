@@ -126,11 +126,14 @@ namespace UMLDesigner
                         {
                             StartPoint = new Point(rectangle.StartPoint.X+80, clickPoint.Y);
                             EndPoint = clickPoint;
+                            rectangle.ConnectionsStart.Add(this);
                             _drawArrow = false;
                         }
                         else
                         {
-                            if(rectangle.StartPoint.X+80 < StartPoint.X + 180 + 48 &&
+                            rectangle.ConnectionsEnd.Add(this);
+
+                            if (rectangle.StartPoint.X+80 < StartPoint.X + 180 + 48 &&
                                 rectangle.StartPoint.X + 80 > StartPoint.X - 180 - 48)
                             {
                                 if(rectangle.StartPoint.X + 80 < StartPoint.X)
@@ -175,6 +178,15 @@ namespace UMLDesigner
                 }
             }
 
+        }
+
+        public void Pick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
         }
     }
 }

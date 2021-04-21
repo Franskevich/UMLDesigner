@@ -60,7 +60,6 @@ namespace UMLDesigner.Shapes.Rectangles
             _otherRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _otherHeight);
 
 
-            MyGraphics.GetInstance().GetMainGraphics();
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
 

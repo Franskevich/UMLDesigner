@@ -20,7 +20,11 @@ namespace UMLDesigner
         public Color Color { get; set; }
         public int PenWidth { get; set; }
         public Font NameFont = new Font("Arial", 18);
-        public Font ArgumentFont = new Font("Arial", 16);        
+        public Font ArgumentFont = new Font("Arial", 16);
+        
+        public List<AbstractPointer> ConnectionsStart { get; set; }
+        public List<AbstractPointer> ConnectionsEnd { get; set; }
+
 
         public int line = 4;
 
@@ -32,6 +36,9 @@ namespace UMLDesigner
             Color = Color.Black;
             PenWidth = 1;
             EndPoint = new Point(160, 220);
+            ConnectionsStart = new List<AbstractPointer>();
+            ConnectionsEnd = new List<AbstractPointer>();
+
         }
 
         public void Draw()
@@ -41,6 +48,7 @@ namespace UMLDesigner
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
         {
+            MyGraphics.GetInstance().GetMainGraphics();
             StartPoint = e.Location;
             Draw();
             _endCreate = true;
@@ -57,7 +65,6 @@ namespace UMLDesigner
             {
                 Draw();
                 MyGraphics.GetInstance().SetTmpBitmapAsMain();
-
             }
         }
 
@@ -73,5 +80,34 @@ namespace UMLDesigner
             _pen.DashPattern = dashPattern;
             graphics.DrawRectangle(_pen, startPoint.X, startPoint.Y, size.X, size.Y);
         }
+
+        public void Pick()
+        {
+            DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+            MyGraphics.GetInstance().GetMainGraphics();
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
+
+            foreach (AbstractPointer pointer in ConnectionsEnd)
+            {
+                pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y + deltaY);
+            }
+            foreach (AbstractPointer pointer in ConnectionsStart)
+            {
+                pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y + deltaY);
+            }
+            Draw();
+
+            MyGraphics.GetInstance().GetTmpGraphics();
+            Draw();
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+
+
+        }
+
     }
 }

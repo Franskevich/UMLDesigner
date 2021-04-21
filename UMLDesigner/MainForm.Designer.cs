@@ -49,6 +49,7 @@ namespace UMLDesigner
             this.buttonDelegate = new System.Windows.Forms.Button();
             this.buttonСancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonMove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -273,11 +274,22 @@ namespace UMLDesigner
             this.label1.Text = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // buttonMove
+            // 
+            this.buttonMove.Location = new System.Drawing.Point(554, 11);
+            this.buttonMove.Name = "buttonMove";
+            this.buttonMove.Size = new System.Drawing.Size(60, 25);
+            this.buttonMove.TabIndex = 19;
+            this.buttonMove.Text = "Move";
+            this.buttonMove.UseVisualStyleBackColor = true;
+            this.buttonMove.Click += new System.EventHandler(this.ButtonMove_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1484, 861);
+            this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);
             this.Controls.Add(this.buttonDelegate);
@@ -329,6 +341,7 @@ namespace UMLDesigner
         private System.Windows.Forms.Button buttonDelegate;
         private System.Windows.Forms.Button buttonСancel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonMove;
     }
 }
 

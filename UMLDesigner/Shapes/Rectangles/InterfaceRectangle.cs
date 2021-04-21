@@ -59,7 +59,6 @@ namespace UMLDesigner.Shapes.Rectangles
             _otherHeight = size.Y - _nameHeight - _propertiesHeight;
             _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
 
-            MyGraphics.GetInstance().GetMainGraphics();
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;

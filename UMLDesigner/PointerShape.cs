@@ -266,6 +266,16 @@ namespace UMLDesigner
         {
             throw new NotImplementedException();
         }
+
+        public void Pick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

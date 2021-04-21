@@ -31,6 +31,9 @@ namespace UMLDesigner.Shapes.Rectangles
         public List<string> Fields { get; set; }
         public List<string> Properties { get; set; }
         public List<string> Other { get; set; }
+        public List<IShape> ConnectionsStart { get; set; }
+        public List<IShape> ConnectionsEnd { get; set; }
+
         public List<PointerShape> Connections { get; set; }
         public ClassRectangle()
         {
@@ -81,7 +84,7 @@ namespace UMLDesigner.Shapes.Rectangles
 
 
 
-            MyGraphics.GetInstance().GetMainGraphics();
+            //MyGraphics.GetInstance().GetMainGraphics();
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
