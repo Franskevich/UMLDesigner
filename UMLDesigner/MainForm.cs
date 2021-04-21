@@ -104,7 +104,9 @@ namespace UMLDesigner
             {
                 if (_currentShape != null)
                 {
-                    MyGraphics.GetInstance()._graphics.Clear(Color.White);
+
+                    //MyGraphics.GetInstance()._graphics.Clear(Color.White);
+                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.Move(e.X - _clickPoint.X, e.Y - _clickPoint.Y);
                     foreach (var shape in _shapes)
                     {
@@ -344,6 +346,8 @@ namespace UMLDesigner
                 shape.Draw();
             }
             pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+            MyGraphics.GetInstance().GetTmpGraphics();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
