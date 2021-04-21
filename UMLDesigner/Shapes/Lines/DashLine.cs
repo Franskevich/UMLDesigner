@@ -13,7 +13,7 @@ namespace UMLDesigner
         {
         }
 
-        public void Draw(Color color, int penWidth, Point startPoint, Point endPoint)
+        public void Draw(Color color, int penWidth, Point startPoint, Point insidePoint1, Point insidePoint2, Point endPoint)
         {
             int height = 24;
 

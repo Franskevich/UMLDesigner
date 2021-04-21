@@ -12,6 +12,8 @@ namespace UMLDesigner
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
+        public Point InsidePoint1 { get; set; }
+        public Point InsidePoint2 { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
@@ -27,11 +29,12 @@ namespace UMLDesigner
             _endCreate = false;
             Color = Color.Black;
             PenWidth = 1;
+
         }
 
         public void Draw()
         {
-            _typeLine.Draw(Color, PenWidth, StartPoint, EndPoint);
+            _typeLine.Draw(Color, PenWidth, StartPoint, InsidePoint1, InsidePoint2, EndPoint);
             _typeArrow.Draw(Color, PenWidth, StartPoint, EndPoint);
         }
 
@@ -48,7 +51,11 @@ namespace UMLDesigner
         {
             if (!_drawArrow)
             {
+
                 EndPoint = e.Location;
+                InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
+                InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+
                 MyGraphics.GetInstance().GetTmpGraphics();
                 Draw();
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
@@ -58,6 +65,9 @@ namespace UMLDesigner
             {
                 if(StartPoint.X != 0 && StartPoint.Y != 0 && EndPoint.X != 0 && EndPoint.Y != 0)
                 {
+                    InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
+                    InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+
                     MyGraphics.GetInstance().GetMainGraphics();
                     Draw();
                     MyGraphics.GetInstance().SetImageToMainBitmap();
@@ -72,10 +82,21 @@ namespace UMLDesigner
 
         }
 
+        public List<Point> GetPoints2()
+        {
+            List<Point> points = new List<Point>();
+            points.Add(StartPoint);
+            points.Add(InsidePoint1);
+            points.Add(InsidePoint2);
+            points.Add(EndPoint);
+
+            return points;
+        }
+
         public static List<Point> GetPoints(Point startPoint, Point endPoint, int endLineCutter = 0, int startLineCutter = 0 )
         {
-            List<Point> points = new List<Point>();            
-
+            List<Point> points = new List<Point>();
+            
             if (endPoint.X > startPoint.X &&
                 endPoint.X < startPoint.X + 160 + 48)
             {
@@ -96,11 +117,11 @@ namespace UMLDesigner
             }
             else
             {
-                points.Add(new Point(startPoint.X - startLineCutter, startPoint.Y));
+                points.Add(new Point(startPoint.X, startPoint.Y));
                 int middleX = (startPoint.X + endPoint.X) / 2;
                 points.Add(new Point(middleX, startPoint.Y));
                 points.Add(new Point(middleX, endPoint.Y));
-                points.Add(new Point(endPoint.X - endLineCutter, endPoint.Y));
+                points.Add(new Point(endPoint.X, endPoint.Y));
                 return points;
             }
         }
@@ -124,8 +145,12 @@ namespace UMLDesigner
                     {
                         if (_drawArrow)
                         {
+
                             StartPoint = new Point(rectangle.StartPoint.X+80, clickPoint.Y);
                             EndPoint = clickPoint;
+                            InsidePoint1 = new Point((StartPoint.X+EndPoint.X) / 2, StartPoint.Y);
+                            InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+
                             rectangle.ConnectionsStart.Add(this);
                             _drawArrow = false;
                         }
@@ -151,24 +176,16 @@ namespace UMLDesigner
                             {
                                 StartPoint = new Point(StartPoint.X + 80, StartPoint.Y);
                                 EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
-
-                                //if(rectangle.StartPoint.X + 80 > StartPoint.X &&
-                                //    rectangle.StartPoint.X + 80 < StartPoint.X + 80 + 48)
-                                //{
-                                //    EndPoint = new Point(rectangle.StartPoint.X+160, clickPoint.Y);
-                                //}
                             }
                             else
                             {
                                 StartPoint = new Point(StartPoint.X - 80, StartPoint.Y);
                                 EndPoint = new Point(rectangle.StartPoint.X+160, clickPoint.Y);
 
-                                //if (rectangle.StartPoint.X + 80 < StartPoint.X &&
-                                //    rectangle.StartPoint.X + 80 > StartPoint.X - 80 - 48)
-                                //{
-                                //    EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
-                                //}
                             }
+
+                            //int middleX = (StartPoint.X + EndPoint.X) / 2;
+
                             _drawArrow = true;
                             _endCreate = true;
 
