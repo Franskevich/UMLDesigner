@@ -169,12 +169,12 @@ namespace UMLDesigner
                 var rectangle = AbstractRectangle.GetCurrentRectangle(e);
                 if (rectangle != null)
                 {
-                    FormForText formText = new FormForText();
+                    FormForText formText = new FormForText(rectangle);
                     formText.ShowDialog();
 
                     //FormForText ttt = new FormForText();
 
-                    rectangle.Methods = FormForText.TextField;
+                    //rectangle.Methods = FormForText.TextField;
 
 
                    //MyGraphics.GetInstance().GetMainGraphics();

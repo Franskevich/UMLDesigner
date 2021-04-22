@@ -70,9 +70,10 @@ namespace UMLDesigner
             // 
             // textBoxFieldRectangle
             // 
-            this.textBoxFieldRectangle.Location = new System.Drawing.Point(12, 149);
+            this.textBoxFieldRectangle.Location = new System.Drawing.Point(13, 119);
+            this.textBoxFieldRectangle.Multiline = true;
             this.textBoxFieldRectangle.Name = "textBoxFieldRectangle";
-            this.textBoxFieldRectangle.Size = new System.Drawing.Size(276, 27);
+            this.textBoxFieldRectangle.Size = new System.Drawing.Size(275, 105);
             this.textBoxFieldRectangle.TabIndex = 3;
             // 
             // textBoxPropertiesRectangle
@@ -101,7 +102,7 @@ namespace UMLDesigner
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 118);
+            this.label2.Location = new System.Drawing.Point(14, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 20);
             this.label2.TabIndex = 7;
@@ -142,6 +143,7 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonOK);
             this.Name = "FormForText";
             this.Text = "FormForText";
+            this.Load += new System.EventHandler(this.FormForText_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

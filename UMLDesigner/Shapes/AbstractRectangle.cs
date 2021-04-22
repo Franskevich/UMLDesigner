@@ -12,7 +12,7 @@ using UMLDesigner.Shapes.Rectangles;
 
 namespace UMLDesigner
 {
-    class AbstractRectangle : IShape
+    public class AbstractRectangle : IShape
     {
         public IRectangle _typeRectangle;
         public Point StartPoint { get; set; }
@@ -50,6 +50,27 @@ namespace UMLDesigner
         {
             _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, 4, NameFont, ArgumentFont);
         }
+
+
+
+
+        public void ChangeText(string TextField)
+        {
+            Fields.Clear();
+            Fields.Add(TextField);
+        }
+
+        public override string ToString()
+        {
+           foreach(string words in Fields)
+            {
+                return words;
+            }
+            return "Miss List";
+        }
+
+
+
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
         {
