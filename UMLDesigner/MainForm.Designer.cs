@@ -29,6 +29,7 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -50,6 +51,10 @@ namespace UMLDesigner
             this.buttonСancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonChangeText = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -57,11 +62,13 @@ namespace UMLDesigner
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(135, 65);
+            this.pictureBox1.Location = new System.Drawing.Point(138, 55);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1525, 973);
+            this.pictureBox1.Size = new System.Drawing.Size(1334, 730);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
@@ -70,9 +77,10 @@ namespace UMLDesigner
             // 
             this.buttonAssociation.BackgroundImage = global::UMLDesigner.Properties.Resources.Association1;
             this.buttonAssociation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAssociation.Location = new System.Drawing.Point(170, 15);
+            this.buttonAssociation.Location = new System.Drawing.Point(149, 11);
+            this.buttonAssociation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAssociation.Name = "buttonAssociation";
-            this.buttonAssociation.Size = new System.Drawing.Size(57, 33);
+            this.buttonAssociation.Size = new System.Drawing.Size(50, 25);
             this.buttonAssociation.TabIndex = 1;
             this.buttonAssociation.UseVisualStyleBackColor = true;
             this.buttonAssociation.Click += new System.EventHandler(this.buttonAssociation_Click);
@@ -81,9 +89,10 @@ namespace UMLDesigner
             // 
             this.buttonInheritance.BackgroundImage = global::UMLDesigner.Properties.Resources.Inheritance;
             this.buttonInheritance.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonInheritance.Location = new System.Drawing.Point(234, 15);
+            this.buttonInheritance.Location = new System.Drawing.Point(205, 11);
+            this.buttonInheritance.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonInheritance.Name = "buttonInheritance";
-            this.buttonInheritance.Size = new System.Drawing.Size(57, 33);
+            this.buttonInheritance.Size = new System.Drawing.Size(50, 25);
             this.buttonInheritance.TabIndex = 2;
             this.buttonInheritance.UseVisualStyleBackColor = true;
             this.buttonInheritance.Click += new System.EventHandler(this.buttonInheritance_Click);
@@ -92,9 +101,10 @@ namespace UMLDesigner
             // 
             this.buttonImplementation.BackgroundImage = global::UMLDesigner.Properties.Resources.Implementation;
             this.buttonImplementation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonImplementation.Location = new System.Drawing.Point(298, 15);
+            this.buttonImplementation.Location = new System.Drawing.Point(261, 11);
+            this.buttonImplementation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonImplementation.Name = "buttonImplementation";
-            this.buttonImplementation.Size = new System.Drawing.Size(57, 33);
+            this.buttonImplementation.Size = new System.Drawing.Size(50, 25);
             this.buttonImplementation.TabIndex = 3;
             this.buttonImplementation.UseVisualStyleBackColor = true;
             this.buttonImplementation.Click += new System.EventHandler(this.buttonImplementation_Click);
@@ -103,9 +113,10 @@ namespace UMLDesigner
             // 
             this.buttonAggregationFirst.BackgroundImage = global::UMLDesigner.Properties.Resources.AggregationFirst;
             this.buttonAggregationFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAggregationFirst.Location = new System.Drawing.Point(362, 15);
+            this.buttonAggregationFirst.Location = new System.Drawing.Point(317, 11);
+            this.buttonAggregationFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAggregationFirst.Name = "buttonAggregationFirst";
-            this.buttonAggregationFirst.Size = new System.Drawing.Size(57, 33);
+            this.buttonAggregationFirst.Size = new System.Drawing.Size(50, 25);
             this.buttonAggregationFirst.TabIndex = 4;
             this.buttonAggregationFirst.UseVisualStyleBackColor = true;
             this.buttonAggregationFirst.Click += new System.EventHandler(this.buttonAggregationFirst_Click);
@@ -114,9 +125,10 @@ namespace UMLDesigner
             // 
             this.buttonCompositionFirst.BackgroundImage = global::UMLDesigner.Properties.Resources.CompositionFirst;
             this.buttonCompositionFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonCompositionFirst.Location = new System.Drawing.Point(490, 15);
+            this.buttonCompositionFirst.Location = new System.Drawing.Point(429, 11);
+            this.buttonCompositionFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCompositionFirst.Name = "buttonCompositionFirst";
-            this.buttonCompositionFirst.Size = new System.Drawing.Size(57, 33);
+            this.buttonCompositionFirst.Size = new System.Drawing.Size(50, 25);
             this.buttonCompositionFirst.TabIndex = 5;
             this.buttonCompositionFirst.UseVisualStyleBackColor = true;
             this.buttonCompositionFirst.Click += new System.EventHandler(this.buttonCompositionFirst_Click);
@@ -125,9 +137,10 @@ namespace UMLDesigner
             // 
             this.buttonAggregationSecond.BackgroundImage = global::UMLDesigner.Properties.Resources.AggregationSecond;
             this.buttonAggregationSecond.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAggregationSecond.Location = new System.Drawing.Point(426, 15);
+            this.buttonAggregationSecond.Location = new System.Drawing.Point(373, 11);
+            this.buttonAggregationSecond.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAggregationSecond.Name = "buttonAggregationSecond";
-            this.buttonAggregationSecond.Size = new System.Drawing.Size(57, 33);
+            this.buttonAggregationSecond.Size = new System.Drawing.Size(50, 25);
             this.buttonAggregationSecond.TabIndex = 6;
             this.buttonAggregationSecond.UseVisualStyleBackColor = true;
             this.buttonAggregationSecond.Click += new System.EventHandler(this.buttonAggregationSecond_Click);
@@ -136,9 +149,10 @@ namespace UMLDesigner
             // 
             this.buttonCompositionSecond.BackgroundImage = global::UMLDesigner.Properties.Resources.CompositionSecond;
             this.buttonCompositionSecond.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonCompositionSecond.Location = new System.Drawing.Point(554, 15);
+            this.buttonCompositionSecond.Location = new System.Drawing.Point(485, 11);
+            this.buttonCompositionSecond.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCompositionSecond.Name = "buttonCompositionSecond";
-            this.buttonCompositionSecond.Size = new System.Drawing.Size(57, 33);
+            this.buttonCompositionSecond.Size = new System.Drawing.Size(50, 25);
             this.buttonCompositionSecond.TabIndex = 7;
             this.buttonCompositionSecond.UseVisualStyleBackColor = true;
             this.buttonCompositionSecond.Click += new System.EventHandler(this.buttonCompositionSecond_Click);
@@ -146,9 +160,10 @@ namespace UMLDesigner
             // buttonColor
             // 
             this.buttonColor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonColor.Location = new System.Drawing.Point(135, 15);
+            this.buttonColor.Location = new System.Drawing.Point(118, 11);
+            this.buttonColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonColor.Name = "buttonColor";
-            this.buttonColor.Size = new System.Drawing.Size(29, 33);
+            this.buttonColor.Size = new System.Drawing.Size(25, 25);
             this.buttonColor.TabIndex = 9;
             this.buttonColor.UseVisualStyleBackColor = false;
             this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
@@ -156,19 +171,21 @@ namespace UMLDesigner
             // trackBar1
             // 
             this.trackBar1.LargeChange = 2;
-            this.trackBar1.Location = new System.Drawing.Point(1521, 1056);
+            this.trackBar1.Location = new System.Drawing.Point(1331, 792);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(114, 56);
+            this.trackBar1.Size = new System.Drawing.Size(100, 45);
             this.trackBar1.TabIndex = 10;
             this.trackBar1.Value = 1;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // buttonClass
             // 
-            this.buttonClass.Location = new System.Drawing.Point(14, 15);
+            this.buttonClass.Location = new System.Drawing.Point(12, 11);
+            this.buttonClass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonClass.Name = "buttonClass";
-            this.buttonClass.Size = new System.Drawing.Size(114, 33);
+            this.buttonClass.Size = new System.Drawing.Size(100, 25);
             this.buttonClass.TabIndex = 6;
             this.buttonClass.TabStop = false;
             this.buttonClass.Text = "Class";
@@ -177,9 +194,10 @@ namespace UMLDesigner
             // 
             // buttonInterface
             // 
-            this.buttonInterface.Location = new System.Drawing.Point(11, 131);
+            this.buttonInterface.Location = new System.Drawing.Point(10, 98);
+            this.buttonInterface.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonInterface.Name = "buttonInterface";
-            this.buttonInterface.Size = new System.Drawing.Size(114, 33);
+            this.buttonInterface.Size = new System.Drawing.Size(100, 25);
             this.buttonInterface.TabIndex = 11;
             this.buttonInterface.TabStop = false;
             this.buttonInterface.Text = "Interface";
@@ -189,9 +207,10 @@ namespace UMLDesigner
             // buttonClear
             // 
             this.buttonClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonClear.Location = new System.Drawing.Point(1602, 15);
+            this.buttonClear.Location = new System.Drawing.Point(1402, 11);
+            this.buttonClear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(57, 33);
+            this.buttonClear.Size = new System.Drawing.Size(50, 25);
             this.buttonClear.TabIndex = 12;
             this.buttonClear.Text = "Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
@@ -199,9 +218,10 @@ namespace UMLDesigner
             // 
             // buttonStackClass
             // 
-            this.buttonStackClass.Location = new System.Drawing.Point(11, 53);
+            this.buttonStackClass.Location = new System.Drawing.Point(10, 40);
+            this.buttonStackClass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStackClass.Name = "buttonStackClass";
-            this.buttonStackClass.Size = new System.Drawing.Size(114, 33);
+            this.buttonStackClass.Size = new System.Drawing.Size(100, 25);
             this.buttonStackClass.TabIndex = 13;
             this.buttonStackClass.Text = "Stack class";
             this.buttonStackClass.UseVisualStyleBackColor = true;
@@ -209,9 +229,10 @@ namespace UMLDesigner
             // 
             // buttonEnum
             // 
-            this.buttonEnum.Location = new System.Drawing.Point(11, 208);
+            this.buttonEnum.Location = new System.Drawing.Point(10, 156);
+            this.buttonEnum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonEnum.Name = "buttonEnum";
-            this.buttonEnum.Size = new System.Drawing.Size(114, 33);
+            this.buttonEnum.Size = new System.Drawing.Size(100, 25);
             this.buttonEnum.TabIndex = 14;
             this.buttonEnum.Text = "Enumeration";
             this.buttonEnum.UseVisualStyleBackColor = true;
@@ -219,9 +240,10 @@ namespace UMLDesigner
             // 
             // buttonStructure
             // 
-            this.buttonStructure.Location = new System.Drawing.Point(11, 92);
+            this.buttonStructure.Location = new System.Drawing.Point(10, 69);
+            this.buttonStructure.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStructure.Name = "buttonStructure";
-            this.buttonStructure.Size = new System.Drawing.Size(114, 33);
+            this.buttonStructure.Size = new System.Drawing.Size(100, 25);
             this.buttonStructure.TabIndex = 15;
             this.buttonStructure.Text = "Structure";
             this.buttonStructure.UseVisualStyleBackColor = true;
@@ -229,9 +251,10 @@ namespace UMLDesigner
             // 
             // buttonDelegate
             // 
-            this.buttonDelegate.Location = new System.Drawing.Point(13, 169);
+            this.buttonDelegate.Location = new System.Drawing.Point(11, 127);
+            this.buttonDelegate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonDelegate.Name = "buttonDelegate";
-            this.buttonDelegate.Size = new System.Drawing.Size(114, 33);
+            this.buttonDelegate.Size = new System.Drawing.Size(100, 25);
             this.buttonDelegate.TabIndex = 16;
             this.buttonDelegate.Text = "Delegate";
             this.buttonDelegate.UseVisualStyleBackColor = true;
@@ -239,10 +262,9 @@ namespace UMLDesigner
             // 
             // buttonСancel
             // 
-            this.buttonСancel.Location = new System.Drawing.Point(1521, 15);
-            this.buttonСancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonСancel.Location = new System.Drawing.Point(1331, 11);
             this.buttonСancel.Name = "buttonСancel";
-            this.buttonСancel.Size = new System.Drawing.Size(71, 31);
+            this.buttonСancel.Size = new System.Drawing.Size(62, 23);
             this.buttonСancel.TabIndex = 17;
             this.buttonСancel.Text = "Cancel";
             this.buttonСancel.UseVisualStyleBackColor = true;
@@ -251,28 +273,60 @@ namespace UMLDesigner
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 636);
+            this.label1.Location = new System.Drawing.Point(21, 477);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(38, 15);
             this.label1.TabIndex = 18;
             this.label1.Text = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonChangeText
             // 
-            this.buttonChangeText.Location = new System.Drawing.Point(837, 16);
+            this.buttonChangeText.Location = new System.Drawing.Point(732, 13);
+            this.buttonChangeText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonChangeText.Name = "buttonChangeText";
-            this.buttonChangeText.Size = new System.Drawing.Size(124, 29);
+            this.buttonChangeText.Size = new System.Drawing.Size(108, 22);
             this.buttonChangeText.TabIndex = 19;
             this.buttonChangeText.Text = "ChangerText";
             this.buttonChangeText.UseVisualStyleBackColor = true;
             this.buttonChangeText.Click += new System.EventHandler(this.buttonChangeText_Click);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "C#files|*.cs|Все файлы|*.*";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "C#files|*.cs|Все файлы|*.*";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(857, 13);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 20;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(947, 13);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(89, 29);
+            this.buttonOpenFile.TabIndex = 21;
+            this.buttonOpenFile.Text = "Open File";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1696, 1148);
+            this.ClientSize = new System.Drawing.Size(1484, 796);
+            this.Controls.Add(this.buttonOpenFile);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);
@@ -293,7 +347,8 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonInheritance);
             this.Controls.Add(this.buttonAssociation);
             this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ForeColor = System.Drawing.Color.Black;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -327,6 +382,10 @@ namespace UMLDesigner
         private System.Windows.Forms.Button buttonСancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonChangeText;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonOpenFile;
     }
 }
 
