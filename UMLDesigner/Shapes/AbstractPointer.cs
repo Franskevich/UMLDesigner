@@ -66,8 +66,8 @@ namespace UMLDesigner
             {
                 if(StartPoint.X != 0 && StartPoint.Y != 0 && EndPoint.X != 0 && EndPoint.Y != 0)
                 {
-                    InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
-                    InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+                    //InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
+                    //InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
 
                     MyGraphics.GetInstance().GetMainGraphics();
                     Draw();
@@ -194,6 +194,7 @@ namespace UMLDesigner
                             _drawArrow = true;
                             _endCreate = true;
 
+
                         }
                         break;
                     }
@@ -205,24 +206,64 @@ namespace UMLDesigner
 
         public Point PickPoint(MouseEventArgs e)
         {
-            if (e.Location.X < StartPoint.X + 10 &&
-                e.Location.X > StartPoint.X - 10 &&
-                e.Location.Y < StartPoint.Y + 10 &&
-                e.Location.Y > StartPoint.Y - 10)
+            Point shangePoint = e.Location;
+            Point point2 = InsidePoint1;
+            Point point3 = InsidePoint2;
+
+            if (point2.Y > point3.Y)
             {
-                return StartPoint;
+                Point tmpPoint = point3;
+                point3 = point2;
+                point2 = tmpPoint;
             }
-            else if (e.Location.X < EndPoint.X + 10 &&
-                     e.Location.X > EndPoint.X - 10 &&
-                     e.Location.Y < EndPoint.Y + 10 &&
-                     e.Location.Y > EndPoint.Y - 10)
+
+            if (EndPoint.X > StartPoint.X)
             {
-                return EndPoint;
+
+                if (e.Location.X > StartPoint.X &&
+                    e.Location.X < InsidePoint1.X &&
+                    e.Location.Y < StartPoint.Y + 10 &&
+                    e.Location.Y > StartPoint.Y - 10)
+                {
+                    shangePoint = StartPoint;
+                }
+                else if (e.Location.X > InsidePoint2.X &&
+                    e.Location.X < EndPoint.X &&
+                    e.Location.Y < EndPoint.Y + 10 &&
+                    e.Location.Y > EndPoint.Y - 10)
+                {
+                    shangePoint = EndPoint;
+                } 
             }
             else
             {
-                return e.Location;
+                if (e.Location.X < StartPoint.X &&
+                    e.Location.X > InsidePoint1.X &&
+                    e.Location.Y < StartPoint.Y + 10 &&
+                    e.Location.Y > StartPoint.Y - 10)
+                {
+                    shangePoint = StartPoint;
+                }
+                else if (e.Location.X < InsidePoint2.X &&
+                        e.Location.X > EndPoint.X &&
+                        e.Location.Y < EndPoint.Y + 10 &&
+                        e.Location.Y > EndPoint.Y - 10)
+                {
+                    shangePoint = EndPoint;
+                }
             }
+
+            if(e.Location.X < point2.X +10 &&
+                e.Location.X > point2.X -10 &&
+                e.Location.Y < point3.Y &&
+                e.Location.Y > point2.Y)
+            {
+                return InsidePoint1;
+            }
+
+
+
+            return shangePoint;         
         }
 
 
@@ -232,18 +273,27 @@ namespace UMLDesigner
 
         public void ChangeShape(Point movePoint, int deltaX, int deltaY)
         {
-            if (movePoint == EndPoint)
-            {
-                EndPoint = new Point(EndPoint.X, EndPoint.Y + deltaY);
-            }
-            else if (movePoint == StartPoint)
+            if (movePoint == StartPoint)
             {
                 StartPoint = new Point(StartPoint.X, StartPoint.Y + deltaY);
+                InsidePoint1 = new Point(InsidePoint1.X, InsidePoint1.Y + deltaY);
+
+            }
+            else if (movePoint == EndPoint)
+            {
+                EndPoint = new Point(EndPoint.X, EndPoint.Y + deltaY);
+                InsidePoint2 = new Point(InsidePoint2.X, InsidePoint2.Y + deltaY );
+
+            }
+            else if (movePoint == InsidePoint1)
+            {
+                InsidePoint1 = new Point(InsidePoint1.X + deltaX, InsidePoint1.Y);
+                InsidePoint2 = new Point(InsidePoint2.X + deltaX, InsidePoint2.Y);
             }
 
-            MyGraphics.GetInstance().GetTmpGraphics();
-            Draw();
-            MyGraphics.GetInstance().SetImageToTmpBitmap();
+            //MyGraphics.GetInstance().GetTmpGraphics();
+            //Draw();
+            //MyGraphics.GetInstance().SetImageToTmpBitmap();
         }
     }
 }

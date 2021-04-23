@@ -118,6 +118,7 @@ namespace UMLDesigner
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+
             if (_act == ActShapes.Move)
             {
                 MyGraphics.GetInstance().GetMainGraphics();
@@ -152,6 +153,12 @@ namespace UMLDesigner
             {
                 _currentShape = null;
                 _currentFactory = null;
+            }
+
+            MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+            foreach (var shape in _shapes)
+            {
+                shape.Draw();
             }
 
         }

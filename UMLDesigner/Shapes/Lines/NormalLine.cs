@@ -19,25 +19,13 @@ namespace UMLDesigner
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             Pen pen = new Pen(color, penWidth);
+            List<Point> points = new List<Point>();
+            points.Add(startPoint);
+            points.Add(insidePoint1);
+            points.Add(insidePoint2);
+            points.Add(endPoint);
 
-            if (endPoint.X > startPoint.X)
-            {
-                //Point[] curvePoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X - height, EndPoint.Y + width) };
-                //graphics.DrawPolygon(pen, curvePoints);
-                List<Point> points = new List<Point>();
-                points.Add(startPoint);
-                points.Add(insidePoint1);
-                points.Add(insidePoint2);
-                points.Add(endPoint);
-
-                currentTmpGraphics.DrawLines(pen, points.ToArray());
-            }
-            else
-            {
-                //Point[] curvePoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X + height, EndPoint.Y + width) };
-                //graphics.DrawPolygon(pen, curvePoints);
-                currentTmpGraphics.DrawLines(pen, AbstractPointer.GetPoints(startPoint, endPoint).ToArray());
-            }
+            currentTmpGraphics.DrawLines(pen, points.ToArray());
         }
     }
 }

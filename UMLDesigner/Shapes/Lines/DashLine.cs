@@ -23,26 +23,14 @@ namespace UMLDesigner
             float[] dashPattern = new float[2] { 5f, 5f };
             penDash.DashPattern = dashPattern;
 
-            if (endPoint.X > startPoint.X)
-            {
-                currentTmpGraphics.DrawLines(penDash, GetPoints(height).ToArray());
-            }
-            else
-            {
-                currentTmpGraphics.DrawLines(penDash, GetPoints(-height).ToArray());
-            }
+            List<Point> points = new List<Point>();
+            points.Add(startPoint);
+            points.Add(insidePoint1);
+            points.Add(insidePoint2);
+            points.Add(endPoint);
+            currentTmpGraphics.DrawLines(penDash, points.ToArray());
 
-            List<Point> GetPoints(int endLineCutter = 0, int startLineCutter = 0)
-            {
-                List<Point> points = new List<Point>();
 
-                points.Add(new Point(startPoint.X - startLineCutter, startPoint.Y));
-                int middleX = (startPoint.X + endPoint.X) / 2;
-                points.Add(new Point(middleX, startPoint.Y));
-                points.Add(new Point(middleX, endPoint.Y));
-                points.Add(new Point(endPoint.X - endLineCutter, endPoint.Y));
-                return points;
-            }
         }
 
     }
