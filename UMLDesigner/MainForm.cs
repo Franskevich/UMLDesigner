@@ -385,15 +385,15 @@ namespace UMLDesigner
                     try
                     {
                         String path = sfd.FileName;
-
-
                         using (StreamWriter sw = new StreamWriter(path, false))
                         {
                             options = new JsonSerializerOptions{WriteIndented = true};
-                            foreach(IShape shapes in _shapes)
-                            {
-                            sw.WriteLine(JsonSerializer.Serialize<object>(shapes, options));
-                            }
+                            sw.WriteLine(JsonSerializer.Serialize<object>(_shapes, options));
+
+                            //foreach(IShape shapes in _shapes)
+                            //{
+                            //sw.WriteLine(JsonSerializer.Serialize<object>(shapes, options));
+                            //}
 
                         }
                     }
@@ -430,46 +430,43 @@ namespace UMLDesigner
         private void buttonLoad_Click(object sender, EventArgs e)
         {
 
-            //OpenFileDialog sfd = new OpenFileDialog();
+            OpenFileDialog sfd = new OpenFileDialog();
 
-            //if (sfd.ShowDialog() == DialogResult.OK)
-            //{
-            //    try
-            //    {
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    String path = sfd.FileName;
+                    using (StreamReader re = new StreamReader(path))
+                    {
+                        options = new JsonSerializerOptions { WriteIndented = true };
+                        List<IShape> _shape = JsonSerializer.Deserialize<List<IShape>>(re.ReadToEnd());
 
-            //        String path = sfd.FileName;
-
-
-
-            //        using (StreamReader re = new StreamReader(path))
-            //        {
-            //            options = new JsonSerializerOptions { WriteIndented = true };
-            //            JsonSerializer.Deserialize<List<IShape>>(re.ReadToEnd, _shapes, options);
-
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
 
 
-            //    OpenFileDialog ofd = new OpenFileDialog();
+                //    OpenFileDialog ofd = new OpenFileDialog();
 
-            //ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ)|*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ|All files(*.*)|*.*";
+                //ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ)|*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ|All files(*.*)|*.*";
 
-            //if (ofd.ShowDialog() == DialogResult.OK)
-            //{
-            //    try 
-            //    {
-            //        pictureBox1.Image = new Bitmap(ofd.FileName);
-            //    }
-            //    catch
-            //    {
-            //        MessageBox.Show("Невозможно открыть выбранный файл", "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
+                //if (ofd.ShowDialog() == DialogResult.OK)
+                //{
+                //    try 
+                //    {
+                //        pictureBox1.Image = new Bitmap(ofd.FileName);
+                //    }
+                //    catch
+                //    {
+                //        MessageBox.Show("Невозможно открыть выбранный файл", "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    }
+                //}
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
