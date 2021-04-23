@@ -61,7 +61,8 @@ namespace UMLDesigner
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Location = new System.Drawing.Point(138, 55);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
@@ -182,7 +183,7 @@ namespace UMLDesigner
             // 
             // buttonClass
             // 
-            this.buttonClass.Location = new System.Drawing.Point(12, 11);
+            this.buttonClass.Location = new System.Drawing.Point(11, 11);
             this.buttonClass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonClass.Name = "buttonClass";
             this.buttonClass.Size = new System.Drawing.Size(100, 25);
@@ -282,10 +283,10 @@ namespace UMLDesigner
             // 
             // buttonChangeText
             // 
-            this.buttonChangeText.Location = new System.Drawing.Point(732, 13);
+            this.buttonChangeText.Location = new System.Drawing.Point(752, 13);
             this.buttonChangeText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonChangeText.Name = "buttonChangeText";
-            this.buttonChangeText.Size = new System.Drawing.Size(108, 22);
+            this.buttonChangeText.Size = new System.Drawing.Size(88, 29);
             this.buttonChangeText.TabIndex = 19;
             this.buttonChangeText.Text = "ChangerText";
             this.buttonChangeText.UseVisualStyleBackColor = true;
@@ -302,9 +303,9 @@ namespace UMLDesigner
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(857, 13);
+            this.buttonSave.Location = new System.Drawing.Point(851, 13);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(84, 29);
             this.buttonSave.TabIndex = 20;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -324,6 +325,8 @@ namespace UMLDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
             this.ClientSize = new System.Drawing.Size(1484, 796);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
@@ -350,7 +353,7 @@ namespace UMLDesigner
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Best UML application";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
