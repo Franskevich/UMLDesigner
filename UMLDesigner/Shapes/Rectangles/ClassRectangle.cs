@@ -26,6 +26,8 @@ namespace UMLDesigner.Shapes.Rectangles
         private int _propertiesHeight = 25;
         private int _methodHeight;
 
+        int _dlcHeight = 0;
+
 
         public int Height { get; private set; }
 
@@ -39,20 +41,19 @@ namespace UMLDesigner.Shapes.Rectangles
 
 
 
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont)
+        public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont, string textLabel, List<string> textFields, List<string> textProperties, string textMethods)
         {
             Pen _pen = new Pen(color, penWidth);
             SolidBrush blueBrush = new SolidBrush(Color.White);
 
-            int _methodHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight;
+            int _methodHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight + _dlcHeight;
 
             Rectangle nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
-
             Rectangle fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _fieldsHeight);
             Rectangle propertiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _fieldsHeight, size.X, _propertiesHeight);
             Rectangle methodRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _fieldsHeight + _propertiesHeight, size.X, _methodHeight);
 
-            //MyGraphics.GetInstance().GetMainGraphics();
+
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             currentTmpGraphics.DrawRectangle(_pen, nameRect);
@@ -63,14 +64,17 @@ namespace UMLDesigner.Shapes.Rectangles
                 currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
             if (line > 3)
                 currentTmpGraphics.DrawRectangle(_pen, methodRect);
-
             DrawTextLabel(currentTmpGraphics, nameRect, nameFont);
 
 
-
-            DrawTextOtherPlacel(currentTmpGraphics, "EEEE", fieldsRect, argumentFont);
-            //currentTmpGraphics.FillRectangle(blueBrush, nameRect);
-            //currentTmpGraphics.DrawRectangle(_pen, nameRect);
+            currentTmpGraphics.FillRectangle(blueBrush, propertiesRect);
+            currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
+            string str = "";
+            foreach(string f in textFields)
+            {
+                str += f;
+            }
+            DrawTextOtherPlacel(currentTmpGraphics, str, propertiesRect, argumentFont);
 
         }
 

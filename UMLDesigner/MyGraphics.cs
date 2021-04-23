@@ -16,6 +16,7 @@ namespace UMLDesigner
         public Graphics _graphics;
         public Bitmap _mainBitmap;
         public  List<IShape> Shapes { get; set;}
+        public  List<IRectangle> RecList { get; set;}
 
         public PictureBox pictureBox { get; set;}
 

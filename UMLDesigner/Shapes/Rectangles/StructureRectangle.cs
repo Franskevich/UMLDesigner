@@ -37,7 +37,7 @@ namespace UMLDesigner.Shapes.Rectangles
             Other = new List<string>();
             Name = "Structure" + _countOfStructures++;
         }
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont)
+        public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont, string textLabel, List<string> textFields, List<string> textProperties, string textMethods)
         {
             if (isRollUp == true)
             {

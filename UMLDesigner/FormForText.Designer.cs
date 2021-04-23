@@ -43,7 +43,7 @@ namespace UMLDesigner
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(136, 520);
+            this.buttonOK.Location = new System.Drawing.Point(137, 751);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(94, 29);
             this.buttonOK.TabIndex = 0;
@@ -53,7 +53,7 @@ namespace UMLDesigner
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(12, 520);
+            this.buttonCancel.Location = new System.Drawing.Point(13, 751);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(94, 29);
             this.buttonCancel.TabIndex = 1;
@@ -64,13 +64,14 @@ namespace UMLDesigner
             // textBoxNameRectangle
             // 
             this.textBoxNameRectangle.Location = new System.Drawing.Point(12, 48);
+            this.textBoxNameRectangle.Multiline = true;
             this.textBoxNameRectangle.Name = "textBoxNameRectangle";
-            this.textBoxNameRectangle.Size = new System.Drawing.Size(276, 27);
+            this.textBoxNameRectangle.Size = new System.Drawing.Size(276, 141);
             this.textBoxNameRectangle.TabIndex = 2;
             // 
             // textBoxFieldRectangle
             // 
-            this.textBoxFieldRectangle.Location = new System.Drawing.Point(13, 119);
+            this.textBoxFieldRectangle.Location = new System.Drawing.Point(11, 232);
             this.textBoxFieldRectangle.Multiline = true;
             this.textBoxFieldRectangle.Name = "textBoxFieldRectangle";
             this.textBoxFieldRectangle.Size = new System.Drawing.Size(275, 105);
@@ -78,16 +79,18 @@ namespace UMLDesigner
             // 
             // textBoxPropertiesRectangle
             // 
-            this.textBoxPropertiesRectangle.Location = new System.Drawing.Point(12, 258);
+            this.textBoxPropertiesRectangle.Location = new System.Drawing.Point(12, 390);
+            this.textBoxPropertiesRectangle.Multiline = true;
             this.textBoxPropertiesRectangle.Name = "textBoxPropertiesRectangle";
-            this.textBoxPropertiesRectangle.Size = new System.Drawing.Size(276, 27);
+            this.textBoxPropertiesRectangle.Size = new System.Drawing.Size(274, 149);
             this.textBoxPropertiesRectangle.TabIndex = 4;
             // 
             // textBoxMethodRectangle
             // 
-            this.textBoxMethodRectangle.Location = new System.Drawing.Point(12, 386);
+            this.textBoxMethodRectangle.Location = new System.Drawing.Point(13, 575);
+            this.textBoxMethodRectangle.Multiline = true;
             this.textBoxMethodRectangle.Name = "textBoxMethodRectangle";
-            this.textBoxMethodRectangle.Size = new System.Drawing.Size(276, 27);
+            this.textBoxMethodRectangle.Size = new System.Drawing.Size(276, 140);
             this.textBoxMethodRectangle.TabIndex = 5;
             // 
             // label1
@@ -102,7 +105,7 @@ namespace UMLDesigner
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 88);
+            this.label2.Location = new System.Drawing.Point(12, 201);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 20);
             this.label2.TabIndex = 7;
@@ -111,7 +114,7 @@ namespace UMLDesigner
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 227);
+            this.label3.Location = new System.Drawing.Point(12, 359);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 20);
             this.label3.TabIndex = 8;
@@ -120,7 +123,7 @@ namespace UMLDesigner
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 355);
+            this.label4.Location = new System.Drawing.Point(12, 552);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 20);
             this.label4.TabIndex = 9;
@@ -130,7 +133,7 @@ namespace UMLDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 564);
+            this.ClientSize = new System.Drawing.Size(390, 792);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

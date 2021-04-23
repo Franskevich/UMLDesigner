@@ -40,6 +40,8 @@ namespace UMLDesigner
                 textBoxFieldRectangle.Text += _currentRectangle.Fields[i];
             }
 
+
+
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

@@ -18,11 +18,25 @@ namespace UMLDesigner
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
-        
+
+
+        public Rectangle NameRec { get; set; }
+        public Rectangle FieldRec { get; set; }
+        public Rectangle PropertiesRec { get; set; }
+        public Rectangle MethodRec { get; set; }
+
+
         public List<string> NameLabel { get; set; }
         public List<string> Fields { get; set; }
         public List<string> Properties { get; set; }
         public List<string> Methods { get; set; }
+
+
+        public string StringNameLabel { get; set; }
+        public string StringFields { get; set; }
+        public string StringProperties { get; set; }
+        public string StringMethods { get; set; }
+
 
         public int PenWidth { get; set; }
 
@@ -46,14 +60,6 @@ namespace UMLDesigner
             Methods = new List<string>();
         }
 
-        public void Draw()
-        {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, 4, NameFont, ArgumentFont);
-        }
-
-
-
-
         public void ChangeText(string TextField)
         {
             Fields.Clear();
@@ -66,10 +72,15 @@ namespace UMLDesigner
             {
                 return words;
             }
+
             return "Miss List";
         }
 
 
+        public void Draw()
+        {
+            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, 4, NameFont, ArgumentFont, StringNameLabel, Fields, Properties, StringMethods);
+        }
 
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -90,6 +101,7 @@ namespace UMLDesigner
             else
             {
                 Draw();
+                
                 MyGraphics.GetInstance().SetTmpBitmapAsMain();
             }
         }
@@ -135,19 +147,19 @@ namespace UMLDesigner
         //    }
         //}
 
-        public void DrawTextInField(Graphics graphics, Rectangle field, string nameLabel)
-        {
-            var _brush = Brushes.Red;
+        //public void DrawTextInField(Graphics graphics, Rectangle field, string nameLabel)
+        //{
+        //    var _brush = Brushes.Red;
 
-            MyGraphics.GetInstance().GetMainGraphics();
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+        //    MyGraphics.GetInstance().GetMainGraphics();
+        //    var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
-            StringFormat _stringFormat = new StringFormat();
-            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            _stringFormat.Alignment = StringAlignment.Center;
-            _stringFormat.LineAlignment = StringAlignment.Center;
-            graphics.DrawString(nameLabel, new System.Drawing.Font("Segoe Script", 12, FontStyle.Regular), _brush, field, _stringFormat);
-        }
+        //    StringFormat _stringFormat = new StringFormat();
+        //    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+        //    _stringFormat.Alignment = StringAlignment.Center;
+        //    _stringFormat.LineAlignment = StringAlignment.Center;
+        //    graphics.DrawString(nameLabel, new System.Drawing.Font("Segoe Script", 12, FontStyle.Regular), _brush, field, _stringFormat);
+        //}
 
 
         public static AbstractRectangle GetCurrentRectangle(MouseEventArgs e)
@@ -155,49 +167,16 @@ namespace UMLDesigner
 
             foreach (AbstractRectangle shape in MyGraphics.GetInstance().Shapes)
             {
-                //int _endX = shape.StartPoint.X + shape.EndPoint.X;
-                //int _endY = shape.StartPoint.Y + shape.EndPoint.Y;
-
-                //if ((e.X >= shape.StartPoint.X) && (e.Y >= shape.StartPoint.Y)
-                // && (e.X <= _endX) && (e.Y <= _endY))
-                //{
-
-                //    return shape;
-
-                //}
-
-             
-         
-                    if (e.Location.X > shape.StartPoint.X &&
-                        e.Location.X < shape.StartPoint.X + shape.EndPoint.X &&
-                        e.Location.Y > shape.StartPoint.Y &&
-                        e.Location.Y < shape.StartPoint.Y + shape.EndPoint.Y)
-                    {
-                        return shape;
-                    }
-        
-            
-
-
+                if (e.Location.X > shape.StartPoint.X &&
+                    e.Location.X < shape.StartPoint.X + shape.EndPoint.X &&
+                    e.Location.Y > shape.StartPoint.Y &&
+                    e.Location.Y < shape.StartPoint.Y + shape.EndPoint.Y)
+                {
+                    return shape;
+                }
             }
 
             return null;
-
-            //if (_countSelect == 0)
-            //{
-            //    Graphics.FromImage(_mainBitmap).Clear(Color.White);
-            //    foreach (IShape a in _shapes)
-            //    {
-            //        a.Draw(_graphics);
-            //    }
-
-            //    _graphics.DrawImage(_mainBitmap, 0, 0);
-            //    pictureBox1.Image = _mainBitmap;
-            //}
         }
-
-
-
-
     }
 }

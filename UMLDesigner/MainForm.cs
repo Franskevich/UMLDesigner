@@ -34,6 +34,7 @@ namespace UMLDesigner
         private Point _clickPoint;
 
         bool _changerText = false;
+        public List<IRectangle> _recList;
 
         public MainForm()
         {
@@ -63,7 +64,10 @@ namespace UMLDesigner
             
             _color = Color.Black;
             _graphics.Shapes = new List<IShape>();
+
             _shapes = _graphics.Shapes;
+            _graphics.RecList = new List<IRectangle>();
+
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -91,6 +95,8 @@ namespace UMLDesigner
                     {
                         _currentShape = _currentFactory.GetShape();
                     }
+
+                    //IRectangle r = (IRectangle)_currentShape;
                 }
          
                 if (_currentShape != null)
@@ -149,6 +155,7 @@ namespace UMLDesigner
                     if (t._endCreate == true)
                     {
                         _shapes.Add(_currentShape);
+                        
                     }
                 }
                 else
@@ -172,21 +179,7 @@ namespace UMLDesigner
                     FormForText formText = new FormForText(rectangle);
                     formText.ShowDialog();
 
-                    //FormForText ttt = new FormForText();
-
-                    //rectangle.Methods = FormForText.TextField;
-
-
-                   //MyGraphics.GetInstance().GetMainGraphics();
-
-                    
-
-                    //rectangle.Color = Color.White;
-
-                    //rectangle.Draw();
-
-                    //rectangle.Color = Color.Red;
-                    //rectangle.Draw();
+                    rectangle.Draw();
 
                     MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
