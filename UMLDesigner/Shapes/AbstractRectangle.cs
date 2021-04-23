@@ -81,11 +81,12 @@ namespace UMLDesigner
             graphics.DrawRectangle(_pen, startPoint.X, startPoint.Y, size.X, size.Y);
         }
 
-        public void Pick()
+        public Point PickPoint(MouseEventArgs e)
         {
-            DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
-            MyGraphics.GetInstance().SetImageToTmpBitmap();
-            MyGraphics.GetInstance().GetMainGraphics();
+            //DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
+            //MyGraphics.GetInstance().SetImageToTmpBitmap();
+            //MyGraphics.GetInstance().GetMainGraphics();
+            return e.Location;
         }
 
         public void Move(int deltaX, int deltaY)
@@ -113,5 +114,9 @@ namespace UMLDesigner
 
         }
 
+        public void ChangeShape(Point point, int deltaX, int deltaY)
+        {
+
+        }
     }
 }

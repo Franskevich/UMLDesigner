@@ -32,6 +32,7 @@ namespace UMLDesigner
         bool _drawArrow = true;
         MyGraphics _graphics;
         private Point _clickPoint;
+        private Point _movePoint;
 
 
         public MainForm()
@@ -70,37 +71,8 @@ namespace UMLDesigner
             if(_act == ActShapes.Move)
             {
                 _currentShape = PickOut(e);
-                if(_currentShape is AbstractRectangle)
-                {
-                    MyGraphics.GetInstance().GetMainGraphics();
-                    _clickPoint = e.Location;
-                }
-                else if(_currentShape is AbstractPointer)
-                {
-                    SolidBrush tmpBrusn = new SolidBrush(Color.Red);
-                    AbstractPointer tpmPointer = (AbstractPointer)_currentShape;
-                    Graphics tmpGraphics = MyGraphics.GetInstance().GetTmpGraphics();
-                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.StartPoint.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.StartPoint.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
-                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.EndPoint.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.EndPoint.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
-                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint1.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.InsidePoint1.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
-                    tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint2.X - (tpmPointer.PenWidth + 5)/2, tpmPointer.InsidePoint2.Y - (tpmPointer.PenWidth + 5)/2, tpmPointer.PenWidth+5, tpmPointer.PenWidth+5);
-                    MyGraphics.GetInstance().SetImageToTmpBitmap();
-                    MyGraphics.GetInstance().GetMainGraphics();
-
-                    //MyGraphics.GetInstance().SetImageToTmpBitmap();
-                }
-                else
-                {
-                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
-                    foreach (var shape in _shapes)
-                    {
-                        shape.Draw();
-                    }
-                    MyGraphics.GetInstance().SetImageToMainBitmap();
-
-                }
-
-
+                _clickPoint = e.Location;
+                SelectShape();
             }
             else if(!(_currentFactory is null))
             {
@@ -119,25 +91,23 @@ namespace UMLDesigner
                 }
             }
         }
+
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (_act == ActShapes.Move)
             {
-                if (_currentShape is AbstractRectangle)
+                if (_currentShape != null)
                 {
-                    //MyGraphics.GetInstance()._graphics.Clear(Color.White);
+                    _movePoint = _currentShape.PickPoint(e);
                     MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.Move(e.X - _clickPoint.X, e.Y - _clickPoint.Y);
+                    _currentShape.ChangeShape(_movePoint, e.X - _clickPoint.X, e.Y - _clickPoint.Y);
+
                     foreach (var shape in _shapes)
                     {
                         shape.Draw();
                     }
                     _clickPoint = e.Location;
-
-                }
-                else if(_currentShape is AbstractPointer)
-                {
-                    //MyGraphics.GetInstance().GetMainGraphics().Clear(Color.Pink);
                 }
             }
 
@@ -189,6 +159,37 @@ namespace UMLDesigner
         {
         }
 
+        public void SelectShape()
+        {
+            if (_currentShape is AbstractRectangle)
+            {
+                MyGraphics.GetInstance().GetMainGraphics();
+            }
+            else if (_currentShape is AbstractPointer)
+            {
+                SolidBrush tmpBrusn = new SolidBrush(Color.Red);
+                AbstractPointer tpmPointer = (AbstractPointer)_currentShape;
+                Graphics tmpGraphics = MyGraphics.GetInstance().GetTmpGraphics();
+                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.StartPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.StartPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
+                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.EndPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.EndPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
+                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint1.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.InsidePoint1.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
+                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint2.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.InsidePoint2.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
+                MyGraphics.GetInstance().SetImageToTmpBitmap();
+                MyGraphics.GetInstance().GetMainGraphics();
+
+            }
+            else
+            {
+                MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+                foreach (var shape in _shapes)
+                {
+                    shape.Draw();
+                }
+                MyGraphics.GetInstance().SetImageToMainBitmap();
+            }
+        }
+
+
         public IShape PickOut(MouseEventArgs e)
         {
             foreach(IShape _currentShape in _shapes)
@@ -225,14 +226,14 @@ namespace UMLDesigner
                     }
                     if ((e.Location.X > point1.X &&
                         e.Location.X < point2.X &&
-                        e.Location.Y > point1.Y-3 &&
-                        e.Location.Y < point1.Y+3) || 
+                        e.Location.Y > point1.Y-10 &&
+                        e.Location.Y < point1.Y+10) || 
                         (e.Location.X > point3.X &&
                         e.Location.X < point4.X &&
-                        e.Location.Y > point4.Y - 3 &&
-                        e.Location.Y < point4.Y + 3) ||
-                        (e.Location.X < point2.X + 3 &&
-                        e.Location.X > point2.X - 3 &&
+                        e.Location.Y > point4.Y - 10 &&
+                        e.Location.Y < point4.Y + 10) ||
+                        (e.Location.X < point2.X + 10 &&
+                        e.Location.X > point2.X - 10 &&
                         e.Location.Y > point2.Y &&
                         e.Location.Y < point3.Y)) 
                     {

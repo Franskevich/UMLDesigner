@@ -20,7 +20,8 @@ namespace UMLDesigner
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes);
         public void OnMouseUp(MouseEventArgs e);
         public void Draw();
-        public void Pick();
+        public Point PickPoint(MouseEventArgs e);
         public void Move(int deltaX, int deltaY);
+        public void ChangeShape(Point point, int deltaX, int deltaY);
     }
 }

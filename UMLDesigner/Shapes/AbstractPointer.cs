@@ -40,6 +40,7 @@ namespace UMLDesigner
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
         {
+
             SnapArrow(e.Location, shapes);
             MyGraphics.GetInstance().GetTmpGraphics();
             Draw();
@@ -74,24 +75,28 @@ namespace UMLDesigner
                 }
 
             }
+        }
+        public void OnMouseMove(MouseEventArgs e, List<IShape> shapes, ActShapes act)
+        {
 
         }
+
         public void OnMouseUp(MouseEventArgs e)
         {
             isMouseDown = false;
 
         }
 
-        public List<Point> GetPoints2()
-        {
-            List<Point> points = new List<Point>();
-            points.Add(StartPoint);
-            points.Add(InsidePoint1);
-            points.Add(InsidePoint2);
-            points.Add(EndPoint);
+        //public List<Point> GetPoints2()
+        //{
+        //    List<Point> points = new List<Point>();
+        //    points.Add(StartPoint);
+        //    points.Add(InsidePoint1);
+        //    points.Add(InsidePoint2);
+        //    points.Add(EndPoint);
 
-            return points;
-        }
+        //    return points;
+        //}
 
         public static List<Point> GetPoints(Point startPoint, Point endPoint, int endLineCutter = 0, int startLineCutter = 0 )
         {
@@ -197,18 +202,48 @@ namespace UMLDesigner
 
         }
 
-        public void Pick()
+
+        public Point PickPoint(MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Location.X < StartPoint.X + 10 &&
+                e.Location.X > StartPoint.X - 10 &&
+                e.Location.Y < StartPoint.Y + 10 &&
+                e.Location.Y > StartPoint.Y - 10)
+            {
+                return StartPoint;
+            }
+            else if (e.Location.X < EndPoint.X + 10 &&
+                     e.Location.X > EndPoint.X - 10 &&
+                     e.Location.Y < EndPoint.Y + 10 &&
+                     e.Location.Y > EndPoint.Y - 10)
+            {
+                return EndPoint;
+            }
+            else
+            {
+                return e.Location;
+            }
         }
+
 
         public void Move(int deltaX, int deltaY)
         {
-            InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 10, StartPoint.Y);
+        }
+
+        public void ChangeShape(Point movePoint, int deltaX, int deltaY)
+        {
+            if (movePoint == EndPoint)
+            {
+                EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
+            }
+            else if (movePoint == StartPoint)
+            {
+                StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
+            }
+
             MyGraphics.GetInstance().GetTmpGraphics();
             Draw();
             MyGraphics.GetInstance().SetImageToTmpBitmap();
-
         }
     }
 }

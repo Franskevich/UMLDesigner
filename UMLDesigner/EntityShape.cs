@@ -201,5 +201,15 @@ namespace UMLDesigner
         {
             throw new NotImplementedException();
         }
+
+        public Point PickPoint(MouseEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangeShape(Point point, int deltaX, int deltaY)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
