@@ -29,7 +29,6 @@ namespace UMLDesigner
             _endCreate = false;
             Color = Color.Black;
             PenWidth = 1;
-
         }
 
         public void Draw()
@@ -66,9 +65,6 @@ namespace UMLDesigner
             {
                 if(StartPoint.X != 0 && StartPoint.Y != 0 && EndPoint.X != 0 && EndPoint.Y != 0)
                 {
-                    //InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
-                    //InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
-
                     MyGraphics.GetInstance().GetMainGraphics();
                     Draw();
                     MyGraphics.GetInstance().SetImageToMainBitmap();
@@ -87,49 +83,39 @@ namespace UMLDesigner
 
         }
 
-        //public List<Point> GetPoints2()
+
+        //public static List<Point> GetPoints(Point startPoint, Point endPoint, int endLineCutter = 0, int startLineCutter = 0 )
         //{
         //    List<Point> points = new List<Point>();
-        //    points.Add(StartPoint);
-        //    points.Add(InsidePoint1);
-        //    points.Add(InsidePoint2);
-        //    points.Add(EndPoint);
-
-        //    return points;
-        //}
-
-        public static List<Point> GetPoints(Point startPoint, Point endPoint, int endLineCutter = 0, int startLineCutter = 0 )
-        {
-            List<Point> points = new List<Point>();
             
-            if (endPoint.X > startPoint.X &&
-                endPoint.X < startPoint.X + 160 + 48)
-            {
-                points.Add(new Point(startPoint.X, startPoint.Y));
-                points.Add(new Point(endPoint.X + 48, startPoint.Y));
-                points.Add(new Point(endPoint.X + 48, endPoint.Y));
-                points.Add(new Point(endPoint.X, endPoint.Y));
-                return points;
-            }
-            else if (endPoint.X < startPoint.X &&
-               endPoint.X > startPoint.X - 160 -48)
-            {
-                points.Add(new Point(startPoint.X, startPoint.Y));
-                points.Add(new Point(endPoint.X - 48, startPoint.Y));
-                points.Add(new Point(endPoint.X - 48, endPoint.Y));
-                points.Add(new Point(endPoint.X, endPoint.Y));
-                return points;
-            }
-            else
-            {
-                points.Add(new Point(startPoint.X, startPoint.Y));
-                int middleX = (startPoint.X + endPoint.X) / 2;
-                points.Add(new Point(middleX, startPoint.Y));
-                points.Add(new Point(middleX, endPoint.Y));
-                points.Add(new Point(endPoint.X, endPoint.Y));
-                return points;
-            }
-        }
+        //    if (endPoint.X > startPoint.X &&
+        //        endPoint.X < startPoint.X + 160 + 48)
+        //    {
+        //        points.Add(new Point(startPoint.X, startPoint.Y));
+        //        points.Add(new Point(endPoint.X + 48, startPoint.Y));
+        //        points.Add(new Point(endPoint.X + 48, endPoint.Y));
+        //        points.Add(new Point(endPoint.X, endPoint.Y));
+        //        return points;
+        //    }
+        //    else if (endPoint.X < startPoint.X &&
+        //       endPoint.X > startPoint.X - 160 -48)
+        //    {
+        //        points.Add(new Point(startPoint.X, startPoint.Y));
+        //        points.Add(new Point(endPoint.X - 48, startPoint.Y));
+        //        points.Add(new Point(endPoint.X - 48, endPoint.Y));
+        //        points.Add(new Point(endPoint.X, endPoint.Y));
+        //        return points;
+        //    }
+        //    else
+        //    {
+        //        points.Add(new Point(startPoint.X, startPoint.Y));
+        //        int middleX = (startPoint.X + endPoint.X) / 2;
+        //        points.Add(new Point(middleX, startPoint.Y));
+        //        points.Add(new Point(middleX, endPoint.Y));
+        //        points.Add(new Point(endPoint.X, endPoint.Y));
+        //        return points;
+        //    }
+        //}
 
         private static void ConsoleWriteLine()
         {
