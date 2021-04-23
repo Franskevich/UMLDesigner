@@ -234,11 +234,11 @@ namespace UMLDesigner
         {
             if (movePoint == EndPoint)
             {
-                EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
+                EndPoint = new Point(EndPoint.X, EndPoint.Y + deltaY);
             }
             else if (movePoint == StartPoint)
             {
-                StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
+                StartPoint = new Point(StartPoint.X, StartPoint.Y + deltaY);
             }
 
             MyGraphics.GetInstance().GetTmpGraphics();
