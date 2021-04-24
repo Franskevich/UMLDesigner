@@ -386,7 +386,8 @@ namespace UMLDesigner
                     try
                     {
 
-                        String path = sfd.FileName;
+                        String path = sfd.FileName+".QQQ";
+
 
                         using (StreamWriter sw = new StreamWriter(path, false))
                         {
@@ -404,41 +405,19 @@ namespace UMLDesigner
                         MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-
-                //sfd.Title = "Сохранить картинку как...";
-                //sfd.OverwritePrompt = true;
-                //sfd.CheckPathExists = true;
-
-                ////sfd.Filter = "Image Files(*.BMP)|*.BMP|Image Files(*.JPG)|*.JPG|Image Files(*.GIF)|*.GIF|" +
-                ////"Image Files(*.JSON)|*.JSON|All Files(*.*)|*.*| "; //Image Files(*.QQQ)|*.QQQ|
-                //sfd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ)|*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ|All files(*.*)|*.*";
-                //sfd.ShowHelp = true;
-
-                //if(sfd.ShowDialog() == DialogResult.OK)
-                //{
-                //    try
-                //    {
-                //        pictureBox1.Image.Save(sfd.FileName);
-                //    }
-                //    catch
-                //    {
-                //        MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    }
-                //}
             }
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
 
-            OpenFileDialog sfd = new OpenFileDialog();
-
-            if (sfd.ShowDialog() == DialogResult.OK)
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "txt files (*.QQQ)|*.QQQ";
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    String path = sfd.FileName;
+                    String path = ofd.FileName;
                     using (StreamReader sr = new StreamReader(path))
                     {
                         var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
@@ -453,6 +432,7 @@ namespace UMLDesigner
                         {
                             shape.Draw();
                         }
+
                         pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                     }
                 }
@@ -460,25 +440,6 @@ namespace UMLDesigner
                 {
                     MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-
-                //    OpenFileDialog ofd = new OpenFileDialog();
-
-                //ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ)|*.BMP;*.JPG;*.GIF;*.PNG;*.JSON;*.QQQ|All files(*.*)|*.*";
-
-                //if (ofd.ShowDialog() == DialogResult.OK)
-                //{
-                //    try 
-                //    {
-                //        pictureBox1.Image = new Bitmap(ofd.FileName);
-                //    }
-                //    catch
-                //    {
-                //        MessageBox.Show("Невозможно открыть выбранный файл", "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    }
-                //}
-                // }
             }
 
         }
