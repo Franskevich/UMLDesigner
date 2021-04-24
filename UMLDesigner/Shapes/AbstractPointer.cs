@@ -10,13 +10,15 @@ namespace UMLDesigner
 {
     public class AbstractPointer : IShape
     {
+        IArrow _typeArrow { get; set; }
+        ILine _typeLine { get; set; }
+
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
-        IArrow _typeArrow;
-        ILine _typeLine;
+
         bool isMouseDown = false;
         bool _drawArrow = true;
         public bool _endCreate = false;
@@ -31,8 +33,8 @@ namespace UMLDesigner
 
         public void Draw()
         {
-            _typeLine.Draw(Color, PenWidth, StartPoint, EndPoint);
             _typeArrow.Draw(Color, PenWidth, StartPoint, EndPoint);
+            _typeLine.Draw(Color, PenWidth, StartPoint, EndPoint);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)

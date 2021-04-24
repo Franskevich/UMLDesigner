@@ -13,6 +13,7 @@ using UMLDesigner.Shapes.Factories;
 using UMLDesigner.Shapes.Factories.RectanglesFactories;
 using System.IO;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 
 namespace UMLDesigner
@@ -384,17 +385,18 @@ namespace UMLDesigner
                 {
                     try
                     {
+
                         String path = sfd.FileName;
+
                         using (StreamWriter sw = new StreamWriter(path, false))
                         {
-                            options = new JsonSerializerOptions{WriteIndented = true};
-                            sw.WriteLine(JsonSerializer.Serialize<object>(_shapes, options));
+                            var serialized = JsonConvert.SerializeObject(_shapes, Formatting.Indented,
+                                new JsonSerializerSettings
+                                {
+                                    TypeNameHandling = TypeNameHandling.All
+                                });
 
-                            //foreach(IShape shapes in _shapes)
-                            //{
-                            //sw.WriteLine(JsonSerializer.Serialize<object>(shapes, options));
-                            //}
-
+                            sw.WriteLine(serialized);
                         }
                     }
                     catch
@@ -437,11 +439,21 @@ namespace UMLDesigner
                 try
                 {
                     String path = sfd.FileName;
-                    using (StreamReader re = new StreamReader(path))
+                    using (StreamReader sr = new StreamReader(path))
                     {
-                        options = new JsonSerializerOptions { WriteIndented = true };
-                        List<IShape> _shape = JsonSerializer.Deserialize<List<IShape>>(re.ReadToEnd());
+                        var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
+                            new JsonSerializerSettings
+                            {
+                                TypeNameHandling = TypeNameHandling.All
+                            });
+                        _shapes = desirialized;
 
+                        Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+                        foreach (var shape in _shapes)
+                        {
+                            shape.Draw();
+                        }
+                        pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                     }
                 }
                 catch
@@ -466,9 +478,10 @@ namespace UMLDesigner
                 //        MessageBox.Show("Невозможно открыть выбранный файл", "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //    }
                 //}
+                // }
             }
-        }
 
+        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 

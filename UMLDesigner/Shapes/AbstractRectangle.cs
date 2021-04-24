@@ -14,7 +14,7 @@ namespace UMLDesigner
 {
     class AbstractRectangle : IShape
     {
-        public IRectangle _typeRectangle;
+        public IRectangle _typeRectangle { get; set; }
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
