@@ -117,6 +117,8 @@ namespace UMLDesigner
                     {
                         shape.Draw();
                     }
+                    MyGraphics.GetInstance().SetTmpBitmapAsMain();
+
                     _clickPoint = e.Location;
                 }
             }
