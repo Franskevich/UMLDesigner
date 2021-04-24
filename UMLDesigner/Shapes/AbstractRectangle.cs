@@ -108,7 +108,7 @@ namespace UMLDesigner
             }
             //Draw();
 
-            MyGraphics.GetInstance().GetTmpGraphics();
+            MyGraphics.GetInstance().GetMainGraphics();
             Draw();
             MyGraphics.GetInstance().SetImageToTmpBitmap();
 

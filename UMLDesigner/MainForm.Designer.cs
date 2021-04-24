@@ -329,7 +329,6 @@ namespace UMLDesigner
             this.ClientSize = new System.Drawing.Size(1484, 796);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);
