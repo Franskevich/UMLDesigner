@@ -19,7 +19,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new DelegateRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle);
+            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "Delegate");
             return shape;
         }
     }

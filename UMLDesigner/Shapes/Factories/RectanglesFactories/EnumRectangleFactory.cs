@@ -18,7 +18,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new EnumRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle);
+            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "Enum");
             return shape;
         }
     }

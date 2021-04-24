@@ -17,7 +17,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new InterfaceRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle);
+            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "<Interface>");
             return shape;
         }
     }

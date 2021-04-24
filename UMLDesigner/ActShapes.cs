@@ -23,6 +23,7 @@ namespace UMLDesigner
         Delegate,
         Move,
         Retangle,
-        Pointer
+        Pointer,
+        ChangeText
     }
 }
