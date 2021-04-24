@@ -11,6 +11,10 @@ using UMLDesigner.Interfaces;
 using UMLDesigner.Shapes;
 using UMLDesigner.Shapes.Factories;
 using UMLDesigner.Shapes.Factories.RectanglesFactories;
+using System.IO;
+using System.Text.Json;
+using Newtonsoft.Json;
+
 
 namespace UMLDesigner
 {
@@ -23,8 +27,7 @@ namespace UMLDesigner
         bool _mouseDown = false;
         bool _isEntity = false;
         Bitmap _mainBitmap;
-        Bitmap _tempBitmap;
-        //Graphics _graphics;
+        Bitmap _tempBitmap;       
         Color _color;
         IShape _tmpShape;
         int _penWidth = 1;
@@ -33,7 +36,9 @@ namespace UMLDesigner
         MyGraphics _graphics;
         private Point _clickPoint;
         private Point _movePoint;
+        JsonSerializerOptions options;
 
+        bool _changerText = false;
 
         public MainForm()
         {
@@ -167,6 +172,23 @@ namespace UMLDesigner
             }
 
         }
+        //public IShape PickOut(MouseEventArgs e)
+        //{
+        //    foreach (IShape _currentShape in _shapes)
+        //    {
+        //        if (_currentShape is AbstractRectangle)
+        //        {
+        //            if (e.Location.X > _currentShape.StartPoint.X &&
+        //                e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
+        //                e.Location.Y > _currentShape.StartPoint.Y &&
+        //                e.Location.Y < _currentShape.StartPoint.Y + _currentShape.EndPoint.Y)
+        //            {
+        //                return _currentShape;
+        //            }
+        //        }
+        //    }
+        //    return _currentShape = null;
+        //}
         private void SnapArrow(Point clickPoint)
         {
         }
@@ -384,7 +406,6 @@ namespace UMLDesigner
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-
             Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
             //MyGraphics.GetInstance().SetTmpBitmapAsMain;
             Graphics.FromImage(MyGraphics.GetInstance()._tmpBitmap).Clear(Color.White);
@@ -431,6 +452,79 @@ namespace UMLDesigner
         {
             _act = ActShapes.Move;
             _currentShape = null;
+        }
+        private void buttonSave_Click(object sender, EventArgs e)
+        {                             
+            if(pictureBox1.Image != null)
+            {
+
+                SaveFileDialog sfd = new SaveFileDialog();
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+
+                        String path = sfd.FileName+".QQQ";
+
+
+                        using (StreamWriter sw = new StreamWriter(path, false))
+                        {
+                            var serialized = JsonConvert.SerializeObject(_shapes, Formatting.Indented,
+                                new JsonSerializerSettings
+                                {
+                                    TypeNameHandling = TypeNameHandling.All
+                                });
+
+                            sw.WriteLine(serialized);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "txt files (*.QQQ)|*.QQQ";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    String path = ofd.FileName;
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
+                            new JsonSerializerSettings
+                            {
+                                TypeNameHandling = TypeNameHandling.All
+                            });
+                        _shapes = desirialized;
+
+                        Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+                        foreach (var shape in _shapes)
+                        {
+                            shape.Draw();
+                        }
+
+                        pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

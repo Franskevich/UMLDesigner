@@ -10,6 +10,9 @@ namespace UMLDesigner
 {
     public class AbstractPointer : IShape
     {
+        public IArrow _typeArrow { get; set; }
+        public ILine _typeLine { get; set; }
+
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Point InsidePoint1 { get; set; }
@@ -17,8 +20,7 @@ namespace UMLDesigner
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
-        IArrow _typeArrow;
-        ILine _typeLine;
+
         bool isMouseDown = false;
         bool _drawArrow = true;
         public bool _endCreate = false;

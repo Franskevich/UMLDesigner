@@ -29,6 +29,7 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -50,19 +51,25 @@ namespace UMLDesigner
             this.buttonСancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonMove = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(118, 49);
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Location = new System.Drawing.Point(138, 55);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1334, 730);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
@@ -176,7 +183,7 @@ namespace UMLDesigner
             // 
             // buttonClass
             // 
-            this.buttonClass.Location = new System.Drawing.Point(12, 11);
+            this.buttonClass.Location = new System.Drawing.Point(11, 11);
             this.buttonClass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonClass.Name = "buttonClass";
             this.buttonClass.Size = new System.Drawing.Size(100, 25);
@@ -284,11 +291,45 @@ namespace UMLDesigner
             this.buttonMove.UseVisualStyleBackColor = true;
             this.buttonMove.Click += new System.EventHandler(this.ButtonMove_Click);
             // 
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "C#files|*.cs|Все файлы|*.*";
+            // openFileDialog1
+            // 
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(851, 13);
+            this.buttonSave.Size = new System.Drawing.Size(84, 29);
+            this.buttonSave.TabIndex = 20;
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(947, 13);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(89, 29);
+            this.buttonOpenFile.TabIndex = 21;
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Text = "Open File";
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1484, 861);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
+            this.ClientSize = new System.Drawing.Size(1484, 796);
+            this.Controls.Add(this.buttonOpenFile);
+            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);
@@ -309,8 +350,10 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonInheritance);
             this.Controls.Add(this.buttonAssociation);
             this.Controls.Add(this.pictureBox1);
+            this.ForeColor = System.Drawing.Color.Black;
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Best UML application";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -342,6 +385,10 @@ namespace UMLDesigner
         private System.Windows.Forms.Button buttonСancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonMove;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonOpenFile;
     }
 }
 
