@@ -36,7 +36,7 @@ namespace UMLDesigner
         MyGraphics _graphics;
         private Point _clickPoint;
         private Point _movePoint;
-        JsonSerializerOptions options;
+        JsonSerializerOptions options;      
 
         bool _changerText = false;
 
@@ -87,8 +87,18 @@ namespace UMLDesigner
                 {
                     FormForText formText = new FormForText((AbstractRectangle)_currentShape);
                     formText.ShowDialog();
-                    _currentShape.Draw();
-                    MyGraphics.GetInstance().SetImageToMainBitmap();
+                    Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+
+                    MyGraphics.GetInstance().GetMainGraphics();
+
+                    foreach (var shape in _shapes)
+                    {
+                        shape.Draw();
+                    }
+                    pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    MyGraphics.GetInstance().GetTmpGraphics();
+                   // _currentShape.Draw();
+                    //MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
             }
 

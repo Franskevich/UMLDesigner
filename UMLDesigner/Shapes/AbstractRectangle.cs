@@ -19,9 +19,10 @@ namespace UMLDesigner
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
+
         public Font NameFont = new Font("Arial", 18);
         public Font ArgumentFont = new Font("Arial", 13);
-
+        
         public string Name { get; set; }
         public string Properties { get; set; }
         public string Fields { get; set; }
@@ -125,8 +126,6 @@ namespace UMLDesigner
             MyGraphics.GetInstance().GetMainGraphics();
             Draw();
             MyGraphics.GetInstance().SetImageToTmpBitmap();
-
-
         }
 
         public void ChangeShape(Point point, int deltaX, int deltaY)

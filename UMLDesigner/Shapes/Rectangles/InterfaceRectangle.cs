@@ -13,118 +13,91 @@ namespace UMLDesigner.Shapes.Rectangles
 {
     public class InterfaceRectangle : IRectangle
     {
-        public string Name { get; set; }
-        public static int _countOfInterfaces = 0;
+        //public string Name { get; set; }
+        //public static int _countOfInterfaces = 0;
 
-        private Rectangle _nameRect;
-        private Rectangle _fieldsRect;
-        private Rectangle _propetiesRect;
-        private Rectangle _otherRect;
+        //private Rectangle nameRect;
+        //private Rectangle _fieldsRect;
+        //private Rectangle _propetiesRect;
+        //private Rectangle _otherRect;
 
-        private int _nameHeight = 50;
-        private int _fieldsHeight = 25;
-        private int _propertiesHeight = 25;
-        private int _otherHeight;
+        //private int _nameHeight = 50;
+        //private int _fieldsHeight = 25;
+        //private int _propertiesHeight = 25;
+        //private int _otherHeight;
 
-        public bool isRollUp = false;
-        public int Height { get; private set; }
-        public List<string> Fields { get; set; }
-        public List<string> Properties { get; set; }
-        public List<string> Other { get; set; }
-        public List<PointerShape> Connections { get; set; }
+        //public bool isRollUp = false;
+        //public int Height { get; private set; }
+        //public List<string> Fields { get; set; }
+        //public List<string> Properties { get; set; }
+        //public List<string> Other { get; set; }
+        //public List<PointerShape> Connections { get; set; }
+       
         public InterfaceRectangle()
         {
-            Connections = new List<PointerShape>();
-            Fields = new List<string>();
-            Properties = new List<string>();
-            Other = new List<string>();
-            Name = "Interface" + _countOfInterfaces++;
+            //Connections = new List<PointerShape>();
+            //Fields = new List<string>();
+            //Properties = new List<string>();
+            //Other = new List<string>();
+            //Name = "Interface" + _countOfInterfaces++;
         }
-        private int line = 4;
+
+        Graphics graphics = MyGraphics.GetInstance().GetMainGraphics();
+        
         public Font nameFont = new Font("Arial", 18);
 
         public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods)
         {
-            if (isRollUp == true)
-            {
-                line = 1;
-            }
-            Pen pen = new Pen(color, penWidth);
-            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            Pen _pen = new Pen(color, penWidth);
 
-            StringFormat drawFormat = new StringFormat();
-            drawFormat.Alignment = StringAlignment.Center;
-            drawFormat.LineAlignment = StringAlignment.Center;
+            int _nameHeight = 30 + ((int)graphics.MeasureString(name, nameFont).Width/size.X) *((int)graphics.MeasureString(name, nameFont).Height+3);
+            int _propertiesHeight = 30 + ((int)graphics.MeasureString(properties, argumentFont).Width / size.X) * ((int)graphics.MeasureString(properties, argumentFont).Height+3);
+            int _methodsHeight = 100 + ((int)graphics.MeasureString(methods, argumentFont).Width / size.X) * ((int)graphics.MeasureString(methods, argumentFont).Height+3);
 
-            _nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
-            _propetiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _propertiesHeight);
-            _otherHeight = size.Y - _nameHeight - _propertiesHeight;
-            _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
 
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+            Rectangle nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
+            Rectangle propertiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _propertiesHeight);           
+            Rectangle methodRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _propertiesHeight, size.X, _methodsHeight);
 
+            MyGraphics.GetInstance().GetMainGraphics();
+
+            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+
+            currentTmpGraphics.DrawRectangle(_pen, nameRect);
+            currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
+            currentTmpGraphics.DrawRectangle(_pen, methodRect);
+
+            DrawTextName(nameRect, nameFont, color, name);
+            DrawText(propertiesRect, argumentFont, color, properties);
+            DrawText(methodRect, argumentFont, color, methods);
+       
+        }
+        public void DrawTextName(Rectangle nameRect, Font nameFont, Color color, string name)
+        {
+            SolidBrush brush = new SolidBrush(color);
+
+            MyGraphics.GetInstance().GetMainGraphics();
+            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+
+            StringFormat stringFormat = new StringFormat();
             currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            currentTmpGraphics.DrawRectangle(pen, _nameRect);
-            currentTmpGraphics.DrawString(Name, nameFont, drawBrush, _nameRect, drawFormat);
-            if (line > 1)
-            {
-                drawFormat.Alignment = StringAlignment.Near;
-                if (Properties.Count >= 1)
-                {
-                    _propertiesHeight = 25 * Properties.Count;
-                    _propetiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _propertiesHeight);
-                    currentTmpGraphics.DrawRectangle(pen, _propetiesRect);
-                    int tempY = 0;
-                    foreach (string s in Properties)
-                    {
-                        Rectangle tmpRect = new Rectangle(startPoint.X, _propetiesRect.Y + tempY, size.X, 25);
-                        currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
-                        tempY = tempY + 25;
-                    }
-                }
-                else
-                {
-                    currentTmpGraphics.DrawRectangle(pen, _propetiesRect);
-                }
-            }
-            if (line > 2)
-            {
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
 
-                if (Other.Count >= 1)
-                {
-                    if (_otherHeight > Other.Count * 25)
-                    {
-                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
-                    }
-                    else
-                    {
-                        _otherHeight = 25 * Other.Count;
-                        _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
-                        currentTmpGraphics.DrawRectangle(pen, _otherRect);
-                    }
-                    int tempY = 0;
-                    foreach (string s in Other)
-                    {
-                        Rectangle tmpRect = new Rectangle(startPoint.X, _otherRect.Y + tempY, size.X, 25);
-                        currentTmpGraphics.DrawString(s, argumentFont, drawBrush, tmpRect, drawFormat);
-                        tempY = tempY + 25;
-                    }
-                }
-                else
-                {
-                    if (size.Y <= _nameHeight + _propertiesHeight + 25)
-                    {
-                        _otherHeight = 25;
-                    }
-                    else
-                    {
-                        _otherHeight = size.Y - _nameHeight - _propertiesHeight;
-                    }
-                    _otherRect = new Rectangle(startPoint.X, _propetiesRect.Y + _propertiesHeight, size.X, _otherHeight);
-                    currentTmpGraphics.DrawRectangle(pen, _otherRect);
-                }
-                Height = _nameHeight + _propertiesHeight + _otherHeight;
-            }
+            currentTmpGraphics.DrawString(name, nameFont, brush, nameRect, stringFormat);
+        }
+        public void DrawText(Rectangle rectangle, Font font, Color color, string text)
+        {
+            MyGraphics.GetInstance().GetMainGraphics();
+
+            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+
+            StringFormat _stringFormat = new StringFormat();
+            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            _stringFormat.Alignment = StringAlignment.Near;
+            _stringFormat.LineAlignment = StringAlignment.Near;
+
+            currentTmpGraphics.DrawString(text, font, new SolidBrush(color), rectangle, _stringFormat);
         }
     }
 }
