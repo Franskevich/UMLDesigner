@@ -27,11 +27,13 @@ namespace UMLDesigner
         public string TextField { get; set; }
         public string TextProperties { get; set; }
         public string TextMethod { get; set; }
+        public string TextName { get; set; }
 
 
         private void FormForText_Load(object sender, EventArgs e)
         {
             //textBoxFieldRectangle.Text = _currentRectangle.Fields.ToString();
+            textBoxNameRectangle.Text = _currentRectangle.StringNameLabel;
 
             int count = _currentRectangle.Fields.Count;
 
@@ -47,13 +49,13 @@ namespace UMLDesigner
         private void buttonOK_Click(object sender, EventArgs e)
         {
             //TextName.Add(textBoxNameRectangle.Text);
-
+            TextName = textBoxNameRectangle.Text;
             TextField = textBoxFieldRectangle.Text;
 
             //TextProperties = textBoxPropertiesRectangle.Text;
             //TextMethod = textBoxMethodRectangle.Text;
 
-            _currentRectangle.ChangeText(TextField);
+            _currentRectangle.ChangeText(TextField, TextName);
 
         }
 

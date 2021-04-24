@@ -15,8 +15,10 @@ namespace UMLDesigner.Shapes.Rectangles
     {
         public string Name { get; set; }
         public static int _countOfClasses = 0;
+        Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
-        private  Rectangle nameRect;
+
+        private Rectangle nameRect;
         private Rectangle fieldsRect;
         private Rectangle _propetiesRect;
         private Rectangle _otherRect;
@@ -34,8 +36,6 @@ namespace UMLDesigner.Shapes.Rectangles
 
         public ClassRectangle()
         {
-
-
             Name = "Class" + _countOfClasses++;
         }
 
@@ -47,14 +47,31 @@ namespace UMLDesigner.Shapes.Rectangles
             SolidBrush blueBrush = new SolidBrush(Color.White);
 
             int _methodHeight = size.Y - _nameHeight - _fieldsHeight - _propertiesHeight + _dlcHeight;
+            _nameHeight = 40 + (int)currentTmpGraphics.MeasureString(textLabel, argumentFont).Height;
+            _fieldsHeight = 25;
+            _propertiesHeight = 25;
+            _methodHeight = 50;
+
 
             Rectangle nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
-            Rectangle fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _fieldsHeight);
-            Rectangle propertiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _fieldsHeight, size.X, _propertiesHeight);
+            Rectangle propertiesRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _propertiesHeight);
+            Rectangle fieldsRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _propertiesHeight, size.X, _fieldsHeight); 
             Rectangle methodRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _fieldsHeight + _propertiesHeight, size.X, _methodHeight);
 
 
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+            currentTmpGraphics.FillRectangle(blueBrush, propertiesRect);
+            currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
+
+            string str = "";
+            foreach(string f in textFields)
+            {
+                str += f;
+            }
+            //SizeF siz = MyGraphics.GetInstance().GetMainGraphics().MeasureString(str, argumentFont);
+            //Rectangle test = new Rectangle(new Point(startPoint.X, startPoint.Y + _nameHeight + _fieldsHeight), siz);
+            //Rectangle test = new Rectangle(startPoint.X, startPoint.Y + _nameHeight + _propertiesHeight, size.X, 200+(int)siz.Height);
+            //DrawTextOtherPlacel(currentTmpGraphics, str, fieldsRect, argumentFont);
+
 
             currentTmpGraphics.DrawRectangle(_pen, nameRect);
 
@@ -64,32 +81,27 @@ namespace UMLDesigner.Shapes.Rectangles
                 currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
             if (line > 3)
                 currentTmpGraphics.DrawRectangle(_pen, methodRect);
-            DrawTextLabel(currentTmpGraphics, nameRect, nameFont);
+            DrawTextLabel(textLabel, nameRect, nameFont);
+            DrawTextOtherPlacel(currentTmpGraphics, str, fieldsRect, argumentFont);
+
+            //DrawTextLabel(currentTmpGraphics, nameRect, nameFont);
 
 
-            currentTmpGraphics.FillRectangle(blueBrush, propertiesRect);
-            currentTmpGraphics.DrawRectangle(_pen, propertiesRect);
-            string str = "";
-            foreach(string f in textFields)
-            {
-                str += f;
-            }
-            DrawTextOtherPlacel(currentTmpGraphics, str, propertiesRect, argumentFont);
 
         }
 
 
-        public void DrawTextLabel(Graphics graphics, Rectangle field, Font nameLabel)
+        public void DrawTextLabel(string Name, Rectangle nameRect, Font nameLabel)
         {
             var brush = Brushes.Red;
 
             StringFormat stringFormat = new StringFormat();
-            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
-            graphics.DrawString(Name, nameLabel, brush, field, stringFormat);
+            currentTmpGraphics.DrawString(Name, nameLabel, brush, nameRect, stringFormat);
         }
 
         public void DrawTextOtherPlacel(Graphics graphics, string wordsArgument,  Rectangle field, Font argumentFont)
@@ -100,7 +112,7 @@ namespace UMLDesigner.Shapes.Rectangles
             graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
             stringFormat.Alignment = StringAlignment.Near;
-            stringFormat.LineAlignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Near;
 
             graphics.DrawString(wordsArgument, argumentFont, brush, field, stringFormat);
         }

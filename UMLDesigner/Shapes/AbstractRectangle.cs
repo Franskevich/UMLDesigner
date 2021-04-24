@@ -60,11 +60,13 @@ namespace UMLDesigner
             Methods = new List<string>();
         }
 
-        public void ChangeText(string TextField)
+        public void ChangeText(string TextField, string TextName)
         {
             Fields.Clear();
             Fields.Add(TextField);
-        }
+            StringNameLabel = TextName;
+        }   
+
 
         public override string ToString()
         {

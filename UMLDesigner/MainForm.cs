@@ -179,9 +179,13 @@ namespace UMLDesigner
                     FormForText formText = new FormForText(rectangle);
                     formText.ShowDialog();
 
+                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+                    MyGraphics.GetInstance().GetMainGraphics();
+                    foreach (IShape shape in _shapes)
+                    {
                     rectangle.Draw();
-
-                    MyGraphics.GetInstance().SetImageToMainBitmap();
+                    }
+                    //MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
             }
         }
