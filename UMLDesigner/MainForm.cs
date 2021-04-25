@@ -73,12 +73,27 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(_act == ActShapes.Move)
+            if (_act == ActShapes.Move && e.Button == MouseButtons.Left)
             {
                 _currentShape = PickOut(e);
                 _clickPoint = e.Location;
                 SelectShape();
             }
+            else if (_act == ActShapes.Move && e.Button == MouseButtons.Right)
+            {
+                _currentShape = PickOut(e);
+                Options options = new Options(_currentShape);
+                _clickPoint = e.Location;
+                SelectShape();
+                options.ShowDialog();
+
+                MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+                foreach (var shape in _shapes)
+                {
+                    shape.Draw();
+                }
+            }
+
             else if(!(_currentFactory is null))
             {
                 if (_currentShape is AbstractPointer)
@@ -104,7 +119,7 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_act == ActShapes.Move)
+            if (_act == ActShapes.Move && e.Button == MouseButtons.Left )
             {
                 if (_currentShape != null)
                 {
