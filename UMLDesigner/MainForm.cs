@@ -73,13 +73,40 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(_act == ActShapes.Move)
+            if (_act == ActShapes.Move && e.Button == MouseButtons.Left)
             {
                 _currentShape = PickOut(e);
                 _clickPoint = e.Location;
                 SelectShape();
             }
             else if (_act == ActShapes.ChangeText)
+            else if (_act == ActShapes.Move && e.Button == MouseButtons.Right )
+            {
+                _currentShape = PickOut(e);
+                if (_currentShape is AbstractPointer)
+                {
+                    Options options = new Options(_currentShape);
+                    _clickPoint = e.Location;
+                    SelectShape();
+                    options.ShowDialog();
+                }
+                else if(_currentShape is AbstractRectangle)
+                {
+
+                }
+
+                _currentShape = null;
+                _currentFactory = null;
+                MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+                foreach (var shape in _shapes)
+                {
+                    shape.Draw();
+                }
+                MyGraphics.GetInstance().SetImageToMainBitmap();
+
+            }
+
+            else if(!(_currentFactory is null))
             {
                 _currentShape = PickOut(e);
 
@@ -127,7 +154,7 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_act == ActShapes.Move)
+            if (_act == ActShapes.Move && e.Button == MouseButtons.Left )
             {
                 if (_currentShape != null)
                 {
@@ -319,7 +346,29 @@ namespace UMLDesigner
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             _penWidth = trackBar1.Value;
+        }
 
+        public static void DeleteShape(IShape shape, List<IShape> shapes)
+        {
+            shapes.Remove(shape);
+            if(shape is AbstractRectangle)
+            {
+                AbstractRectangle shapeRectangle = (AbstractRectangle)shape;
+                foreach(AbstractPointer pointer in shapeRectangle.ConnectionsStart)
+                {
+                    shapes.Remove(pointer);
+                }
+                foreach(AbstractPointer pointer in shapeRectangle.ConnectionsEnd)
+                {
+                    shapes.Remove(pointer);
+                }
+            }
+            MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
+            foreach (IShape currentShape in shapes)
+            {
+                currentShape.Draw();
+            }
+            MyGraphics.GetInstance().SetImageToMainBitmap();
         }
 
         public int SetPenWidth()
@@ -350,7 +399,6 @@ namespace UMLDesigner
             //_act = ActShapes.Implementation;
             _currentFactory = new ImplementationsPointersFactory();
             _act = ActShapes.Pointer;
-
             _currentShape = _currentFactory.GetShape();
         }
 

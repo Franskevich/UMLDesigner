@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UMLDesigner.Interfaces;
 
-namespace UMLDesigner.Shapes.Arrows
+namespace UMLDesigner
 {
     public class CompositionSecondArrow : IArrow
     {
