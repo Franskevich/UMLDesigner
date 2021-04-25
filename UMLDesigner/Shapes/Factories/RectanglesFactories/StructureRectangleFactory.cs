@@ -11,6 +11,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
 {
     public class StructureRectangleFactory : IFactory
     {
+
         IRectangle _typeRectangle;
         public StructureRectangleFactory()
         {
