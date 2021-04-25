@@ -36,9 +36,15 @@ namespace UMLDesigner
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.textBoxMethods = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.buttonColor = new System.Windows.Forms.Button();
+            this.trackBarWidth = new System.Windows.Forms.TrackBar();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonFont = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -108,16 +114,6 @@ namespace UMLDesigner
             this.label4.TabIndex = 7;
             this.label4.Text = "Methods:";
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(14, 568);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(140, 35);
-            this.buttonCancel.TabIndex = 8;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // buttonOK
             // 
             this.buttonOK.Location = new System.Drawing.Point(209, 568);
@@ -137,14 +133,60 @@ namespace UMLDesigner
             this.textBoxMethods.TabIndex = 10;
             this.textBoxMethods.TextChanged += new System.EventHandler(this.textBoxMethods_TextChanged);
             // 
+            // fontDialog1
+            // 
+            this.fontDialog1.Apply += new System.EventHandler(this.fontDialog1_Apply);
+            // 
+            // buttonColor
+            // 
+            this.buttonColor.Location = new System.Drawing.Point(383, 40);
+            this.buttonColor.Name = "buttonColor";
+            this.buttonColor.Size = new System.Drawing.Size(115, 39);
+            this.buttonColor.TabIndex = 11;
+            this.buttonColor.Text = "Color";
+            this.buttonColor.UseVisualStyleBackColor = true;
+            this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+            // 
+            // trackBarWidth
+            // 
+            this.trackBarWidth.Location = new System.Drawing.Point(383, 115);
+            this.trackBarWidth.Name = "trackBarWidth";
+            this.trackBarWidth.Size = new System.Drawing.Size(115, 45);
+            this.trackBarWidth.TabIndex = 12;
+            this.trackBarWidth.Scroll += new System.EventHandler(this.trackBarWidth_Scroll);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonDelete.Location = new System.Drawing.Point(12, 568);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(140, 35);
+            this.buttonDelete.TabIndex = 13;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonFont
+            // 
+            this.buttonFont.Location = new System.Drawing.Point(383, 166);
+            this.buttonFont.Name = "buttonFont";
+            this.buttonFont.Size = new System.Drawing.Size(114, 38);
+            this.buttonFont.TabIndex = 14;
+            this.buttonFont.Text = "Font";
+            this.buttonFont.UseVisualStyleBackColor = true;
+            this.buttonFont.Click += new System.EventHandler(this.buttonFont_Click);
+            // 
             // FormForText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 613);
+            this.ClientSize = new System.Drawing.Size(521, 613);
+            this.Controls.Add(this.buttonFont);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.trackBarWidth);
+            this.Controls.Add(this.buttonColor);
             this.Controls.Add(this.textBoxMethods);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -155,6 +197,7 @@ namespace UMLDesigner
             this.Name = "FormForText";
             this.Text = "FormForText";
             this.Load += new System.EventHandler(this.FormForText_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,8 +212,13 @@ namespace UMLDesigner
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TextBox textBoxMethods;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.Button buttonColor;
+        private System.Windows.Forms.TrackBar trackBarWidth;
+        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button buttonFont;
     }
 }

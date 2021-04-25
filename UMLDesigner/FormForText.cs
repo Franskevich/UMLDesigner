@@ -26,6 +26,9 @@ namespace UMLDesigner
             textBoxProperties.Text = _currentRectangle.Properties;
             textBoxField.Text = _currentRectangle.Fields;
             textBoxMethods.Text = _currentRectangle.Methods;
+            trackBarWidth.Value = _currentRectangle.PenWidth;
+            buttonColor.BackColor = _currentRectangle.Color;
+
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
@@ -55,7 +58,41 @@ namespace UMLDesigner
         private void buttonOK_Click(object sender, EventArgs e)
         {
             _currentRectangle.ChangeText(textBoxName.Text, textBoxProperties.Text, textBoxField.Text, textBoxMethods.Text);
+            this.Close();
         }
 
+        private void fontDialog1_Apply(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBarWidth_Scroll(object sender, EventArgs e)
+        {
+            _currentRectangle.PenWidth = trackBarWidth.Value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            buttonColor.BackColor = colorDialog1.Color;
+            _currentRectangle.Color = colorDialog1.Color;
+        }
+
+        private void buttonFont_Click(object sender, EventArgs e)
+        {
+            fontDialog1.ShowDialog();
+            //buttonColor.BackColor = colorDialog1.Color;
+            _currentRectangle.ArgumentFont = fontDialog1.Font;
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            MainForm.DeleteShape(_currentRectangle, MyGraphics.GetInstance().Shapes);
+        }
     }
 }

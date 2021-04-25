@@ -85,13 +85,13 @@ namespace UMLDesigner
                 if (_currentShape is AbstractPointer)
                 {
                     Options options = new Options(_currentShape);
-                    _clickPoint = e.Location;
                     SelectShape();
                     options.ShowDialog();
                 }
                 else if(_currentShape is AbstractRectangle)
                 {
-
+                    FormForText formText = new FormForText((AbstractRectangle)_currentShape);
+                    formText.ShowDialog();
                 }
                 _currentShape = null;
                 _currentFactory = null;
