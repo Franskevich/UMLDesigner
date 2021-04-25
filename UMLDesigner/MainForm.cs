@@ -487,25 +487,33 @@ namespace UMLDesigner
                 sfd.Title = "Сохранить картинку как...";
                 sfd.OverwritePrompt = true;
                 sfd.CheckPathExists = true;
-                sfd.Filter = 
+                sfd.Filter = "Image Files(*.QQQ;*.PNG)|*.QQQ;*.PNG"; 
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-
-                        String path = sfd.FileName+".QQQ";
-
-
-                        using (StreamWriter sw = new StreamWriter(path, false))
+                        String path = sfd.FileName;// +".QQQ";                        
+                        string s1 = path;
+                        string s2 = "*.QQQ";
+                        bool b = s1.Contains(s2);
+                        
+                        if (b)
                         {
-                            var serialized = JsonConvert.SerializeObject(_shapes, Formatting.Indented,
-                                new JsonSerializerSettings
-                                {
-                                    TypeNameHandling = TypeNameHandling.All
-                                });
+                            using (StreamWriter sw = new StreamWriter(path, false))
+                            {
+                                var serialized = JsonConvert.SerializeObject(_shapes, Formatting.Indented,
+                                    new JsonSerializerSettings
+                                    {
+                                        TypeNameHandling = TypeNameHandling.All
+                                    });
 
-                            sw.WriteLine(serialized);
+                                sw.WriteLine(serialized);
+                            }
+                        }
+                        else
+                        {
+                            pictureBox1.Image.Save(sfd.FileName);
                         }
                     }
                     catch
@@ -518,30 +526,40 @@ namespace UMLDesigner
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "txt files (*.QQQ)|*.QQQ";
+            ofd.Filter = "txt files (*.QQQ;*.PNG)|*.QQQ;*.PNG";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    String path = ofd.FileName;
-                    using (StreamReader sr = new StreamReader(path))
+                    String path = ofd.FileName;// +".QQQ";                        
+                    string s1 = path;
+                    string s2 = "*.QQQ";
+                    bool b = s1.Contains(s2);
+                    if (b)
                     {
-                        var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
-                            new JsonSerializerSettings
-                            {
-                                TypeNameHandling = TypeNameHandling.All
-                            });
-                        _shapes = desirialized;
-
-                        Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
-                        foreach (var shape in _shapes)
+                        //String path = ofd.FileName;
+                        using (StreamReader sr = new StreamReader(path))
                         {
-                            shape.Draw();
-                        }
+                            var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
+                                new JsonSerializerSettings
+                                {
+                                    TypeNameHandling = TypeNameHandling.All
+                                });
+                            _shapes = desirialized;
 
-                        pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                            Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+                            foreach (var shape in _shapes)
+                            {
+                                shape.Draw();
+                            }
+
+                            pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                        }
+                    }
+                    else
+                    {
+                        pictureBox1.Image = new Bitmap(ofd.FileName);
                     }
                 }
                 catch
