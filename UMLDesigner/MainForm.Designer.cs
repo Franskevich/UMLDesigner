@@ -361,7 +361,6 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonAssociation);
             this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Best UML application";
             this.Load += new System.EventHandler(this.MainForm_Load);
