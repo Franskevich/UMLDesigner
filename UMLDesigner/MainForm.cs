@@ -36,7 +36,7 @@ namespace UMLDesigner
         MyGraphics _graphics;
         private Point _clickPoint;
         private Point _movePoint;
-        JsonSerializerOptions options;
+        JsonSerializerOptions options;      
 
         bool _changerText = false;
 
@@ -79,7 +79,30 @@ namespace UMLDesigner
                 _clickPoint = e.Location;
                 SelectShape();
             }
-            else if(!(_currentFactory is null))
+            else if (_act == ActShapes.ChangeText)
+            {
+                _currentShape = PickOut(e);
+
+                if (_currentShape is AbstractRectangle)
+                {
+                    FormForText formText = new FormForText((AbstractRectangle)_currentShape);
+                    formText.ShowDialog();
+                    Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+
+                    MyGraphics.GetInstance().GetMainGraphics();
+
+                    foreach (var shape in _shapes)
+                    {
+                        shape.Draw();
+                    }
+                    pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    MyGraphics.GetInstance().GetTmpGraphics();
+                   // _currentShape.Draw();
+                    //MyGraphics.GetInstance().SetImageToMainBitmap();
+                }
+            }
+
+            else if (!(_currentFactory is null))
             {
                 if (_currentShape is AbstractPointer)
                 {
@@ -527,6 +550,12 @@ namespace UMLDesigner
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void buttonChangeText_Click(object sender, EventArgs e)
+        {
+            _act = ActShapes.ChangeText;
         }
     }
 }

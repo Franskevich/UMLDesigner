@@ -12,16 +12,23 @@ using UMLDesigner.Shapes.Rectangles;
 
 namespace UMLDesigner
 {
-    class AbstractRectangle : IShape
+    public class AbstractRectangle : IShape
     {
         public IRectangle _typeRectangle { get; set; }
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
+
         public Font NameFont = new Font("Arial", 18);
-        public Font ArgumentFont = new Font("Arial", 16);
+        public Font ArgumentFont = new Font("Arial", 13);
         
+        public string Name { get; set; }
+        public string Properties { get; set; }
+        public string Fields { get; set; }
+        public string Methods { get; set; }
+
+
         public List<AbstractPointer> ConnectionsStart { get; set; }
         public List<AbstractPointer> ConnectionsEnd { get; set; }
 
@@ -29,21 +36,21 @@ namespace UMLDesigner
         public int line = 4;
 
         public bool _endCreate = false;
-        public AbstractRectangle(IRectangle typeRectangle)
+        public AbstractRectangle(IRectangle typeRectangle, string name)
         {
+            Name = name;
             _typeRectangle = typeRectangle;
             _endCreate = false;
             Color = Color.Black;
             PenWidth = 1;
-            EndPoint = new Point(160, 220);
+            EndPoint = new Point(180, 220);
             ConnectionsStart = new List<AbstractPointer>();
             ConnectionsEnd = new List<AbstractPointer>();
-
         }
 
         public void Draw()
         {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, 4, NameFont, ArgumentFont);
+            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -82,6 +89,14 @@ namespace UMLDesigner
             graphics.DrawRectangle(_pen, startPoint.X, startPoint.Y, size.X, size.Y);
         }
 
+        public void ChangeText(string name, string properties, string fields, string methods)
+        {
+            Name = name;
+            Properties = properties;
+            Fields = fields;
+            Methods = methods;
+        }
+
         public Point PickPoint(MouseEventArgs e)
         {
             //DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
@@ -111,8 +126,6 @@ namespace UMLDesigner
             MyGraphics.GetInstance().GetMainGraphics();
             Draw();
             MyGraphics.GetInstance().SetImageToTmpBitmap();
-
-
         }
 
         public void ChangeShape(Point point, int deltaX, int deltaY)
