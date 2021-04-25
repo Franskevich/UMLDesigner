@@ -37,35 +37,9 @@ namespace UMLDesigner.Shapes.Rectangles
             currentTmpGraphics.DrawRectangle(_pen, nameRect);
             currentTmpGraphics.DrawRectangle(_pen, methodRect);
 
-            DrawTextName(nameRect, nameFont, color, name);
-            DrawText(methodRect, argumentFont, color, methods);           
+            TextDrawing.DrawTextName(nameRect, nameFont, color, name);
+            TextDrawing.DrawText(methodRect, argumentFont, color, methods);           
         }
-        public void DrawTextName(Rectangle nameRect, Font nameFont, Color color, string name)
-        {
-            SolidBrush brush = new SolidBrush(color);
 
-            MyGraphics.GetInstance().GetMainGraphics();
-            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
-
-            StringFormat stringFormat = new StringFormat();
-            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            stringFormat.Alignment = StringAlignment.Center;
-            stringFormat.LineAlignment = StringAlignment.Center;
-
-            currentTmpGraphics.DrawString(name, nameFont, brush, nameRect, stringFormat);
-        }
-        public void DrawText(Rectangle rectangle, Font font, Color color, string text)
-        {
-            MyGraphics.GetInstance().GetMainGraphics();
-
-            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
-
-            StringFormat _stringFormat = new StringFormat();
-            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            _stringFormat.Alignment = StringAlignment.Near;
-            _stringFormat.LineAlignment = StringAlignment.Near;
-
-            currentTmpGraphics.DrawString(text, font, new SolidBrush(color), rectangle, _stringFormat);
-        }
     }
 }

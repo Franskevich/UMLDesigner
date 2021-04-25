@@ -67,12 +67,11 @@ namespace UMLDesigner.Shapes.Rectangles
             currentTmpGraphics.DrawRectangle(_pen, _fieldsRect);
             currentTmpGraphics.DrawRectangle(_pen, _methodRect);
 
-            DrawTextName(_nameRect, nameFont, color, name);
-            DrawText(_propertiesRect, argumentFont, color, properties);
-            DrawText(_fieldsRect, argumentFont, color, fields);
-            DrawText(_methodRect, argumentFont, color, methods);
+            TextDrawing.DrawTextName(_nameRect, nameFont, color, name);
+            TextDrawing.DrawText(_propertiesRect, argumentFont, color, properties);
+            TextDrawing.DrawText(_fieldsRect, argumentFont, color, fields);
+            TextDrawing.DrawText(_methodRect, argumentFont, color, methods);
 
-            
             
             int smalLineY = 10;
             int indentLastX = 15;
@@ -195,35 +194,6 @@ namespace UMLDesigner.Shapes.Rectangles
             graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle), (startPoint.Y - smallLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical));
             graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical + bigLineVertical));
             graphics.DrawLine(pen, (startPoint.X + size.X - indentRectangle - bigLineHorizontal), (startPoint.Y - smallLineVertical + bigLineVertical), (startPoint.X + size.X - indentRectangle - bigLineHorizontal + indentRectangle), (startPoint.Y - smallLineVertical + bigLineVertical));
-        }
-        public void DrawTextName(Rectangle _nameRect, Font nameFont, Color color, string name)
-        {
-            var _brush = Brushes.Red;
-
-            MyGraphics.GetInstance().GetMainGraphics();
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
-
-            StringFormat _stringFormat = new StringFormat();
-            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            _stringFormat.Alignment = StringAlignment.Center;
-            _stringFormat.LineAlignment = StringAlignment.Center;
-
-            currentTmpGraphics.DrawString(name, nameFont, _brush, _nameRect, _stringFormat);
-        }
-
-        public void DrawText(Rectangle rectangle, Font font, Color color, string text)
-        {
-
-            MyGraphics.GetInstance().GetMainGraphics();
-
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
-
-            StringFormat _stringFormat = new StringFormat();
-            currentTmpGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            _stringFormat.Alignment = StringAlignment.Near;
-            _stringFormat.LineAlignment = StringAlignment.Near;
-
-            currentTmpGraphics.DrawString(text, font, new SolidBrush(color), rectangle, _stringFormat);
         }
     }
 }
