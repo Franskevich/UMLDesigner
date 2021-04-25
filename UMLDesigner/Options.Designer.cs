@@ -43,10 +43,19 @@ namespace UMLDesigner
             // comboBoxTypeArrow
             // 
             this.comboBoxTypeArrow.FormattingEnabled = true;
+            this.comboBoxTypeArrow.Items.AddRange(new object[] {
+            "Association",
+            "Aggregation 1",
+            "Aggregation 2",
+            "Composition 1",
+            "Composition 2",
+            "Implementation",
+            "Inheritance"});
             this.comboBoxTypeArrow.Location = new System.Drawing.Point(89, 30);
             this.comboBoxTypeArrow.Name = "comboBoxTypeArrow";
             this.comboBoxTypeArrow.Size = new System.Drawing.Size(150, 23);
             this.comboBoxTypeArrow.TabIndex = 0;
+            this.comboBoxTypeArrow.SelectedIndexChanged += new System.EventHandler(this.comboBoxTypeArrow_SelectedIndexChanged);
             // 
             // buttonColor
             // 
@@ -85,6 +94,7 @@ namespace UMLDesigner
             this.buttonDelete.TabIndex = 5;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // trackBarWidthLine
             // 

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UMLDesigner.Interfaces;
-using UMLDesigner.Shapes.Arrows;
 
 namespace UMLDesigner.Shapes
 {

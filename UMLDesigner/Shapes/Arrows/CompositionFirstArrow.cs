@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UMLDesigner.Shapes.Arrows
+namespace UMLDesigner
 {
     public class CompositionFirstArrow : IArrow
     {
