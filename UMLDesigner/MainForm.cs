@@ -79,7 +79,6 @@ namespace UMLDesigner
                 _clickPoint = e.Location;
                 SelectShape();
             }
-            else if (_act == ActShapes.ChangeText)
             else if (_act == ActShapes.Move && e.Button == MouseButtons.Right )
             {
                 _currentShape = PickOut(e);
@@ -94,7 +93,6 @@ namespace UMLDesigner
                 {
 
                 }
-
                 _currentShape = null;
                 _currentFactory = null;
                 MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
@@ -103,15 +101,13 @@ namespace UMLDesigner
                     shape.Draw();
                 }
                 MyGraphics.GetInstance().SetImageToMainBitmap();
-
             }
-
-            else if(!(_currentFactory is null))
+            else if(_act == ActShapes.ChangeText)
             {
                 _currentShape = PickOut(e);
-
                 if (_currentShape is AbstractRectangle)
                 {
+
                     FormForText formText = new FormForText((AbstractRectangle)_currentShape);
                     formText.ShowDialog();
                     Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
@@ -124,11 +120,10 @@ namespace UMLDesigner
                     }
                     pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                     MyGraphics.GetInstance().GetTmpGraphics();
-                   // _currentShape.Draw();
+                    // _currentShape.Draw();
                     //MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
             }
-
             else if (!(_currentFactory is null))
             {
                 if (_currentShape is AbstractPointer)
