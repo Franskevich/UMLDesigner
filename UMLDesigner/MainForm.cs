@@ -484,6 +484,10 @@ namespace UMLDesigner
             {
 
                 SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Title = "Сохранить картинку как...";
+                sfd.OverwritePrompt = true;
+                sfd.CheckPathExists = true;
+                sfd.Filter = 
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
