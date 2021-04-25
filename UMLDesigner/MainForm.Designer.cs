@@ -29,6 +29,7 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -360,6 +361,7 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonAssociation);
             this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Black;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Best UML application";
             this.Load += new System.EventHandler(this.MainForm_Load);
