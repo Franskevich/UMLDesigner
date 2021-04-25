@@ -16,7 +16,7 @@ namespace UMLDesigner
     {
         public IRectangle _typeRectangle { get; set; }
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point SizeRectangle { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
@@ -36,21 +36,30 @@ namespace UMLDesigner
         public int line = 4;
 
         public bool _endCreate = false;
-        public AbstractRectangle(IRectangle typeRectangle, string name)
+        public AbstractRectangle(IRectangle typeRectangle, string name, Point sizeRectangle)
         {
             Name = name;
             _typeRectangle = typeRectangle;
             _endCreate = false;
             Color = Color.Black;
             PenWidth = 1;
-            EndPoint = new Point(180, 220);
+            if(_typeRectangle is ClassRectangle)
+            {
+                SizeRectangle = new Point(180, 190);
+            }
+            else
+            {
+                SizeRectangle = sizeRectangle;
+            }
+
+
             ConnectionsStart = new List<AbstractPointer>();
             ConnectionsEnd = new List<AbstractPointer>();
         }
 
         public void Draw()
         {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods);
+            _typeRectangle.Draw(Color, PenWidth, StartPoint, SizeRectangle, ArgumentFont, Name, Properties, Fields, Methods);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -65,7 +74,7 @@ namespace UMLDesigner
         {
             if (_endCreate == false)
             {
-                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, new Point(160, 220));
+                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, SizeRectangle);
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
             }
             else
@@ -111,15 +120,15 @@ namespace UMLDesigner
 
             foreach (AbstractPointer pointer in ConnectionsEnd)
             {
-                pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y + deltaY);
-                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
-                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
+                pointer.SizeRectangle = new Point(pointer.SizeRectangle.X + deltaX, pointer.SizeRectangle.Y + deltaY);
+                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.SizeRectangle.X) / 2, pointer.StartPoint.Y);
+                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.SizeRectangle.X) / 2, pointer.SizeRectangle.Y);
             }
             foreach (AbstractPointer pointer in ConnectionsStart)
             {
                 pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y + deltaY);
-                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
-                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
+                pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.SizeRectangle.X) / 2, pointer.StartPoint.Y);
+                pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.SizeRectangle.X) / 2, pointer.SizeRectangle.Y);
             }
             //Draw();
 

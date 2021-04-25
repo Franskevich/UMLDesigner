@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new InterfaceRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "<Interface>");
+            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "<Interface>", new Point(180, 160));
             return shape;
         }
     }

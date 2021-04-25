@@ -37,7 +37,6 @@ namespace UMLDesigner
         private Point _clickPoint;
         private Point _movePoint;
         JsonSerializerOptions options;      
-
         bool _changerText = false;
 
         public MainForm()
@@ -252,7 +251,7 @@ namespace UMLDesigner
                 AbstractPointer tpmPointer = (AbstractPointer)_currentShape;
                 Graphics tmpGraphics = MyGraphics.GetInstance().GetTmpGraphics();
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.StartPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.StartPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
-                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.EndPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.EndPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
+                tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.SizeRectangle.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.SizeRectangle.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint1.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.InsidePoint1.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint2.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.InsidePoint2.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
@@ -278,9 +277,9 @@ namespace UMLDesigner
                 if(_currentShape is AbstractRectangle)
                 {
                     if(e.Location.X > _currentShape.StartPoint.X &&
-                        e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
+                        e.Location.X < _currentShape.StartPoint.X + _currentShape.SizeRectangle.X &&
                         e.Location.Y > _currentShape.StartPoint.Y &&
-                        e.Location.Y < _currentShape.StartPoint.Y + _currentShape.EndPoint.Y)
+                        e.Location.Y < _currentShape.StartPoint.Y + _currentShape.SizeRectangle.Y)
                     {
                         return _currentShape;
                     }
@@ -291,7 +290,7 @@ namespace UMLDesigner
                     Point point1 = tmpPointer.StartPoint;
                     Point point2 = tmpPointer.InsidePoint1;
                     Point point3 = tmpPointer.InsidePoint2;
-                    Point point4 = tmpPointer.EndPoint;
+                    Point point4 = tmpPointer.SizeRectangle;
 
                     if(point1.X > point4.X)
                     {
@@ -499,8 +498,12 @@ namespace UMLDesigner
             _currentShape = null;
             _currentFactory = null;
 
-            _shapes.RemoveAt(_shapes.Count - 1);
-            MyGraphics.GetInstance().GetMainGraphics();
+            if (_shapes.Count != 0)
+            {
+                _shapes.RemoveAt(_shapes.Count - 1);
+                MyGraphics.GetInstance().GetMainGraphics();
+            }
+
 
             foreach (var shape in _shapes)
             {

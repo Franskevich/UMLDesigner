@@ -12,7 +12,7 @@ namespace UMLDesigner
     {
         private ActShapes _act;
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }   
+        public Point SizeRectangle { get; set; }   
         public Color Color { get; set; }
         public int PenWidth { get; set; }
         public PointerShape(Color color, int penWidth, ActShapes act)
@@ -27,37 +27,37 @@ namespace UMLDesigner
             Color = color;
             PenWidth = penWidth;
             StartPoint = startPoint;
-            EndPoint = new Point(StartPoint.X + 1, StartPoint.Y + 1);
+            SizeRectangle = new Point(StartPoint.X + 1, StartPoint.Y + 1);
         }
         public PointerShape()
         {
             StartPoint = new Point(0, 0);
-            EndPoint = new Point(0, 0);
+            SizeRectangle = new Point(0, 0);
         }
         public void Draw(Graphics graphics)
         {
             switch (_act)
             {
                 case ActShapes.Association:
-                    MakeAssociation(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    MakeAssociation(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.Inheritance:
-                    MakeInheritance(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    MakeInheritance(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.Implementation:
-                    MakeImplementation(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    MakeImplementation(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.AggregationFirst: 
-                    MakeAggregation(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    MakeAggregation(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.AggregationSecond: 
-                    MakeAggregation(Color, PenWidth, graphics, StartPoint, EndPoint, false);
+                    MakeAggregation(Color, PenWidth, graphics, StartPoint, SizeRectangle, false);
                     break;
                 case ActShapes.CompositionFirst: 
-                    MakeComposition(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    MakeComposition(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.CompositionSecond: 
-                    MakeComposition(Color, PenWidth, graphics, StartPoint, EndPoint, false);
+                    MakeComposition(Color, PenWidth, graphics, StartPoint, SizeRectangle, false);
                     break;
             }
         }
@@ -69,15 +69,15 @@ namespace UMLDesigner
             Pen pen = new Pen(color, penWidth);
 
 
-            if (EndPoint.X > StartPoint.X)
+            if (SizeRectangle.X > StartPoint.X)
             {
-                Point[] curvePoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X - height, EndPoint.Y + width) };                         
+                Point[] curvePoints = { new Point(SizeRectangle.X - height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };                         
                 graphics.DrawLines(pen, curvePoints);
                 graphics.DrawLines(pen, GetPoints().ToArray());
             }
             else
             {
-                Point[] curvePoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X + height, EndPoint.Y + width) };
+                Point[] curvePoints = { new Point(SizeRectangle.X + height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                 graphics.DrawLines(pen, curvePoints);
                 graphics.DrawLines(pen, GetPoints().ToArray());
             }
@@ -89,15 +89,15 @@ namespace UMLDesigner
 
             Pen pen = new Pen(color, penWidth);
             
-            if (EndPoint.X > StartPoint.X)
+            if (SizeRectangle.X > StartPoint.X)
             {
-                Point[] curvePoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X - height, EndPoint.Y + width) };
+                Point[] curvePoints = { new Point(SizeRectangle.X - height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                 graphics.DrawPolygon(pen, curvePoints);
                 graphics.DrawLines(pen, GetPoints(height).ToArray());
             }
             else
             {
-                Point[] curvePoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X + height, EndPoint.Y + width) };
+                Point[] curvePoints = { new Point(SizeRectangle.X + height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                 graphics.DrawPolygon(pen, curvePoints);
                 graphics.DrawLines(pen, GetPoints(-height).ToArray());
             }            
@@ -114,15 +114,15 @@ namespace UMLDesigner
 
             Pen penArrow = new Pen(color, penWidth);
 
-            if (EndPoint.X > StartPoint.X)
+            if (SizeRectangle.X > StartPoint.X)
             {
-                Point[] curvePoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X - height, EndPoint.Y + width) };
+                Point[] curvePoints = { new Point(SizeRectangle.X - height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                 graphics.DrawPolygon(penArrow, curvePoints);
                 graphics.DrawLines(penDash, GetPoints(height).ToArray());
             }
             else
             {
-                Point[] curvePoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X + height, EndPoint.Y + width) };
+                Point[] curvePoints = { new Point(SizeRectangle.X + height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                 graphics.DrawPolygon(penArrow, curvePoints);
                 graphics.DrawLines(penDash, GetPoints(-height).ToArray());
             }            
@@ -139,15 +139,15 @@ namespace UMLDesigner
             if (version == true)
             {
  
-                if (EndPoint.X > StartPoint.X)
+                if (SizeRectangle.X > StartPoint.X)
                 {
-                    Point[] curvePoints = { EndPoint, new Point(EndPoint.X - height, EndPoint.Y - width), new Point(EndPoint.X - 2 * height, EndPoint.Y), new Point(EndPoint.X - height, EndPoint.Y + width) };
+                    Point[] curvePoints = { SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y - width), new Point(SizeRectangle.X - 2 * height, SizeRectangle.Y), new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(2 * height).ToArray());
                 }
                 else
                 {
-                    Point[] curvePoints = { EndPoint, new Point(EndPoint.X + height, EndPoint.Y - width), new Point(EndPoint.X + 2 * height, EndPoint.Y), new Point(EndPoint.X + height, EndPoint.Y + width) };
+                    Point[] curvePoints = { SizeRectangle, new Point(SizeRectangle.X + height, SizeRectangle.Y - width), new Point(SizeRectangle.X + 2 * height, SizeRectangle.Y), new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(-2 * height).ToArray());
                 }                
@@ -156,13 +156,13 @@ namespace UMLDesigner
             {
     
 
-                if (EndPoint.X > startPoint.X) 
+                if (SizeRectangle.X > startPoint.X) 
                 {
                     Point[] curvePoints = { StartPoint, new Point(StartPoint.X + height, StartPoint.Y - width), new Point(StartPoint.X + 2 * height, StartPoint.Y), new Point(StartPoint.X + height, StartPoint.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(0, -2 * height).ToArray());
 
-                    Point[] arrowPoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint, new Point(EndPoint.X - height, EndPoint.Y + width) };
+                    Point[] arrowPoints = { new Point(SizeRectangle.X - height, SizeRectangle.Y - width), SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                     graphics.DrawLines(pen, arrowPoints);
                 }
                 else
@@ -171,7 +171,7 @@ namespace UMLDesigner
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(0, 2 * height).ToArray());
 
-                    Point[] arrowPoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint,  new Point(EndPoint.X + height, EndPoint.Y + width) };
+                    Point[] arrowPoints = { new Point(SizeRectangle.X + height, SizeRectangle.Y - width), SizeRectangle,  new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                     graphics.DrawLines(pen, arrowPoints);
                 }
 
@@ -190,16 +190,16 @@ namespace UMLDesigner
             {
   
 
-                if (EndPoint.X > StartPoint.X)
+                if (SizeRectangle.X > StartPoint.X)
                 {
-                    Point[] curvePoints = { EndPoint, new Point(EndPoint.X - height, EndPoint.Y - width), new Point(EndPoint.X - 2 * height, EndPoint.Y), new Point(EndPoint.X - height, EndPoint.Y + width) };
+                    Point[] curvePoints = { SizeRectangle, new Point(SizeRectangle.X - height, SizeRectangle.Y - width), new Point(SizeRectangle.X - 2 * height, SizeRectangle.Y), new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(2 * height).ToArray());
                     graphics.FillPolygon(brush, curvePoints);
                 }
                 else
                 {
-                    Point[] curvePoints = { EndPoint, new Point(EndPoint.X + height, EndPoint.Y - width), new Point(EndPoint.X + 2 * height, EndPoint.Y), new Point(EndPoint.X + height, EndPoint.Y + width) };
+                    Point[] curvePoints = { SizeRectangle, new Point(SizeRectangle.X + height, SizeRectangle.Y - width), new Point(SizeRectangle.X + 2 * height, SizeRectangle.Y), new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(-2 * height).ToArray());
                     graphics.FillPolygon(brush, curvePoints);
@@ -209,13 +209,13 @@ namespace UMLDesigner
             {
 
 
-                if (EndPoint.X > startPoint.X)
+                if (SizeRectangle.X > startPoint.X)
                 {
                     Point[] curvePoints = { StartPoint, new Point(StartPoint.X + height, StartPoint.Y - width), new Point(StartPoint.X + 2 * height, StartPoint.Y), new Point(StartPoint.X + height, StartPoint.Y + width) };
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(0, -2 * height).ToArray());
 
-                    Point[] arrowPoints = { new Point(EndPoint.X - height, EndPoint.Y - width), EndPoint,  new Point(EndPoint.X - height, EndPoint.Y + width) };
+                    Point[] arrowPoints = { new Point(SizeRectangle.X - height, SizeRectangle.Y - width), SizeRectangle,  new Point(SizeRectangle.X - height, SizeRectangle.Y + width) };
                     graphics.DrawLines(pen, arrowPoints);
                     graphics.FillPolygon(brush, curvePoints);
                 }
@@ -225,7 +225,7 @@ namespace UMLDesigner
                     graphics.DrawPolygon(pen, curvePoints);
                     graphics.DrawLines(pen, GetPoints(0, 2 * height).ToArray());
 
-                    Point[] arrowPoints = { new Point(EndPoint.X + height, EndPoint.Y - width), EndPoint,new Point(EndPoint.X + height, EndPoint.Y + width) };
+                    Point[] arrowPoints = { new Point(SizeRectangle.X + height, SizeRectangle.Y - width), SizeRectangle,new Point(SizeRectangle.X + height, SizeRectangle.Y + width) };
                     graphics.DrawLines(pen, arrowPoints);
                     graphics.FillPolygon(brush, curvePoints);
                 }
@@ -238,10 +238,10 @@ namespace UMLDesigner
 
             //if()
             points.Add(new Point(StartPoint.X - startLineCutter, StartPoint.Y));
-            int middleX = (StartPoint.X + EndPoint.X) / 2;
+            int middleX = (StartPoint.X + SizeRectangle.X) / 2;
             points.Add(new Point(middleX, StartPoint.Y));
-            points.Add(new Point(middleX, EndPoint.Y));
-            points.Add(new Point(EndPoint.X - endLineCutter, EndPoint.Y));
+            points.Add(new Point(middleX, SizeRectangle.Y));
+            points.Add(new Point(SizeRectangle.X - endLineCutter, SizeRectangle.Y));
             return points;
         }
 

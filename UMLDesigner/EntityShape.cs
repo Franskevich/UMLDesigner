@@ -12,7 +12,7 @@ namespace UMLDesigner
     {
         private ActShapes _act;
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point SizeRectangle { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
@@ -28,37 +28,37 @@ namespace UMLDesigner
             PenWidth = penWidth;
             _act = act;
             StartPoint = startPoint;
-            EndPoint = new Point(160, 220);
+            SizeRectangle = new Point(160, 220);
         }
         public EntityShape()
         {
             StartPoint = new Point(0, 0);
-            EndPoint = new Point(0, 0);
+            SizeRectangle = new Point(0, 0);
         }
         public void Draw(Graphics graphics)
         {
             switch (_act)
             {
                 case ActShapes.Class: 
-                    DrawClassEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawClassEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.Interface: 
-                    DrawInterfaceEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawInterfaceEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.StackClass: 
-                    DrawClassWithFourEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawClassWithFourEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     AddShadowLinesRectangle(Color, PenWidth, graphics, StartPoint, 10, 15);
                     Point _p = new Point((StartPoint.X - 15), (StartPoint.Y - 10));
                     AddShadowLinesRectangle(Color, PenWidth, graphics, _p, 10, 15);
                     break;
                 case ActShapes.ClassWithFourRectangle: 
-                    DrawClassWithFourEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawClassWithFourEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.Structure: 
-                    DrawClassEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawClassEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
                 case ActShapes.Delegate: 
-                    DrawInterfaceEntity(Color, PenWidth, graphics, StartPoint, EndPoint);
+                    DrawInterfaceEntity(Color, PenWidth, graphics, StartPoint, SizeRectangle);
                     break;
             }
         }
@@ -120,13 +120,13 @@ namespace UMLDesigner
             Pen _pen = new Pen(color, penWidth);
             int _smallLineVertical = smalLineY;
             int _indentRectangle = indentLastX;
-            int _bigLineHorizontal = EndPoint.X;
-            int _bigLineVertical = EndPoint.Y;
+            int _bigLineHorizontal = SizeRectangle.X;
+            int _bigLineVertical = SizeRectangle.Y;
 
-            graphics.DrawLine(_pen, (startPoint.X + EndPoint.X - _indentRectangle), (startPoint.Y), (startPoint.X + EndPoint.X - _indentRectangle), (startPoint.Y - _smallLineVertical));
-            graphics.DrawLine(_pen, (startPoint.X + EndPoint.X - _indentRectangle), (startPoint.Y - _smallLineVertical), (startPoint.X + EndPoint.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical));
-            graphics.DrawLine(_pen, (startPoint.X + EndPoint.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical), (startPoint.X + EndPoint.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical + _bigLineVertical));
-            graphics.DrawLine(_pen, (startPoint.X + EndPoint.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical + _bigLineVertical), (startPoint.X + EndPoint.X - _indentRectangle - _bigLineHorizontal + _indentRectangle), (startPoint.Y - _smallLineVertical + _bigLineVertical));
+            graphics.DrawLine(_pen, (startPoint.X + SizeRectangle.X - _indentRectangle), (startPoint.Y), (startPoint.X + SizeRectangle.X - _indentRectangle), (startPoint.Y - _smallLineVertical));
+            graphics.DrawLine(_pen, (startPoint.X + SizeRectangle.X - _indentRectangle), (startPoint.Y - _smallLineVertical), (startPoint.X + SizeRectangle.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical));
+            graphics.DrawLine(_pen, (startPoint.X + SizeRectangle.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical), (startPoint.X + SizeRectangle.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical + _bigLineVertical));
+            graphics.DrawLine(_pen, (startPoint.X + SizeRectangle.X - _indentRectangle - _bigLineHorizontal), (startPoint.Y - _smallLineVertical + _bigLineVertical), (startPoint.X + SizeRectangle.X - _indentRectangle - _bigLineHorizontal + _indentRectangle), (startPoint.Y - _smallLineVertical + _bigLineVertical));
         }
         public static void DrawDashEntity(Color color, float penWidth, Graphics graphics, Point startPoint, Point size)
         {
@@ -155,9 +155,9 @@ namespace UMLDesigner
             int yMin;
 
             xMin = StartPoint.X;
-            xMax = StartPoint.X + EndPoint.X;
+            xMax = StartPoint.X + SizeRectangle.X;
             yMin = StartPoint.Y;
-            yMax = StartPoint.Y + EndPoint.Y;
+            yMax = StartPoint.Y + SizeRectangle.Y;
 
             if (point.X <= xMax && point.X >= xMin
              && point.Y <= yMax && point.Y >= yMin)

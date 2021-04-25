@@ -11,7 +11,7 @@ namespace UMLDesigner
     public interface IShape
     {
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point SizeRectangle { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 

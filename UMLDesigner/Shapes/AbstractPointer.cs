@@ -14,7 +14,7 @@ namespace UMLDesigner
         public ILine _typeLine { get; set; }
 
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point SizeRectangle { get; set; }
         public Point InsidePoint1 { get; set; }
         public Point InsidePoint2 { get; set; }
         public Color Color { get; set; }
@@ -35,8 +35,8 @@ namespace UMLDesigner
 
         public void Draw()
         {
-            _typeLine.Draw(Color, PenWidth, StartPoint, InsidePoint1, InsidePoint2, EndPoint);
-            _typeArrow.Draw(Color, PenWidth, StartPoint, EndPoint);
+            _typeLine.Draw(Color, PenWidth, StartPoint, InsidePoint1, InsidePoint2, SizeRectangle);
+            _typeArrow.Draw(Color, PenWidth, StartPoint, SizeRectangle);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -54,9 +54,9 @@ namespace UMLDesigner
             if (!_drawArrow)
             {
 
-                EndPoint = e.Location;
-                InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
-                InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+                SizeRectangle = e.Location;
+                InsidePoint1 = new Point((StartPoint.X + SizeRectangle.X) / 2, StartPoint.Y);
+                InsidePoint2 = new Point((StartPoint.X + SizeRectangle.X) / 2, SizeRectangle.Y);
 
                 MyGraphics.GetInstance().GetTmpGraphics();
                 Draw();
@@ -65,7 +65,7 @@ namespace UMLDesigner
             }
             else
             {
-                if(StartPoint.X != 0 && StartPoint.Y != 0 && EndPoint.X != 0 && EndPoint.Y != 0)
+                if(StartPoint.X != 0 && StartPoint.Y != 0 && SizeRectangle.X != 0 && SizeRectangle.Y != 0)
                 {
                     MyGraphics.GetInstance().GetMainGraphics();
                     Draw();
@@ -132,17 +132,16 @@ namespace UMLDesigner
                 {
                     AbstractRectangle rectangle = (AbstractRectangle)shape;
                     if (clickPoint.X > rectangle.StartPoint.X && 
-                    clickPoint.X < rectangle.StartPoint.X + rectangle.EndPoint.X &&
+                    clickPoint.X < rectangle.StartPoint.X + rectangle.SizeRectangle.X &&
                     clickPoint.Y > rectangle.StartPoint.Y &&
-                    clickPoint.Y < rectangle.StartPoint.Y + rectangle.EndPoint.Y)
+                    clickPoint.Y < rectangle.StartPoint.Y + rectangle.SizeRectangle.Y)
                     {
                         if (_drawArrow)
                         {
-
                             StartPoint = new Point(rectangle.StartPoint.X+80, clickPoint.Y);
-                            EndPoint = clickPoint;
-                            InsidePoint1 = new Point((StartPoint.X+EndPoint.X) / 2, StartPoint.Y);
-                            InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
+                            SizeRectangle = clickPoint;
+                            InsidePoint1 = new Point((StartPoint.X+SizeRectangle.X) / 2, StartPoint.Y);
+                            InsidePoint2 = new Point((StartPoint.X + SizeRectangle.X) / 2, SizeRectangle.Y);
 
                             rectangle.ConnectionsStart.Add(this);
                             _drawArrow = false;
@@ -157,23 +156,23 @@ namespace UMLDesigner
                                 if(rectangle.StartPoint.X + 80 < StartPoint.X)
                                 {
                                     StartPoint = new Point(StartPoint.X - 80, StartPoint.Y);
-                                    EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
+                                    SizeRectangle = new Point(rectangle.StartPoint.X, clickPoint.Y);
                                 }
                                 else
                                 {
                                     StartPoint = new Point(StartPoint.X + 80, StartPoint.Y);
-                                    EndPoint = new Point(rectangle.StartPoint.X + 160, clickPoint.Y);
+                                    SizeRectangle = new Point(rectangle.StartPoint.X + 160, clickPoint.Y);
                                 }
                             }
                             else if (StartPoint.X < rectangle.StartPoint.X + 80) 
                             {
                                 StartPoint = new Point(StartPoint.X + 80, StartPoint.Y);
-                                EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
+                                SizeRectangle = new Point(rectangle.StartPoint.X, clickPoint.Y);
                             }
                             else
                             {
                                 StartPoint = new Point(StartPoint.X - 80, StartPoint.Y);
-                                EndPoint = new Point(rectangle.StartPoint.X+160, clickPoint.Y);
+                                SizeRectangle = new Point(rectangle.StartPoint.X+160, clickPoint.Y);
 
                             }
 
@@ -181,7 +180,6 @@ namespace UMLDesigner
 
                             _drawArrow = true;
                             _endCreate = true;
-
 
                         }
                         break;
@@ -205,7 +203,7 @@ namespace UMLDesigner
                 point2 = tmpPoint;
             }
 
-            if (EndPoint.X > StartPoint.X)
+            if (SizeRectangle.X > StartPoint.X)
             {
 
                 if (e.Location.X > StartPoint.X &&
@@ -216,11 +214,11 @@ namespace UMLDesigner
                     shangePoint = StartPoint;
                 }
                 else if (e.Location.X > InsidePoint2.X &&
-                    e.Location.X < EndPoint.X &&
-                    e.Location.Y < EndPoint.Y + 10 &&
-                    e.Location.Y > EndPoint.Y - 10)
+                    e.Location.X < SizeRectangle.X &&
+                    e.Location.Y < SizeRectangle.Y + 10 &&
+                    e.Location.Y > SizeRectangle.Y - 10)
                 {
-                    shangePoint = EndPoint;
+                    shangePoint = SizeRectangle;
                 } 
             }
             else
@@ -233,11 +231,11 @@ namespace UMLDesigner
                     shangePoint = StartPoint;
                 }
                 else if (e.Location.X < InsidePoint2.X &&
-                        e.Location.X > EndPoint.X &&
-                        e.Location.Y < EndPoint.Y + 10 &&
-                        e.Location.Y > EndPoint.Y - 10)
+                        e.Location.X > SizeRectangle.X &&
+                        e.Location.Y < SizeRectangle.Y + 10 &&
+                        e.Location.Y > SizeRectangle.Y - 10)
                 {
-                    shangePoint = EndPoint;
+                    shangePoint = SizeRectangle;
                 }
             }
 
@@ -267,9 +265,9 @@ namespace UMLDesigner
                 InsidePoint1 = new Point(InsidePoint1.X, InsidePoint1.Y + deltaY);
 
             }
-            else if (movePoint == EndPoint)
+            else if (movePoint == SizeRectangle)
             {
-                EndPoint = new Point(EndPoint.X, EndPoint.Y + deltaY);
+                SizeRectangle = new Point(SizeRectangle.X, SizeRectangle.Y + deltaY);
                 InsidePoint2 = new Point(InsidePoint2.X, InsidePoint2.Y + deltaY );
 
             }
