@@ -29,6 +29,9 @@ namespace UMLDesigner
             trackBarWidth.Value = _currentRectangle.PenWidth;
             buttonColor.BackColor = _currentRectangle.Color;
 
+            ToolTip tAssociation = new ToolTip();
+            tAssociation.SetToolTip(trackBarWidth, "Width Line");
+
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
@@ -93,6 +96,7 @@ namespace UMLDesigner
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             MainForm.DeleteShape(_currentRectangle, MyGraphics.GetInstance().Shapes);
+            this.Close();
         }
     }
 }

@@ -85,6 +85,8 @@ namespace UMLDesigner
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             MainForm.DeleteShape(_currentShape, MyGraphics.GetInstance().Shapes);
+            this.Close();
+
         }
 
         private void comboBoxTypeArrow_SelectedIndexChanged(object sender, EventArgs e)

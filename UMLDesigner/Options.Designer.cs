@@ -128,6 +128,7 @@ namespace UMLDesigner
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonColor);
             this.Controls.Add(this.comboBoxTypeArrow);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Options";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.Options_Load);
