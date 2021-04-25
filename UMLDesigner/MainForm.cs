@@ -102,26 +102,28 @@ namespace UMLDesigner
                 }
                 MyGraphics.GetInstance().SetImageToMainBitmap();
             }
-
-            if (_act == ActShapes.ChangeText && _currentShape is null)
+            else if(_act == ActShapes.ChangeText)
             {
                 _currentShape = PickOut(e);
-                FormForText formText = new FormForText((AbstractRectangle)_currentShape);
-                formText.ShowDialog();
-                Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
-
-                MyGraphics.GetInstance().GetMainGraphics();
-
-                foreach (var shape in _shapes)
+                if (_currentShape is AbstractRectangle)
                 {
-                    shape.Draw();
-                }
-                pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
-                MyGraphics.GetInstance().GetTmpGraphics();
-                // _currentShape.Draw();
-                //MyGraphics.GetInstance().SetImageToMainBitmap();
-            }
 
+                    FormForText formText = new FormForText((AbstractRectangle)_currentShape);
+                    formText.ShowDialog();
+                    Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+
+                    MyGraphics.GetInstance().GetMainGraphics();
+
+                    foreach (var shape in _shapes)
+                    {
+                        shape.Draw();
+                    }
+                    pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                    MyGraphics.GetInstance().GetTmpGraphics();
+                    // _currentShape.Draw();
+                    //MyGraphics.GetInstance().SetImageToMainBitmap();
+                }
+            }
             else if (!(_currentFactory is null))
             {
                 if (_currentShape is AbstractPointer)
