@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace UMLDesigner
 {
-    public class AbstractPointer : IShape
+    public class BasePointer : IShape
     {
         public IArrow _typeArrow { get; set; }
         public ILine _typeLine { get; set; }
@@ -20,12 +20,11 @@ namespace UMLDesigner
         public int PenWidth { get; set; }
         public bool EndCreate { get; set; } 
 
-
         private int _sizeRectangle = 0;
         private bool _isMouseDown = false;
         private bool _drawArrow = true;
 
-        public AbstractPointer(IArrow typeA, ILine typeL)
+        public BasePointer(IArrow typeA, ILine typeL)
         {
             _typeArrow = typeA;
             _typeLine = typeL;
@@ -42,7 +41,6 @@ namespace UMLDesigner
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
         {
-
             SnapArrow(e.Location, shapes);
             MyGraphics.GetInstance().GetTmpGraphics();
             Draw();
@@ -54,7 +52,6 @@ namespace UMLDesigner
         {
             if (!_drawArrow)
             {
-
                 EndPoint = e.Location;
                 InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
                 InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
@@ -62,7 +59,6 @@ namespace UMLDesigner
                 MyGraphics.GetInstance().GetTmpGraphics();
                 Draw();
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
-
             }
             else
             {
@@ -72,31 +68,25 @@ namespace UMLDesigner
                     Draw();
                     MyGraphics.GetInstance().SetImageToMainBitmap();
                 }
-
             }
         }
+
         public void OnMouseMove(MouseEventArgs e, List<IShape> shapes, ActShapes act)
         {
-
         }
 
         public void OnMouseUp(MouseEventArgs e)
         {
             _isMouseDown = false;
         }
-   
-        private static void ConsoleWriteLine()
-        {
-            throw new NotImplementedException();
-        }
 
         private void SnapArrow(Point clickPoint, List<IShape> shapes)
         {
             foreach (IShape shape in shapes)
             {
-                if (shape is AbstractRectangle)
+                if (shape is BaseRectangle)
                 {
-                    AbstractRectangle rectangle = (AbstractRectangle)shape;
+                    BaseRectangle rectangle = (BaseRectangle)shape;
                     if (clickPoint.X > rectangle.StartPoint.X && 
                     clickPoint.X < rectangle.StartPoint.X + rectangle.EndPoint.X &&
                     clickPoint.Y > rectangle.StartPoint.Y &&
@@ -104,7 +94,6 @@ namespace UMLDesigner
                     {
                         if (_drawArrow)
                         {
-
                             StartPoint = new Point(rectangle.StartPoint.X + rectangle.EndPoint.X/2, clickPoint.Y);
                             EndPoint = clickPoint;
                             InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
@@ -112,7 +101,6 @@ namespace UMLDesigner
                             rectangle.ConnectionsStart.Add(this);
                             _drawArrow = false;
                             _sizeRectangle = rectangle.EndPoint.X;
-
                         }
                         else
                         {
@@ -130,18 +118,14 @@ namespace UMLDesigner
                             }
 
                             int middleX = (StartPoint.X + EndPoint.X) / 2;
-
                             _drawArrow = true;
                             EndCreate = true;
-
                         }
                         break;
                     }
                 }
             }
-
         }
-
 
         public Point PickPoint(MouseEventArgs e)
         {
@@ -158,7 +142,6 @@ namespace UMLDesigner
 
             if (EndPoint.X > StartPoint.X)
             {
-
                 if (e.Location.X > StartPoint.X &&
                     e.Location.X < InsidePoint1.X &&
                     e.Location.Y < StartPoint.Y + 10 &&
@@ -200,11 +183,8 @@ namespace UMLDesigner
                 return InsidePoint1;
             }
 
-
-
             return shangePoint;         
         }
-
 
         public void Move(int deltaX, int deltaY)
         {
@@ -216,13 +196,11 @@ namespace UMLDesigner
             {
                 StartPoint = new Point(StartPoint.X, StartPoint.Y + deltaY);
                 InsidePoint1 = new Point(InsidePoint1.X, InsidePoint1.Y + deltaY);
-
             }
             else if (movePoint == EndPoint)
             {
                 EndPoint = new Point(EndPoint.X, EndPoint.Y + deltaY);
                 InsidePoint2 = new Point(InsidePoint2.X, InsidePoint2.Y + deltaY );
-
             }
             else if (movePoint == InsidePoint1)
             {

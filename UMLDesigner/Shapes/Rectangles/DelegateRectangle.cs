@@ -16,41 +16,38 @@ namespace UMLDesigner.Shapes.Rectangles
         public DelegateRectangle()
         {           
         }
-       
-        Graphics graphics = MyGraphics.GetInstance().GetMainGraphics();
-        public Font nameFont = new Font("Arial", 18);
-            
-        public void Draw(AbstractRectangle rectangle)
-        {
 
+        public Font nameFont = new Font("Arial", 18);
+        Graphics graphics = MyGraphics.GetInstance().GetMainGraphics();
+            
+        public void Draw(BaseRectangle rectangle)
+        {
             Color color = rectangle.Color;
             float penWidth = rectangle.PenWidth;
             Point startPoint = rectangle.StartPoint;
+            Point size = rectangle.EndPoint;
             Font argumentFont = rectangle.ArgumentFont;
             string name = rectangle.Name;
             string methods = rectangle.Methods;
-            Point size = rectangle.EndPoint;
 
+            Pen pen = new Pen(color, penWidth);
 
-            Pen _pen = new Pen(color, penWidth);
+            int nameHeight = 30 + ((int)graphics.MeasureString(name, nameFont).Width / size.X) * ((int)graphics.MeasureString(name, nameFont).Height + 3);
+            int methodsHeight = 100 + ((int)graphics.MeasureString(methods, argumentFont).Width / size.X) * ((int)graphics.MeasureString(methods, argumentFont).Height + 3);
 
-            int _nameHeight = 30 + ((int)graphics.MeasureString(name, nameFont).Width / size.X) * ((int)graphics.MeasureString(name, nameFont).Height + 3);
-            int _methodsHeight = 100 + ((int)graphics.MeasureString(methods, argumentFont).Width / size.X) * ((int)graphics.MeasureString(methods, argumentFont).Height + 3);
-
-
-            Rectangle nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, _nameHeight);
-            Rectangle methodRect = new Rectangle(startPoint.X, startPoint.Y + _nameHeight, size.X, _methodsHeight);
+            Rectangle nameRect = new Rectangle(startPoint.X, startPoint.Y, size.X, nameHeight);
+            Rectangle methodRect = new Rectangle(startPoint.X, startPoint.Y + nameHeight, size.X, methodsHeight);
 
             MyGraphics.GetInstance().GetMainGraphics();
             Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
-            currentTmpGraphics.DrawRectangle(_pen, nameRect);
-            currentTmpGraphics.DrawRectangle(_pen, methodRect);
+            currentTmpGraphics.DrawRectangle(pen, nameRect);
+            currentTmpGraphics.DrawRectangle(pen, methodRect);
 
             TextDrawing.DrawTextName(nameRect, nameFont, color, name);
             TextDrawing.DrawText(methodRect, argumentFont, color, methods);
 
-            int height = _nameHeight + _methodsHeight;
+            int height = nameHeight + methodsHeight;
             rectangle.EndPoint = new Point(rectangle.EndPoint.X, height);
 
         }

@@ -10,8 +10,10 @@ namespace UMLDesigner
 {
     public class CompositionSecondArrow : IArrow
     {
+
         public CompositionSecondArrow()
-        { }
+        {
+        }
 
         public void Draw(Color color, int penWidth, Point startPoint, Point endPoint)
         {

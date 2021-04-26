@@ -16,9 +16,8 @@ namespace UMLDesigner
         {
             int width = 15;
             int height = 24;
-
             Pen pen = new Pen(color, penWidth);
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
+            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             if (endPoint.X > startPoint.X)
             {

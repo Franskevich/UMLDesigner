@@ -14,14 +14,16 @@ namespace UMLDesigner.Shapes.Factories
     {
         IArrow _typeArrow;
         ILine _typeLine;
+
         public CompositionSecondPointerFactory()
         {
         }
+
         public IShape GetShape()
         {
             _typeArrow = new CompositionSecondArrow();
             _typeLine = new NormalLine();
-            AbstractPointer shape = new AbstractPointer(_typeArrow, _typeLine);
+            BasePointer shape = new BasePointer(_typeArrow, _typeLine);
             return shape;
         }
     }

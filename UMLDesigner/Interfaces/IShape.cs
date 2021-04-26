@@ -15,7 +15,6 @@ namespace UMLDesigner
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
-
         public void OnMouseMove(MouseEventArgs e, List<IShape> shapes);
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes);
         public void OnMouseUp(MouseEventArgs e);

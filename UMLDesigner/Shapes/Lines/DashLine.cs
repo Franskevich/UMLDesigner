@@ -15,13 +15,11 @@ namespace UMLDesigner
 
         public void Draw(Color color, int penWidth, Point startPoint, Point insidePoint1, Point insidePoint2, Point endPoint)
         {
-
             Pen penDash = new Pen(color, penWidth);
             Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
             float[] dashPattern = new float[2] { 5f, 5f };
             penDash.DashPattern = dashPattern;
-
             List<Point> points = new List<Point>();
             points.Add(startPoint);
             points.Add(insidePoint1);

@@ -13,20 +13,14 @@ namespace UMLDesigner
 {
     public class MyGraphics
     {
-        public Graphics _graphics;
-        public Bitmap _mainBitmap;
         public  List<IShape> Shapes { get; set;}
-
         public PictureBox pictureBox { get; set;}
 
         private static MyGraphics _instance;
+        public Graphics _graphics;
+        public Bitmap _mainBitmap;
         public Bitmap _tmpBitmap;
 
-        private MyGraphics()
-        {
-            _mainBitmap = new Bitmap(1920, 1080);
-            _graphics = Graphics.FromImage(_mainBitmap);
-        }
 
         public static MyGraphics GetInstance()
         {
@@ -34,8 +28,13 @@ namespace UMLDesigner
             {
                 _instance = new MyGraphics();
             }
-
             return _instance;
+        }
+
+        private MyGraphics()
+        {
+            _mainBitmap = new Bitmap(1920, 1080);
+            _graphics = Graphics.FromImage(_mainBitmap);
         }
 
         public void SetPB(PictureBox pb)
@@ -45,7 +44,6 @@ namespace UMLDesigner
 
         public Graphics GetTmpGraphics()
         {
-      
             _tmpBitmap = (Bitmap)_mainBitmap.Clone();
             _graphics = Graphics.FromImage(_tmpBitmap);
             return _graphics;
@@ -53,29 +51,26 @@ namespace UMLDesigner
         
         public void SetImageToTmpBitmap()
         {
-       
             pictureBox.Image = _tmpBitmap;
             GC.Collect();
         }
         
         public void SetImageToMainBitmap()
         {
-       
             pictureBox.Image = _mainBitmap;
             GC.Collect();
         }
         
        public Graphics GetMainGraphics()
-        { 
-            _graphics = Graphics.FromImage(_mainBitmap);
-            return _graphics;
-        }
+       { 
+           _graphics = Graphics.FromImage(_mainBitmap);
+           return _graphics;
+       }
 
         public void SetTmpBitmapAsMain()
         {
             _mainBitmap = _tmpBitmap;
         }
-
 
         public  Graphics GetGraphics()
         {
@@ -86,10 +81,12 @@ namespace UMLDesigner
             }
             return _graphics;
         }
+
         public  Bitmap GetBitmap()
         {
             return _mainBitmap;
         }
+
         public void Clear()
         {
             _graphics.Clear(Color.White);

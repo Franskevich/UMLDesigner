@@ -11,14 +11,15 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
     public class StructureRectangleFactory : IFactory
     {
         IRectangle _typeRectangle;
+
         public StructureRectangleFactory()
         {
-            //_typeRectangle = new ClassRectangle();
         }
+
         public IShape GetShape()
         {
             _typeRectangle = new StructureRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "Structure");
+            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Structure");
             return shape;
         }
     }

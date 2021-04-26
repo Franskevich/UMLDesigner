@@ -10,12 +10,13 @@ namespace UMLDesigner
     public class InheritanceArrow : IArrow
     {
         public InheritanceArrow()
-        {}
+        {
+        }
+
         public void Draw(Color color, int penWidth, Point startPoint, Point endPoint)
         {
             int width = 15;
             int height = 24;
-
             Pen pen = new Pen(color, penWidth);
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 

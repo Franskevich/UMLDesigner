@@ -73,17 +73,18 @@ namespace UMLDesigner
             else if (_act == ActShapes.Move && e.Button == MouseButtons.Right )
             {
                 _currentShape = PickOut(e);
-                if (_currentShape is AbstractPointer)
+                if (_currentShape is BasePointer)
                 {
                     Options options = new Options(_currentShape);
                     SelectShape();
                     options.ShowDialog();
                 }
-                else if(_currentShape is AbstractRectangle)
+                else if(_currentShape is BaseRectangle)
                 {
-                    FormForText formText = new FormForText((AbstractRectangle)_currentShape);
+                    FormForText formText = new FormForText((BaseRectangle)_currentShape);
                     formText.ShowDialog();
                 }
+
                 _currentShape = null;
                 _currentFactory = null;
                 MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
@@ -95,15 +96,14 @@ namespace UMLDesigner
             }
             else if (!(_currentFactory is null))
             {
-                if (_currentShape is AbstractPointer)
+                if (_currentShape is BasePointer)
                 {
-                    AbstractPointer t = (AbstractPointer)_currentShape;
+                    BasePointer t = (BasePointer)_currentShape;
                     if (t.EndCreate == true)
                     {
                         _currentShape = _currentFactory.GetShape();
                         _currentShape.Color = SetColor();
                         _currentShape.PenWidth = SetPenWidth();
-
                     }
                 }
          
@@ -157,6 +157,7 @@ namespace UMLDesigner
                 _currentShape.OnMouseMove(e, _shapes);
             }
         }
+
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
 
@@ -175,10 +176,10 @@ namespace UMLDesigner
             {
                 _currentShape.OnMouseUp(e);
                 pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
-                if (_currentShape is AbstractPointer)
+                if (_currentShape is BasePointer)
                 {
 
-                    AbstractPointer t = (AbstractPointer)_currentShape;
+                    BasePointer t = (BasePointer)_currentShape;
                     if (t.EndCreate == true)
                     {
                         _shapes.Add(_currentShape);
@@ -190,7 +191,7 @@ namespace UMLDesigner
                 }
             }
 
-            if (_currentShape is AbstractRectangle)
+            if (_currentShape is BaseRectangle)
             {
                 _currentShape = null;
                 _currentFactory = null;
@@ -201,19 +202,18 @@ namespace UMLDesigner
             {
                 shape.Draw();
             }
-
         }
 
         public void SelectShape()
         {
-            if (_currentShape is AbstractRectangle)
+            if (_currentShape is BaseRectangle)
             {
                 MyGraphics.GetInstance().GetMainGraphics();
             }
-            else if (_currentShape is AbstractPointer)
+            else if (_currentShape is BasePointer)
             {
                 SolidBrush tmpBrusn = new SolidBrush(Color.Red);
-                AbstractPointer tpmPointer = (AbstractPointer)_currentShape;
+                BasePointer tpmPointer = (BasePointer)_currentShape;
                 Graphics tmpGraphics = MyGraphics.GetInstance().GetTmpGraphics();
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.StartPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.StartPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.EndPoint.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.EndPoint.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
@@ -221,7 +221,6 @@ namespace UMLDesigner
                 tmpGraphics.FillEllipse(tmpBrusn, tpmPointer.InsidePoint2.X - (tpmPointer.PenWidth + 5) / 2, tpmPointer.InsidePoint2.Y - (tpmPointer.PenWidth + 5) / 2, tpmPointer.PenWidth + 5, tpmPointer.PenWidth + 5);
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
                 MyGraphics.GetInstance().GetMainGraphics();
-
             }
             else
             {
@@ -238,7 +237,7 @@ namespace UMLDesigner
         {
             foreach(IShape _currentShape in _shapes)
             {
-                if(_currentShape is AbstractRectangle)
+                if(_currentShape is BaseRectangle)
                 {
                     if(e.Location.X > _currentShape.StartPoint.X &&
                         e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
@@ -250,7 +249,7 @@ namespace UMLDesigner
                 }
                 else
                 {
-                    AbstractPointer tmpPointer = (AbstractPointer)_currentShape;
+                    BasePointer tmpPointer = (BasePointer)_currentShape;
                     Point point1 = tmpPointer.StartPoint;
                     Point point2 = tmpPointer.InsidePoint1;
                     Point point3 = tmpPointer.InsidePoint2;
@@ -307,14 +306,14 @@ namespace UMLDesigner
         public static void DeleteShape(IShape shape, List<IShape> shapes)
         {
             shapes.Remove(shape);
-            if(shape is AbstractRectangle)
+            if(shape is BaseRectangle)
             {
-                AbstractRectangle shapeRectangle = (AbstractRectangle)shape;
-                foreach(AbstractPointer pointer in shapeRectangle.ConnectionsStart)
+                BaseRectangle shapeRectangle = (BaseRectangle)shape;
+                foreach(BasePointer pointer in shapeRectangle.ConnectionsStart)
                 {
                     shapes.Remove(pointer);
                 }
-                foreach(AbstractPointer pointer in shapeRectangle.ConnectionsEnd)
+                foreach(BasePointer pointer in shapeRectangle.ConnectionsEnd)
                 {
                     shapes.Remove(pointer);
                 }
@@ -359,8 +358,6 @@ namespace UMLDesigner
             _currentFactory = new AggregationFirstPointerFactory();
             _currentShape = _currentFactory.GetShape();
             _act = ActShapes.Pointer;
-
-
         }
 
         private void buttonAggregationSecond_Click(object sender, EventArgs e)
@@ -368,7 +365,6 @@ namespace UMLDesigner
             _currentFactory = new AggregationSecondPointerFactory();
             _currentShape = _currentFactory.GetShape();
             _act = ActShapes.Pointer;
-
         }
 
         private void buttonCompositionFirst_Click(object sender, EventArgs e)
@@ -376,7 +372,6 @@ namespace UMLDesigner
             _currentFactory = new CompositionFirstPointerFactory();
             _currentShape = _currentFactory.GetShape();
             _act = ActShapes.Pointer;
-
         }
 
         private void buttonCompositionSecond_Click(object sender, EventArgs e)
@@ -428,7 +423,6 @@ namespace UMLDesigner
             _act = ActShapes.Rectangle;
         }
 
-
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
@@ -460,7 +454,6 @@ namespace UMLDesigner
             }
             pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
             MyGraphics.GetInstance().GetTmpGraphics();
-
         }
 
         private void ButtonMove_Click(object sender, EventArgs e)
@@ -468,11 +461,11 @@ namespace UMLDesigner
             _act = ActShapes.Move;
             _currentShape = null;
         }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {                             
             if(pictureBox1.Image != null)
             {
-
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Title = "Сохранить картинку как...";
                 sfd.OverwritePrompt = true;
@@ -483,7 +476,7 @@ namespace UMLDesigner
                 {
                     try
                     {
-                        String path = sfd.FileName;// +".QQQ";                        
+                        String path = sfd.FileName;                    
                         string s1 = path;
                         string s2 = ".QQQ";
                         bool b = s1.Contains(s2);
