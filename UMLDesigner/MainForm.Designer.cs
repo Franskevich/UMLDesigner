@@ -29,7 +29,6 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -66,7 +65,7 @@ namespace UMLDesigner
             this.pictureBox1.Location = new System.Drawing.Point(118, 55);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1780, 950);
+            this.pictureBox1.Size = new System.Drawing.Size(1800, 950);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -328,7 +327,7 @@ namespace UMLDesigner
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::UMLDesigner.Properties.Resources.newCat2;
             this.ClientSize = new System.Drawing.Size(1484, 802);
             this.Controls.Add(this.buttonWidthRectangle);
             this.Controls.Add(this.buttonOpenFile);
