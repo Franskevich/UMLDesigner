@@ -122,20 +122,23 @@ namespace UMLDesigner
         public void ChangeShape(Point point, int deltaX, int deltaY)
         {
 
-            EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
+            if ((EndPoint.X + deltaX) > 50)
+            {
+                EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
 
-            foreach (BasePointer pointer in ConnectionsEnd)
-            {
-                if(pointer.EndPoint.X > StartPoint.X+EndPoint.X/2)
+                foreach (BasePointer pointer in ConnectionsEnd)
                 {
-                    pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y);
+                    if (pointer.EndPoint.X > StartPoint.X + EndPoint.X / 2)
+                    {
+                        pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y);
+                    }
                 }
-            }
-            foreach (BasePointer pointer in ConnectionsStart)
-            {
-                if (pointer.StartPoint.X > StartPoint.X + EndPoint.X / 2)
+                foreach (BasePointer pointer in ConnectionsStart)
                 {
-                    pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y);
+                    if (pointer.StartPoint.X > StartPoint.X + EndPoint.X / 2)
+                    {
+                        pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y);
+                    }
                 }
             }
 
