@@ -32,13 +32,13 @@ namespace UMLDesigner
 
         private bool _endCreate = false;
 
-        public BaseRectangle(IRectangle typeRectangle, string name)
+        public BaseRectangle(IRectangle typeRectangle, string name, Point sizeRectangle)
         {
             Name = name;
             TypeRectangle = typeRectangle;
             Color = Color.Black;
             PenWidth = 1;
-            EndPoint = new Point(180, 220);
+            EndPoint = sizeRectangle;
             ConnectionsStart = new List<BasePointer>();
             ConnectionsEnd = new List<BasePointer>();
             NameFont = new Font("Arial", 18);
@@ -62,7 +62,7 @@ namespace UMLDesigner
         {
             if (_endCreate == false)
             {
-                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, new Point(160, 220));
+                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, EndPoint);
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
             }
             else
@@ -121,7 +121,6 @@ namespace UMLDesigner
 
         public void ChangeShape(Point point, int deltaX, int deltaY)
         {
-
             if ((EndPoint.X + deltaX) > 50)
             {
                 EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);

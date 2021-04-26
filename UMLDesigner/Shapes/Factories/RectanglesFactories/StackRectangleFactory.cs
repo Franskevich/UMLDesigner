@@ -19,7 +19,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new StackRectangle();
-            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Stack");
+            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Stack", new System.Drawing.Point(180, 190));
             return shape;
         }
     }

@@ -19,7 +19,7 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
         public IShape GetShape()
         {
             _typeRectangle = new EnumRectangle();
-            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Enum");
+            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Enum", new System.Drawing.Point(180, 130));
             return shape;
         }
     }
