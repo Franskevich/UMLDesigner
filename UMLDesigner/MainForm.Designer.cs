@@ -29,6 +29,7 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -327,8 +328,8 @@ namespace UMLDesigner
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
-            this.ClientSize = new System.Drawing.Size(984, 611);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1484, 802);
             this.Controls.Add(this.buttonWidthRectangle);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
