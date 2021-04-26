@@ -24,6 +24,7 @@ namespace UMLDesigner
         Move,
         Retangle,
         Pointer,
-        ChangeText
+        ChangeText,
+        ShangeWidth
     }
 }

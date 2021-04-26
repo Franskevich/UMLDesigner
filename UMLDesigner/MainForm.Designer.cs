@@ -29,7 +29,6 @@ namespace UMLDesigner
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonAssociation = new System.Windows.Forms.Button();
             this.buttonInheritance = new System.Windows.Forms.Button();
@@ -56,6 +55,7 @@ namespace UMLDesigner
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonChangeText = new System.Windows.Forms.Button();
+            this.buttonWidthRectangle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -284,11 +284,12 @@ namespace UMLDesigner
             // 
             // buttonMove
             // 
-            this.buttonMove.Location = new System.Drawing.Point(554, 11);
+            this.buttonMove.BackgroundImage = global::UMLDesigner.Properties.Resources.Select;
+            this.buttonMove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonMove.Location = new System.Drawing.Point(563, 11);
             this.buttonMove.Name = "buttonMove";
-            this.buttonMove.Size = new System.Drawing.Size(60, 25);
+            this.buttonMove.Size = new System.Drawing.Size(32, 31);
             this.buttonMove.TabIndex = 19;
-            this.buttonMove.Text = "Move";
             this.buttonMove.UseVisualStyleBackColor = true;
             this.buttonMove.Click += new System.EventHandler(this.ButtonMove_Click);
             // 
@@ -330,6 +331,18 @@ namespace UMLDesigner
             this.buttonChangeText.UseVisualStyleBackColor = true;
             this.buttonChangeText.Click += new System.EventHandler(this.buttonChangeText_Click);
             // 
+            // buttonWidthRectangle
+            // 
+            this.buttonWidthRectangle.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.buttonWidthRectangle.BackgroundImage = global::UMLDesigner.Properties.Resources.width;
+            this.buttonWidthRectangle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonWidthRectangle.Location = new System.Drawing.Point(601, 11);
+            this.buttonWidthRectangle.Name = "buttonWidthRectangle";
+            this.buttonWidthRectangle.Size = new System.Drawing.Size(34, 31);
+            this.buttonWidthRectangle.TabIndex = 25;
+            this.buttonWidthRectangle.UseVisualStyleBackColor = false;
+            this.buttonWidthRectangle.Click += new System.EventHandler(this.buttonWidthRectangle_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -337,6 +350,7 @@ namespace UMLDesigner
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
             this.ClientSize = new System.Drawing.Size(1484, 802);
+            this.Controls.Add(this.buttonWidthRectangle);
             this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
@@ -399,6 +413,7 @@ namespace UMLDesigner
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Button buttonChangeText;
+        private System.Windows.Forms.Button buttonWidthRectangle;
     }
 }
 

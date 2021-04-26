@@ -20,7 +20,7 @@ namespace UMLDesigner.Shapes.Rectangles
         Graphics graphics = MyGraphics.GetInstance().GetMainGraphics();
         public Font nameFont = new Font("Arial", 18);
             
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods)
+        public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods, AbstractRectangle rectangle)
         {
             Pen _pen = new Pen(color, penWidth);
 
@@ -38,7 +38,11 @@ namespace UMLDesigner.Shapes.Rectangles
             currentTmpGraphics.DrawRectangle(_pen, methodRect);
 
             TextDrawing.DrawTextName(nameRect, nameFont, color, name);
-            TextDrawing.DrawText(methodRect, argumentFont, color, methods);           
+            TextDrawing.DrawText(methodRect, argumentFont, color, methods);
+
+            int height = _nameHeight + _methodsHeight;
+            rectangle.EndPoint = new Point(rectangle.EndPoint.X, height);
+
         }
 
     }

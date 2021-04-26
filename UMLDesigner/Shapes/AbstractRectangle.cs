@@ -48,9 +48,14 @@ namespace UMLDesigner
             ConnectionsEnd = new List<AbstractPointer>();
         }
 
+        public void GetWidth(int width, int height)
+        {
+
+        }
+
         public void Draw()
         {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods);
+            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods, this);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -121,7 +126,6 @@ namespace UMLDesigner
                 pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
                 pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
             }
-            //Draw();
 
             MyGraphics.GetInstance().GetMainGraphics();
             Draw();
@@ -130,6 +134,29 @@ namespace UMLDesigner
 
         public void ChangeShape(Point point, int deltaX, int deltaY)
         {
+
+            EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
+
+            foreach (AbstractPointer pointer in ConnectionsEnd)
+            {
+                if(pointer.EndPoint.X > StartPoint.X+EndPoint.X/2)
+                {
+                    pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y);
+                }
+            }
+            foreach (AbstractPointer pointer in ConnectionsStart)
+            {
+                if (pointer.StartPoint.X > StartPoint.X + EndPoint.X / 2)
+                {
+                    pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y);
+                }
+
+            }
+
+            MyGraphics.GetInstance().GetMainGraphics();
+            Draw();
+            MyGraphics.GetInstance().SetImageToTmpBitmap();
+
 
         }
     }
