@@ -24,11 +24,13 @@ namespace UMLDesigner
             if (endPoint.X > startPoint.X)
             {
                 Point[] curvePoints = { new Point(endPoint.X - height, endPoint.Y - width), endPoint, new Point(endPoint.X - height, endPoint.Y + width) };
+                currentTmpGraphics.FillPolygon(new SolidBrush(Color.White), curvePoints);
                 currentTmpGraphics.DrawPolygon(penArrow, curvePoints);
             }
             else
             {
                 Point[] curvePoints = { new Point(endPoint.X + height, endPoint.Y - width), endPoint, new Point(endPoint.X + height, endPoint.Y + width) };
+                currentTmpGraphics.FillPolygon(new SolidBrush(Color.White), curvePoints);
                 currentTmpGraphics.DrawPolygon(penArrow, curvePoints);
             }
 

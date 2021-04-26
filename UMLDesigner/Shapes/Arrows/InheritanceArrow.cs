@@ -19,21 +19,7 @@ namespace UMLDesigner
             Pen pen = new Pen(color, penWidth);
             var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
 
-            if (endPoint.X < startPoint.X &&
-               endPoint.X > startPoint.X - 200)
-            {
-                Point[] curvePoints = { new Point(endPoint.X - height, endPoint.Y - width), endPoint, new Point(endPoint.X - height, endPoint.Y + width) };
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.White), curvePoints);
-                currentTmpGraphics.DrawPolygon(pen, curvePoints);
-            }
-            else if (endPoint.X > startPoint.X &&
-               endPoint.X < startPoint.X + 200)
-            {
-                Point[] curvePoints = { new Point(endPoint.X + height, endPoint.Y - width), endPoint, new Point(endPoint.X + height, endPoint.Y + width) };
-                currentTmpGraphics.FillPolygon(new SolidBrush(Color.White), curvePoints);
-                currentTmpGraphics.DrawPolygon(pen, curvePoints);
-            }
-            else if (endPoint.X > startPoint.X)
+            if (endPoint.X > startPoint.X)
             {
                 Point[] curvePoints = { new Point(endPoint.X - height, endPoint.Y - width), endPoint, new Point(endPoint.X - height, endPoint.Y + width) };
                 currentTmpGraphics.FillPolygon(new SolidBrush(Color.White), curvePoints);
