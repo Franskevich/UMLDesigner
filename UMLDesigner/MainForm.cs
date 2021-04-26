@@ -152,6 +152,7 @@ namespace UMLDesigner
                     _clickPoint = e.Location;
                 }
             }
+
             if (_currentShape != null && _currentFactory != null)
             {
                 _currentShape.OnMouseMove(e, _shapes);
@@ -160,7 +161,6 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
             if (_act == ActShapes.Move || _act == ActShapes.ChangeWidth)
             {
                 MyGraphics.GetInstance().GetMainGraphics();
@@ -286,7 +286,6 @@ namespace UMLDesigner
             }
             return _currentShape = null;
         }
-
 
         private void buttonColor_Click(object sender, EventArgs e)
         {

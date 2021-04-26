@@ -21,7 +21,6 @@ namespace UMLDesigner
         public Bitmap _mainBitmap;
         public Bitmap _tmpBitmap;
 
-
         public static MyGraphics GetInstance()
         {
             if(_instance is null)
@@ -61,11 +60,11 @@ namespace UMLDesigner
             GC.Collect();
         }
         
-       public Graphics GetMainGraphics()
-       { 
+        public Graphics GetMainGraphics()
+        { 
            _graphics = Graphics.FromImage(_mainBitmap);
            return _graphics;
-       }
+        }
 
         public void SetTmpBitmapAsMain()
         {
