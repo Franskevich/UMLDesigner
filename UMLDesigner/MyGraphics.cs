@@ -24,7 +24,7 @@ namespace UMLDesigner
 
         private MyGraphics()
         {
-            _mainBitmap = new Bitmap(1500, 1500);
+            _mainBitmap = new Bitmap(1920, 1080);
             _graphics = Graphics.FromImage(_mainBitmap);
         }
 

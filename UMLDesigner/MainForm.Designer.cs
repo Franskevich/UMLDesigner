@@ -48,7 +48,6 @@ namespace UMLDesigner
             this.buttonStructure = new System.Windows.Forms.Button();
             this.buttonDelegate = new System.Windows.Forms.Button();
             this.buttonСancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonMove = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -63,10 +62,10 @@ namespace UMLDesigner
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Location = new System.Drawing.Point(138, 55);
+            this.pictureBox1.Location = new System.Drawing.Point(118, 55);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1334, 730);
+            this.pictureBox1.Size = new System.Drawing.Size(1780, 950);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -78,7 +77,7 @@ namespace UMLDesigner
             // 
             this.buttonAssociation.BackgroundImage = global::UMLDesigner.Properties.Resources.Association1;
             this.buttonAssociation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAssociation.Location = new System.Drawing.Point(149, 11);
+            this.buttonAssociation.Location = new System.Drawing.Point(260, 10);
             this.buttonAssociation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAssociation.Name = "buttonAssociation";
             this.buttonAssociation.Size = new System.Drawing.Size(50, 25);
@@ -90,7 +89,7 @@ namespace UMLDesigner
             // 
             this.buttonInheritance.BackgroundImage = global::UMLDesigner.Properties.Resources.Inheritance;
             this.buttonInheritance.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonInheritance.Location = new System.Drawing.Point(205, 11);
+            this.buttonInheritance.Location = new System.Drawing.Point(316, 10);
             this.buttonInheritance.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonInheritance.Name = "buttonInheritance";
             this.buttonInheritance.Size = new System.Drawing.Size(50, 25);
@@ -102,7 +101,7 @@ namespace UMLDesigner
             // 
             this.buttonImplementation.BackgroundImage = global::UMLDesigner.Properties.Resources.Implementation;
             this.buttonImplementation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonImplementation.Location = new System.Drawing.Point(261, 11);
+            this.buttonImplementation.Location = new System.Drawing.Point(372, 10);
             this.buttonImplementation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonImplementation.Name = "buttonImplementation";
             this.buttonImplementation.Size = new System.Drawing.Size(50, 25);
@@ -114,7 +113,7 @@ namespace UMLDesigner
             // 
             this.buttonAggregationFirst.BackgroundImage = global::UMLDesigner.Properties.Resources.AggregationFirst;
             this.buttonAggregationFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAggregationFirst.Location = new System.Drawing.Point(317, 11);
+            this.buttonAggregationFirst.Location = new System.Drawing.Point(484, 10);
             this.buttonAggregationFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAggregationFirst.Name = "buttonAggregationFirst";
             this.buttonAggregationFirst.Size = new System.Drawing.Size(50, 25);
@@ -126,7 +125,7 @@ namespace UMLDesigner
             // 
             this.buttonCompositionFirst.BackgroundImage = global::UMLDesigner.Properties.Resources.CompositionFirst;
             this.buttonCompositionFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonCompositionFirst.Location = new System.Drawing.Point(429, 11);
+            this.buttonCompositionFirst.Location = new System.Drawing.Point(596, 10);
             this.buttonCompositionFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCompositionFirst.Name = "buttonCompositionFirst";
             this.buttonCompositionFirst.Size = new System.Drawing.Size(50, 25);
@@ -138,7 +137,7 @@ namespace UMLDesigner
             // 
             this.buttonAggregationSecond.BackgroundImage = global::UMLDesigner.Properties.Resources.AggregationSecond;
             this.buttonAggregationSecond.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAggregationSecond.Location = new System.Drawing.Point(373, 11);
+            this.buttonAggregationSecond.Location = new System.Drawing.Point(428, 10);
             this.buttonAggregationSecond.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAggregationSecond.Name = "buttonAggregationSecond";
             this.buttonAggregationSecond.Size = new System.Drawing.Size(50, 25);
@@ -150,7 +149,7 @@ namespace UMLDesigner
             // 
             this.buttonCompositionSecond.BackgroundImage = global::UMLDesigner.Properties.Resources.CompositionSecond;
             this.buttonCompositionSecond.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonCompositionSecond.Location = new System.Drawing.Point(485, 11);
+            this.buttonCompositionSecond.Location = new System.Drawing.Point(540, 10);
             this.buttonCompositionSecond.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCompositionSecond.Name = "buttonCompositionSecond";
             this.buttonCompositionSecond.Size = new System.Drawing.Size(50, 25);
@@ -172,7 +171,7 @@ namespace UMLDesigner
             // trackBar1
             // 
             this.trackBar1.LargeChange = 2;
-            this.trackBar1.Location = new System.Drawing.Point(1331, 792);
+            this.trackBar1.Location = new System.Drawing.Point(154, 10);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
@@ -208,7 +207,7 @@ namespace UMLDesigner
             // buttonClear
             // 
             this.buttonClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonClear.Location = new System.Drawing.Point(1402, 11);
+            this.buttonClear.Location = new System.Drawing.Point(895, 12);
             this.buttonClear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(50, 25);
@@ -263,31 +262,21 @@ namespace UMLDesigner
             // 
             // buttonСancel
             // 
-            this.buttonСancel.Location = new System.Drawing.Point(1331, 11);
+            this.buttonСancel.Location = new System.Drawing.Point(827, 12);
             this.buttonСancel.Name = "buttonСancel";
-            this.buttonСancel.Size = new System.Drawing.Size(62, 23);
+            this.buttonСancel.Size = new System.Drawing.Size(62, 25);
             this.buttonСancel.TabIndex = 17;
             this.buttonСancel.Text = "Cancel";
             this.buttonСancel.UseVisualStyleBackColor = true;
             this.buttonСancel.Click += new System.EventHandler(this.buttonСancel_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 477);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // buttonMove
             // 
             this.buttonMove.BackgroundImage = global::UMLDesigner.Properties.Resources.Select;
             this.buttonMove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonMove.Location = new System.Drawing.Point(563, 11);
+            this.buttonMove.Location = new System.Drawing.Point(18, 430);
             this.buttonMove.Name = "buttonMove";
-            this.buttonMove.Size = new System.Drawing.Size(32, 31);
+            this.buttonMove.Size = new System.Drawing.Size(34, 31);
             this.buttonMove.TabIndex = 19;
             this.buttonMove.UseVisualStyleBackColor = true;
             this.buttonMove.Click += new System.EventHandler(this.ButtonMove_Click);
@@ -302,9 +291,9 @@ namespace UMLDesigner
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(851, 13);
+            this.buttonSave.Location = new System.Drawing.Point(10, 480);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(84, 29);
+            this.buttonSave.Size = new System.Drawing.Size(101, 31);
             this.buttonSave.TabIndex = 20;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -312,9 +301,9 @@ namespace UMLDesigner
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(947, 13);
+            this.buttonOpenFile.Location = new System.Drawing.Point(10, 517);
             this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(89, 29);
+            this.buttonOpenFile.Size = new System.Drawing.Size(101, 29);
             this.buttonOpenFile.TabIndex = 21;
             this.buttonOpenFile.Text = "Open File";
             this.buttonOpenFile.UseVisualStyleBackColor = true;
@@ -325,7 +314,7 @@ namespace UMLDesigner
             this.buttonWidthRectangle.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.buttonWidthRectangle.BackgroundImage = global::UMLDesigner.Properties.Resources.width;
             this.buttonWidthRectangle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonWidthRectangle.Location = new System.Drawing.Point(601, 11);
+            this.buttonWidthRectangle.Location = new System.Drawing.Point(68, 430);
             this.buttonWidthRectangle.Name = "buttonWidthRectangle";
             this.buttonWidthRectangle.Size = new System.Drawing.Size(34, 31);
             this.buttonWidthRectangle.TabIndex = 25;
@@ -336,14 +325,14 @@ namespace UMLDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
-            this.ClientSize = new System.Drawing.Size(1484, 802);
+            this.ClientSize = new System.Drawing.Size(984, 611);
             this.Controls.Add(this.buttonWidthRectangle);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonMove);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonСancel);
             this.Controls.Add(this.buttonDelegate);
             this.Controls.Add(this.buttonStructure);
@@ -363,6 +352,8 @@ namespace UMLDesigner
             this.Controls.Add(this.buttonAssociation);
             this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Black;
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
+            this.MinimumSize = new System.Drawing.Size(1000, 650);
             this.Name = "MainForm";
             this.Text = "Best UML application";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -394,7 +385,6 @@ namespace UMLDesigner
         private System.Windows.Forms.Button buttonStructure;
         private System.Windows.Forms.Button buttonDelegate;
         private System.Windows.Forms.Button buttonСancel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonMove;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

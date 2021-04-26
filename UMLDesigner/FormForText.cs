@@ -31,31 +31,25 @@ namespace UMLDesigner
 
             ToolTip tAssociation = new ToolTip();
             tAssociation.SetToolTip(trackBarWidth, "Width Line");
-
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
-        {
-                
+        {               
         }
 
         private void textBoxProperties_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void textBoxField_TextChanged(object sender, EventArgs e)
         {
-
         }
         private void textBoxMethods_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -66,7 +60,6 @@ namespace UMLDesigner
 
         private void fontDialog1_Apply(object sender, EventArgs e)
         {
-
         }
 
         private void trackBarWidth_Scroll(object sender, EventArgs e)
@@ -76,7 +69,6 @@ namespace UMLDesigner
 
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void buttonColor_Click(object sender, EventArgs e)

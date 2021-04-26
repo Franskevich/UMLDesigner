@@ -14,48 +14,40 @@ namespace UMLDesigner
 {
     public class AbstractRectangle : IShape
     {
-        public IRectangle _typeRectangle { get; set; }
+        public IRectangle TypeRectangle { get; set; }
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public Color Color { get; set; }
         public int PenWidth { get; set; }
-
-        public Font NameFont = new Font("Arial", 18);
-        public Font ArgumentFont = new Font("Arial", 13);
+        public Font NameFont { get; set; }
+        public Font ArgumentFont { get; set; }
         
         public string Name { get; set; }
         public string Properties { get; set; }
         public string Fields { get; set; }
         public string Methods { get; set; }
 
-
         public List<AbstractPointer> ConnectionsStart { get; set; }
         public List<AbstractPointer> ConnectionsEnd { get; set; }
 
+        private bool _endCreate = false;
 
-        public int line = 4;
-
-        public bool _endCreate = false;
         public AbstractRectangle(IRectangle typeRectangle, string name)
         {
             Name = name;
-            _typeRectangle = typeRectangle;
-            _endCreate = false;
+            TypeRectangle = typeRectangle;
             Color = Color.Black;
             PenWidth = 1;
             EndPoint = new Point(180, 220);
             ConnectionsStart = new List<AbstractPointer>();
             ConnectionsEnd = new List<AbstractPointer>();
-        }
-
-        public void GetWidth(int width, int height)
-        {
-
+            NameFont = new Font("Arial", 18);
+            ArgumentFont = new Font("Arial", 13);
         }
 
         public void Draw()
         {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods, this);
+            TypeRectangle.Draw(this);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)
@@ -82,8 +74,6 @@ namespace UMLDesigner
 
         public void OnMouseUp(MouseEventArgs e)
         {
-
-
         }
 
         public static void DrawDashEntity(Color color, float penWidth, Graphics graphics, Point startPoint, Point size)
@@ -104,9 +94,6 @@ namespace UMLDesigner
 
         public Point PickPoint(MouseEventArgs e)
         {
-            //DrawDashEntity(Color, PenWidth, MyGraphics.GetInstance().GetTmpGraphics(), new Point(StartPoint.X-5, StartPoint.Y - 5), new Point(170, 230));
-            //MyGraphics.GetInstance().SetImageToTmpBitmap();
-            //MyGraphics.GetInstance().GetMainGraphics();
             return e.Location;
         }
 
@@ -156,8 +143,6 @@ namespace UMLDesigner
             MyGraphics.GetInstance().GetMainGraphics();
             Draw();
             MyGraphics.GetInstance().SetImageToTmpBitmap();
-
-
         }
     }
 }

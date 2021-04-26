@@ -20,25 +20,14 @@ namespace UMLDesigner
 {
     public partial class MainForm : Form
     {
-        public IShape _currentShape;
-        public IFactory _currentFactory;
-        // новое сверху
-        ActShapes _act = ActShapes.Association;
-        bool _mouseDown = false;
-        bool _isEntity = false;
-        Bitmap _mainBitmap;
-        Bitmap _tempBitmap;       
-        Color _color;
-        IShape _tmpShape;
-        int _penWidth = 1;
-        public List<IShape> _shapes;
-        bool _drawArrow = true;
-        MyGraphics _graphics;
+        private ActShapes _act = ActShapes.Move;
+        private Bitmap _mainBitmap;
+        private List<IShape> _shapes;
+        private MyGraphics _graphics;
         private Point _clickPoint;
         private Point _movePoint;
-        JsonSerializerOptions options;      
-
-        bool _changerText = false;
+        private IShape _currentShape;
+        private IFactory _currentFactory;
 
         public MainForm()
         {
@@ -64,16 +53,18 @@ namespace UMLDesigner
             tComposition1.SetToolTip(buttonCompositionFirst, "Composition");
             ToolTip tComposition2 = new ToolTip();
             tComposition2.SetToolTip(buttonCompositionSecond, "Composition");
+            ToolTip buttonWidth = new ToolTip();
+            tComposition2.SetToolTip(buttonWidthRectangle, "Change");
+            ToolTip buttonChoose = new ToolTip();
+            tComposition2.SetToolTip(buttonMove, "Choose");
 
-            
-            _color = Color.Black;
             _graphics.Shapes = new List<IShape>();
             _shapes = _graphics.Shapes;
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if ((_act == ActShapes.ShangeWidth || _act == ActShapes.Move) && e.Button == MouseButtons.Left)
+            if ((_act == ActShapes.ChangeWidth || _act == ActShapes.Move) && e.Button == MouseButtons.Left)
             {
                 _currentShape = PickOut(e);
                 _clickPoint = e.Location;
@@ -107,7 +98,7 @@ namespace UMLDesigner
                 if (_currentShape is AbstractPointer)
                 {
                     AbstractPointer t = (AbstractPointer)_currentShape;
-                    if (t._endCreate == true)
+                    if (t.EndCreate == true)
                     {
                         _currentShape = _currentFactory.GetShape();
                         _currentShape.Color = SetColor();
@@ -134,7 +125,6 @@ namespace UMLDesigner
                     _movePoint = _currentShape.PickPoint(e);
                     MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.Move(e.X - _clickPoint.X, e.Y - _clickPoint.Y);
-                    //_currentShape.ChangeShape(_movePoint, e.X - _clickPoint.X, e.Y - _clickPoint.Y);
 
                     foreach (var shape in _shapes)
                     {
@@ -145,7 +135,7 @@ namespace UMLDesigner
                     _clickPoint = e.Location;
                 }
             }
-            else if (_act == ActShapes.ShangeWidth && e.Button == MouseButtons.Left )
+            else if (_act == ActShapes.ChangeWidth && e.Button == MouseButtons.Left )
             {
                 if (_currentShape != null)
                 {
@@ -162,7 +152,6 @@ namespace UMLDesigner
                     _clickPoint = e.Location;
                 }
             }
-
             if (_currentShape != null && _currentFactory != null)
             {
                 _currentShape.OnMouseMove(e, _shapes);
@@ -171,7 +160,7 @@ namespace UMLDesigner
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
 
-            if (_act == ActShapes.Move || _act == ActShapes.ShangeWidth)
+            if (_act == ActShapes.Move || _act == ActShapes.ChangeWidth)
             {
                 MyGraphics.GetInstance().GetMainGraphics();
 
@@ -190,7 +179,7 @@ namespace UMLDesigner
                 {
 
                     AbstractPointer t = (AbstractPointer)_currentShape;
-                    if (t._endCreate == true)
+                    if (t.EndCreate == true)
                     {
                         _shapes.Add(_currentShape);
                     }
@@ -213,26 +202,6 @@ namespace UMLDesigner
                 shape.Draw();
             }
 
-        }
-        //public IShape PickOut(MouseEventArgs e)
-        //{
-        //    foreach (IShape _currentShape in _shapes)
-        //    {
-        //        if (_currentShape is AbstractRectangle)
-        //        {
-        //            if (e.Location.X > _currentShape.StartPoint.X &&
-        //                e.Location.X < _currentShape.StartPoint.X + _currentShape.EndPoint.X &&
-        //                e.Location.Y > _currentShape.StartPoint.Y &&
-        //                e.Location.Y < _currentShape.StartPoint.Y + _currentShape.EndPoint.Y)
-        //            {
-        //                return _currentShape;
-        //            }
-        //        }
-        //    }
-        //    return _currentShape = null;
-        //}
-        private void SnapArrow(Point clickPoint)
-        {
         }
 
         public void SelectShape()
@@ -264,7 +233,6 @@ namespace UMLDesigner
                 MyGraphics.GetInstance().SetImageToMainBitmap();
             }
         }
-
 
         public IShape PickOut(MouseEventArgs e)
         {
@@ -325,7 +293,6 @@ namespace UMLDesigner
         {
             colorDialog1.ShowDialog();
             buttonColor.BackColor = colorDialog1.Color;
-            _color = colorDialog1.Color;
         }
 
         public Color SetColor()
@@ -335,7 +302,6 @@ namespace UMLDesigner
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            _penWidth = trackBar1.Value;
         }
 
         public static void DeleteShape(IShape shape, List<IShape> shapes)
@@ -371,13 +337,10 @@ namespace UMLDesigner
             _currentFactory = new AssotiationPointerFactory();
             _currentShape = _currentFactory.GetShape();
             _act = ActShapes.Pointer;
-
-            //_act = ActShapes.Association;
         }
 
         private void buttonInheritance_Click(object sender, EventArgs e)
         {
-            //_act = ActShapes.Inheritance;
             _currentFactory = new InheritancePointersFactory();
             _currentShape = _currentFactory.GetShape();
             _act = ActShapes.Pointer;
@@ -386,7 +349,6 @@ namespace UMLDesigner
 
         private void buttonImplementation_Click(object sender, EventArgs e)
         {
-            //_act = ActShapes.Implementation;
             _currentFactory = new ImplementationsPointersFactory();
             _act = ActShapes.Pointer;
             _currentShape = _currentFactory.GetShape();
@@ -428,68 +390,63 @@ namespace UMLDesigner
         {
             _currentFactory = new ClassRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
         private void buttonInterface_Click(object sender, EventArgs e)
         {
             _currentFactory = new InterfaceRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
         private void buttonStackClass_Click(object sender, EventArgs e)
         {
             _currentFactory = new StackRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
         private void buttonEnum_Click(object sender, EventArgs e)
         {
             _currentFactory = new EnumRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
         private void buttonStructure_Click(object sender, EventArgs e)
         {
             _currentFactory = new StructureRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
         private void buttonDelegate_Click(object sender, EventArgs e)
         {
             _currentFactory = new DelegateRectangleFactory();
             _currentShape = _currentFactory.GetShape();
-            _act = ActShapes.Retangle;
+            _act = ActShapes.Rectangle;
         }
 
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
-            //MyGraphics.GetInstance().SetTmpBitmapAsMain;
             Graphics.FromImage(MyGraphics.GetInstance()._tmpBitmap).Clear(Color.White);
             _shapes.Clear();
             _currentShape = null;
             _currentFactory = null;
-
-            //_graphics.DrawImage(_mainBitmap, 0, 0);
             pictureBox1.Image = _mainBitmap;
         }
 
 
         private void buttonСancel_Click(object sender, EventArgs e)
         {
-            Cancel();     /*вывел в отдельный метод чтобы потом сделать возможность использовать метод    
-                           cancel по нажатию на клавиши ctrl + z*/
+            Cancel();     
         }
 
         private void Cancel()
         {
-
             Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
             _currentShape = null;
             _currentFactory = null;
@@ -504,11 +461,6 @@ namespace UMLDesigner
             pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
             MyGraphics.GetInstance().GetTmpGraphics();
 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            label1.Text = _shapes.Count + "";
         }
 
         private void ButtonMove_Click(object sender, EventArgs e)
@@ -533,9 +485,8 @@ namespace UMLDesigner
                     {
                         String path = sfd.FileName;// +".QQQ";                        
                         string s1 = path;
-                        string s2 = "*.QQQ";
+                        string s2 = ".QQQ";
                         bool b = s1.Contains(s2);
-                        
                         if (b)
                         {
                             using (StreamWriter sw = new StreamWriter(path, false))
@@ -570,13 +521,12 @@ namespace UMLDesigner
             {
                 try
                 {
-                    String path = ofd.FileName;// +".QQQ";                        
+                    String path = ofd.FileName;                      
                     string s1 = path;
-                    string s2 = "*.QQQ";
+                    string s2 = ".QQQ";
                     bool b = s1.Contains(s2);
                     if (b)
                     {
-                        //String path = ofd.FileName;
                         using (StreamReader sr = new StreamReader(path))
                         {
                             var desirialized = JsonConvert.DeserializeObject<List<IShape>>(sr.ReadToEnd(),
@@ -591,7 +541,6 @@ namespace UMLDesigner
                             {
                                 shape.Draw();
                             }
-
                             pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                         }
                     }
@@ -602,19 +551,18 @@ namespace UMLDesigner
                 }
                 catch
                 {
-                    MessageBox.Show("Невозможно сохранить изображение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Невозможно сохранить", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void buttonWidthRectangle_Click(object sender, EventArgs e)
         {
-            _act = ActShapes.ShangeWidth;
+            _act = ActShapes.ChangeWidth;
             _currentShape = null;
         }
     }

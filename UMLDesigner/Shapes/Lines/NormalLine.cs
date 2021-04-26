@@ -13,11 +13,8 @@ namespace UMLDesigner
         {}
         public void Draw(Color color, int penWidth, Point startPoint, Point insidePoint1, Point insidePoint2, Point endPoint)
         {
-            int width = 15;
-            int height = 24;
 
-            var currentTmpGraphics = MyGraphics.GetInstance()._graphics;
-
+            Graphics currentTmpGraphics = MyGraphics.GetInstance()._graphics;
             Pen pen = new Pen(color, penWidth);
             List<Point> points = new List<Point>();
             points.Add(startPoint);
