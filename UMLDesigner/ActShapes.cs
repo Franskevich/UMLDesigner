@@ -8,22 +8,9 @@ namespace UMLDesigner
 {
     public enum ActShapes
     {
-        Association = 0,
-        Inheritance,
-        Implementation,
-        AggregationFirst,
-        AggregationSecond,
-        CompositionFirst,
-        CompositionSecond,
-        Class,
-        Interface,
-        StackClass,
-        ClassWithFourRectangle,
-        Structure,
-        Delegate,
         Move,
-        Retangle,
+        Rectangle,
         Pointer,
-        ShangeWidth
+        ChangeWidth
     }
 }
