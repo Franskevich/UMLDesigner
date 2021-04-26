@@ -107,7 +107,7 @@ namespace UMLDesigner
                 if (_currentShape is AbstractPointer)
                 {
                     AbstractPointer t = (AbstractPointer)_currentShape;
-                    if (t._endCreate == true)
+                    if (t.EndCreate == true)
                     {
                         _currentShape = _currentFactory.GetShape();
                         _currentShape.Color = SetColor();
@@ -190,7 +190,7 @@ namespace UMLDesigner
                 {
 
                     AbstractPointer t = (AbstractPointer)_currentShape;
-                    if (t._endCreate == true)
+                    if (t.EndCreate == true)
                     {
                         _shapes.Add(_currentShape);
                     }
