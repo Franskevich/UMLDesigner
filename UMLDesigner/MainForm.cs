@@ -463,11 +463,6 @@ namespace UMLDesigner
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            label1.Text = _shapes.Count + "";
-        }
-
         private void ButtonMove_Click(object sender, EventArgs e)
         {
             _act = ActShapes.Move;
@@ -490,9 +485,8 @@ namespace UMLDesigner
                     {
                         String path = sfd.FileName;// +".QQQ";                        
                         string s1 = path;
-                        string s2 = "*.QQQ";
+                        string s2 = ".QQQ";
                         bool b = s1.Contains(s2);
-                        
                         if (b)
                         {
                             using (StreamWriter sw = new StreamWriter(path, false))
@@ -529,7 +523,7 @@ namespace UMLDesigner
                 {
                     String path = ofd.FileName;                      
                     string s1 = path;
-                    string s2 = "*.QQQ";
+                    string s2 = ".QQQ";
                     bool b = s1.Contains(s2);
                     if (b)
                     {
@@ -547,7 +541,6 @@ namespace UMLDesigner
                             {
                                 shape.Draw();
                             }
-
                             pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
                         }
                     }
