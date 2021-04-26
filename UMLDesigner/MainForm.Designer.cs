@@ -54,7 +54,6 @@ namespace UMLDesigner
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.buttonChangeText = new System.Windows.Forms.Button();
             this.buttonWidthRectangle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -321,16 +320,6 @@ namespace UMLDesigner
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
-            // buttonChangeText
-            // 
-            this.buttonChangeText.Location = new System.Drawing.Point(720, 13);
-            this.buttonChangeText.Name = "buttonChangeText";
-            this.buttonChangeText.Size = new System.Drawing.Size(89, 29);
-            this.buttonChangeText.TabIndex = 24;
-            this.buttonChangeText.Text = "Change Text";
-            this.buttonChangeText.UseVisualStyleBackColor = true;
-            this.buttonChangeText.Click += new System.EventHandler(this.buttonChangeText_Click);
-            // 
             // buttonWidthRectangle
             // 
             this.buttonWidthRectangle.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -351,7 +340,6 @@ namespace UMLDesigner
             this.BackgroundImage = global::UMLDesigner.Properties.Resources.cat;
             this.ClientSize = new System.Drawing.Size(1484, 802);
             this.Controls.Add(this.buttonWidthRectangle);
-            this.Controls.Add(this.buttonChangeText);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonMove);
@@ -412,7 +400,6 @@ namespace UMLDesigner
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonOpenFile;
-        private System.Windows.Forms.Button buttonChangeText;
         private System.Windows.Forms.Button buttonWidthRectangle;
     }
 }
