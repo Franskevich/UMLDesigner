@@ -20,6 +20,7 @@ namespace UMLDesigner.Shapes.Rectangles
         {
         }
 
+
         public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods)
         {
             Pen _pen = new Pen(color, penWidth);
