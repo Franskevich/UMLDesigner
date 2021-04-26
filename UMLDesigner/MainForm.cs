@@ -73,7 +73,7 @@ namespace UMLDesigner
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_act == ActShapes.Move && e.Button == MouseButtons.Left)
+            if ((_act == ActShapes.ShangeWidth || _act == ActShapes.Move) && e.Button == MouseButtons.Left)
             {
                 _currentShape = PickOut(e);
                 _clickPoint = e.Location;
@@ -156,6 +156,23 @@ namespace UMLDesigner
                     _movePoint = _currentShape.PickPoint(e);
                     MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.Move(e.X - _clickPoint.X, e.Y - _clickPoint.Y);
+                    //_currentShape.ChangeShape(_movePoint, e.X - _clickPoint.X, e.Y - _clickPoint.Y);
+
+                    foreach (var shape in _shapes)
+                    {
+                        shape.Draw();
+                    }
+                    MyGraphics.GetInstance().SetTmpBitmapAsMain();
+
+                    _clickPoint = e.Location;
+                }
+            }
+            else if (_act == ActShapes.ShangeWidth && e.Button == MouseButtons.Left )
+            {
+                if (_currentShape != null)
+                {
+                    _movePoint = _currentShape.PickPoint(e);
+                    MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
                     _currentShape.ChangeShape(_movePoint, e.X - _clickPoint.X, e.Y - _clickPoint.Y);
 
                     foreach (var shape in _shapes)
@@ -176,7 +193,7 @@ namespace UMLDesigner
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
 
-            if (_act == ActShapes.Move)
+            if (_act == ActShapes.Move || _act == ActShapes.ShangeWidth)
             {
                 MyGraphics.GetInstance().GetMainGraphics();
 
@@ -621,6 +638,12 @@ namespace UMLDesigner
         private void buttonChangeText_Click(object sender, EventArgs e)
         {
             _act = ActShapes.ChangeText;
+        }
+
+        private void buttonWidthRectangle_Click(object sender, EventArgs e)
+        {
+            _act = ActShapes.ShangeWidth;
+            _currentShape = null;
         }
     }
 }

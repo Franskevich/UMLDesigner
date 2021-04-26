@@ -20,6 +20,7 @@ namespace UMLDesigner
         public Color Color { get; set; }
         public int PenWidth { get; set; }
 
+        private int sizeRectangle = 0;
 
         bool isMouseDown = false;
         bool _drawArrow = true;
@@ -139,45 +140,56 @@ namespace UMLDesigner
                         if (_drawArrow)
                         {
 
-                            StartPoint = new Point(rectangle.StartPoint.X+80, clickPoint.Y);
+                            StartPoint = new Point(rectangle.StartPoint.X + rectangle.EndPoint.X/2, clickPoint.Y);
                             EndPoint = clickPoint;
-                            InsidePoint1 = new Point((StartPoint.X+EndPoint.X) / 2, StartPoint.Y);
+                            InsidePoint1 = new Point((StartPoint.X + EndPoint.X) / 2, StartPoint.Y);
                             InsidePoint2 = new Point((StartPoint.X + EndPoint.X) / 2, EndPoint.Y);
-
                             rectangle.ConnectionsStart.Add(this);
                             _drawArrow = false;
+                            sizeRectangle = rectangle.EndPoint.X;
+
                         }
                         else
                         {
                             rectangle.ConnectionsEnd.Add(this);
 
-                            if (rectangle.StartPoint.X+80 < StartPoint.X + 180 + 48 &&
-                                rectangle.StartPoint.X + 80 > StartPoint.X - 180 - 48)
+                            if (StartPoint.X < clickPoint.X)
                             {
-                                if(rectangle.StartPoint.X + 80 < StartPoint.X)
-                                {
-                                    StartPoint = new Point(StartPoint.X - 80, StartPoint.Y);
-                                    EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
-                                }
-                                else
-                                {
-                                    StartPoint = new Point(StartPoint.X + 80, StartPoint.Y);
-                                    EndPoint = new Point(rectangle.StartPoint.X + 160, clickPoint.Y);
-                                }
-                            }
-                            else if (StartPoint.X < rectangle.StartPoint.X + 80) 
-                            {
-                                StartPoint = new Point(StartPoint.X + 80, StartPoint.Y);
+                                StartPoint = new Point(StartPoint.X + sizeRectangle/2, StartPoint.Y);
                                 EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
                             }
                             else
                             {
-                                StartPoint = new Point(StartPoint.X - 80, StartPoint.Y);
-                                EndPoint = new Point(rectangle.StartPoint.X+160, clickPoint.Y);
-
+                                StartPoint = new Point(StartPoint.X - sizeRectangle/2, StartPoint.Y);
+                                EndPoint = new Point(rectangle.StartPoint.X + rectangle.EndPoint.X, clickPoint.Y);
                             }
 
-                            //int middleX = (StartPoint.X + EndPoint.X) / 2;
+                            //if (rectangle.StartPoint.X + rectangle.EndPoint.X / 2 < StartPoint.X + rectangle.EndPoint.Y + 48 &&
+                            //    rectangle.StartPoint.X + rectangle.EndPoint.X / 2 > StartPoint.X - rectangle.EndPoint.Y - 48)
+                            //{
+                            //    if (rectangle.StartPoint.X + rectangle.EndPoint.X / 2 < StartPoint.X)
+                            //    {
+                            //        StartPoint = new Point(StartPoint.X - rectangle.EndPoint.X / 2, StartPoint.Y);
+                            //        EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
+                            //    }
+                            //    else
+                            //    {
+                            //        StartPoint = new Point(StartPoint.X + rectangle.EndPoint.X / 2, StartPoint.Y);
+                            //        EndPoint = new Point(rectangle.StartPoint.X + rectangle.EndPoint.X, clickPoint.Y);
+                            //    }
+                            //}
+                            //else if (StartPoint.X < rectangle.StartPoint.X + rectangle.EndPoint.X / 2)
+                            //{
+                            //    StartPoint = new Point(StartPoint.X + rectangle.EndPoint.X / 2, StartPoint.Y);
+                            //    EndPoint = new Point(rectangle.StartPoint.X, clickPoint.Y);
+                            //}
+                            //else
+                            //{
+                            //    StartPoint = new Point(StartPoint.X - rectangle.EndPoint.X / 2, StartPoint.Y);
+                            //    EndPoint = new Point(rectangle.StartPoint.X + rectangle.EndPoint.X, clickPoint.Y);
+                            //}
+
+                            int middleX = (StartPoint.X + EndPoint.X) / 2;
 
                             _drawArrow = true;
                             _endCreate = true;
