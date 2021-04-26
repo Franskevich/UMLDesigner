@@ -55,7 +55,7 @@ namespace UMLDesigner
 
         public void Draw()
         {
-            _typeRectangle.Draw(Color, PenWidth, StartPoint, EndPoint, ArgumentFont, Name, Properties, Fields, Methods, this);
+            _typeRectangle.Draw(this);
         }
 
         public void OnMouseDown(MouseEventArgs e, List<IShape> shapes)

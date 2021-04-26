@@ -14,7 +14,8 @@ namespace UMLDesigner.Interfaces
 {
     public interface IRectangle
     {
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods, AbstractRectangle rectanglr);
+        public void Draw(AbstractRectangle rectangle);
+        //public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods, AbstractRectangle rectangle);
         //public void Draw(Color color, float penWidth, Point startPoint, Point size, int line, Font nameFont, Font argumentFont);
     }
 }

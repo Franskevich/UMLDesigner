@@ -13,39 +13,26 @@ namespace UMLDesigner.Shapes.Rectangles
 {
     public class StackRectangle : IRectangle
     {        
-        //public string Name { get; set; }
-        //public static int _countOfClasses = 0;
-
-        //private Rectangle _nameRect;
-        //private Rectangle _fieldsRect;
-        //private Rectangle _propetiesRect;
-        //private Rectangle _otherRect;
-
-        //private int _nameHeight = 50;
-        //private int _fieldsHeight = 25;
-        //private int _propertiesHeight = 25;
-        //private int _otherHeight;
-
-        //public bool isRollUp = false;
-        //public int Height { get; private set; }
-        //public List<string> Fields { get; set; }
-        //public List<string> Properties { get; set; }
-        //public List<string> Other { get; set; }
-        //public List<PointerShape> Connections { get; set; }
         public StackRectangle()
         {
-            //Connections = new List<PointerShape>();
-            //Fields = new List<string>();
-            //Properties = new List<string>();
-            //Other = new List<string>();
-            //Name = "Classes" + _countOfClasses++;
         }
        
         private Graphics _graphics = MyGraphics.GetInstance().GetMainGraphics();
         public Font nameFont = new Font("Arial", 18);
 
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods, AbstractRectangle rectangle)
+        public void Draw(AbstractRectangle rectangle)
         {
+
+            Color color = rectangle.Color;
+            float penWidth = rectangle.PenWidth;
+            Point startPoint = rectangle.StartPoint;
+            Font argumentFont = rectangle.ArgumentFont;
+            string name = rectangle.Name;
+            string properties = rectangle.Properties;
+            string fields = rectangle.Fields;
+            string methods = rectangle.Methods;
+            Point size = rectangle.EndPoint;
+
             Pen _pen = new Pen(color, penWidth);
 
             int _nameHeight = 30 + ((int)_graphics.MeasureString(name, nameFont).Width / size.X) * ((int)_graphics.MeasureString(name, nameFont).Height + 3);

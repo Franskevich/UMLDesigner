@@ -21,8 +21,20 @@ namespace UMLDesigner.Shapes.Rectangles
         {
         }
 
-        public void Draw(Color color, float penWidth, Point startPoint, Point size, Font argumentFont, string name, string properties, string fields, string methods, AbstractRectangle rectangle)
+        public void Draw(AbstractRectangle rectangle)
         {
+
+            Color color = rectangle.Color;
+            float penWidth = rectangle.PenWidth;
+            Point startPoint = rectangle.StartPoint;
+            Font argumentFont = rectangle.ArgumentFont;
+            string name = rectangle.Name;
+            string properties = rectangle.Properties;
+            string fields = rectangle.Fields;
+            string methods = rectangle.Methods;
+            Point size = rectangle.EndPoint;
+
+
             Pen pen = new Pen(color, penWidth);
 
             _nameHeight = 30 + ((int)graphics.MeasureString(name, nameFont).Width / size.X) * ((int)graphics.MeasureString(name, nameFont).Height + 3);
