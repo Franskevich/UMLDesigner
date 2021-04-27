@@ -472,8 +472,9 @@ namespace UMLDesigner
                 sfd.Title = "Сохранить картинку как...";
                 sfd.OverwritePrompt = true;
                 sfd.CheckPathExists = true;
-                sfd.Filter = "Image Files(*.QQQ)|*.QQQ";
-                sfd.Filter = "Image Files(*.PNG)|*.PNG";
+                sfd.Filter = "Image Files(*.QQQ;*.PNG)|*.QQQ;*.PNG";
+                //sfd.Filter = "Image Files(*.QQQ)|*.QQQ";
+                //sfd.Filter = "Image Files(*.PNG)|*.PNG";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     try
