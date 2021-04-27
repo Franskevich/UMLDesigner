@@ -440,19 +440,22 @@ namespace UMLDesigner
 
         private void Cancel()
         {
-            Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
-            _currentShape = null;
-            _currentFactory = null;
-
-            _shapes.RemoveAt(_shapes.Count - 1);
-            MyGraphics.GetInstance().GetMainGraphics();
-
-            foreach (var shape in _shapes)
+            if( _shapes.Count != 0)
             {
-                shape.Draw();
+                Graphics.FromImage(MyGraphics.GetInstance()._mainBitmap).Clear(Color.White);
+                _currentShape = null;
+                _currentFactory = null;
+
+                _shapes.RemoveAt(_shapes.Count - 1);
+                MyGraphics.GetInstance().GetMainGraphics();
+
+                foreach (var shape in _shapes)
+                {
+                    shape.Draw();
+                }
+                pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
+                MyGraphics.GetInstance().GetTmpGraphics();
             }
-            pictureBox1.Image = MyGraphics.GetInstance()._mainBitmap;
-            MyGraphics.GetInstance().GetTmpGraphics();
         }
 
         private void ButtonMove_Click(object sender, EventArgs e)
