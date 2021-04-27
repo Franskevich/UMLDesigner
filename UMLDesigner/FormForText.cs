@@ -12,9 +12,9 @@ namespace UMLDesigner
 {
     public partial class FormForText : Form
     {
-        private AbstractRectangle _currentRectangle;
+        private BaseRectangle _currentRectangle;
 
-        public FormForText(AbstractRectangle rectangle)
+        public FormForText(BaseRectangle rectangle)
         {
             InitializeComponent();
             _currentRectangle = rectangle;
@@ -81,7 +81,6 @@ namespace UMLDesigner
         private void buttonFont_Click(object sender, EventArgs e)
         {
             fontDialog1.ShowDialog();
-            //buttonColor.BackColor = colorDialog1.Color;
             _currentRectangle.ArgumentFont = fontDialog1.Font;
         }
 

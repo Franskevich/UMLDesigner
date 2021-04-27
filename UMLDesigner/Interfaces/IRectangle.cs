@@ -14,6 +14,6 @@ namespace UMLDesigner.Interfaces
 {
     public interface IRectangle
     {
-        public void Draw(AbstractRectangle rectangle);
+        public void Draw(BaseRectangle rectangle);
     }
 }

@@ -11,14 +11,15 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
     public class EnumRectangleFactory : IFactory
     {
         IRectangle _typeRectangle;
+
         public EnumRectangleFactory()
         {
-            //_typeRectangle = new ClassRectangle();
         }
+
         public IShape GetShape()
         {
             _typeRectangle = new EnumRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "Enum");
+            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Enum", new System.Drawing.Point(180, 130));
             return shape;
         }
     }

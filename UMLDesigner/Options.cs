@@ -23,7 +23,7 @@ namespace UMLDesigner
         {
             trackBarWidthLine.Value = _currentShape.PenWidth;
             buttonColor.BackColor = _currentShape.Color;
-            AbstractPointer currentPointer = (AbstractPointer)_currentShape;
+            BasePointer currentPointer = (BasePointer)_currentShape;
             if(currentPointer._typeLine is DashLine)
             {
                 comboBoxTypeArrow.Text = "Implementation";
@@ -72,14 +72,7 @@ namespace UMLDesigner
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            //MyGraphics.GetInstance().GetMainGraphics().Clear(Color.White);
-            //foreach (var shape in MyGraphics.GetInstance().Shapes)
-            //{
-            //    shape.Draw();
-            //}
-            //MyGraphics.GetInstance().SetImageToMainBitmap();
             this.Close();
-
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -91,7 +84,7 @@ namespace UMLDesigner
 
         private void comboBoxTypeArrow_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AbstractPointer tmpPointer = (AbstractPointer)_currentShape;
+            BasePointer tmpPointer = (BasePointer)_currentShape;
             switch (comboBoxTypeArrow.Text)
             {
                 case "Association":

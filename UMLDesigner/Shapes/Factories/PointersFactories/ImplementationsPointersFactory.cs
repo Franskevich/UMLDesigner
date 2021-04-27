@@ -21,7 +21,7 @@ namespace UMLDesigner.Shapes.Factories
         {
             _typeArrow = new ImplementationsArrow();
             _typeLine = new DashLine();
-            AbstractPointer shape = new AbstractPointer(_typeArrow, _typeLine);
+            BasePointer shape = new BasePointer(_typeArrow, _typeLine);
             return shape;
         }
     }

@@ -11,13 +11,15 @@ namespace UMLDesigner.Shapes.Factories.RectanglesFactories
     public class StackRectangleFactory : IFactory
     {
         IRectangle _typeRectangle;
+
         public StackRectangleFactory()
         {
         }
+
         public IShape GetShape()
         {
             _typeRectangle = new StackRectangle();
-            AbstractRectangle shape = new AbstractRectangle(_typeRectangle, "Stack");
+            BaseRectangle shape = new BaseRectangle(_typeRectangle, "Stack", new System.Drawing.Point(180, 190));
             return shape;
         }
     }

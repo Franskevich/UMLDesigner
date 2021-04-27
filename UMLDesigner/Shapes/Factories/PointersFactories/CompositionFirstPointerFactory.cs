@@ -12,6 +12,7 @@ namespace UMLDesigner.Shapes.Factories
     {
         IArrow _typeArrow;
         ILine _typeLine;
+
         public CompositionFirstPointerFactory()
         {
         }
@@ -20,7 +21,7 @@ namespace UMLDesigner.Shapes.Factories
         {
             _typeArrow = new CompositionFirstArrow();
             _typeLine = new NormalLine();
-            AbstractPointer shape = new AbstractPointer(_typeArrow, _typeLine);
+            BasePointer shape = new BasePointer(_typeArrow, _typeLine);
             return shape;
         }
     }

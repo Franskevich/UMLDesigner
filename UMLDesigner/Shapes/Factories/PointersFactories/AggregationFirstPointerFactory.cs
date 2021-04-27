@@ -12,6 +12,7 @@ namespace UMLDesigner.Shapes
     {
         IArrow _typeArrow;
         ILine _typeLine;
+
         public AggregationFirstPointerFactory()
         {
         }
@@ -20,7 +21,7 @@ namespace UMLDesigner.Shapes
         {
             _typeArrow = new AggregationFirstArrow();
             _typeLine = new NormalLine();
-            AbstractPointer shape = new AbstractPointer(_typeArrow, _typeLine);
+            BasePointer shape = new BasePointer(_typeArrow, _typeLine);
             return shape;
         }
     }

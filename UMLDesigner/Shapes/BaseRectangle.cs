@@ -12,7 +12,7 @@ using UMLDesigner.Shapes.Rectangles;
 
 namespace UMLDesigner
 {
-    public class AbstractRectangle : IShape
+    public class BaseRectangle : IShape
     {
         public IRectangle TypeRectangle { get; set; }
         public Point StartPoint { get; set; }
@@ -27,20 +27,20 @@ namespace UMLDesigner
         public string Fields { get; set; }
         public string Methods { get; set; }
 
-        public List<AbstractPointer> ConnectionsStart { get; set; }
-        public List<AbstractPointer> ConnectionsEnd { get; set; }
+        public List<BasePointer> ConnectionsStart { get; set; }
+        public List<BasePointer> ConnectionsEnd { get; set; }
 
         private bool _endCreate = false;
 
-        public AbstractRectangle(IRectangle typeRectangle, string name)
+        public BaseRectangle(IRectangle typeRectangle, string name, Point sizeRectangle)
         {
             Name = name;
             TypeRectangle = typeRectangle;
             Color = Color.Black;
             PenWidth = 1;
-            EndPoint = new Point(180, 220);
-            ConnectionsStart = new List<AbstractPointer>();
-            ConnectionsEnd = new List<AbstractPointer>();
+            EndPoint = sizeRectangle;
+            ConnectionsStart = new List<BasePointer>();
+            ConnectionsEnd = new List<BasePointer>();
             NameFont = new Font("Arial", 18);
             ArgumentFont = new Font("Arial", 13);
         }
@@ -62,7 +62,7 @@ namespace UMLDesigner
         {
             if (_endCreate == false)
             {
-                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, new Point(160, 220));
+                DrawDashEntity(Color.Black, 1, MyGraphics.GetInstance().GetTmpGraphics(), e.Location, EndPoint);
                 MyGraphics.GetInstance().SetImageToTmpBitmap();
             }
             else
@@ -101,13 +101,13 @@ namespace UMLDesigner
         {
             StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
 
-            foreach (AbstractPointer pointer in ConnectionsEnd)
+            foreach (BasePointer pointer in ConnectionsEnd)
             {
                 pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y + deltaY);
                 pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
                 pointer.InsidePoint2 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.EndPoint.Y);
             }
-            foreach (AbstractPointer pointer in ConnectionsStart)
+            foreach (BasePointer pointer in ConnectionsStart)
             {
                 pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y + deltaY);
                 pointer.InsidePoint1 = new Point((pointer.StartPoint.X + pointer.EndPoint.X) / 2, pointer.StartPoint.Y);
@@ -121,23 +121,24 @@ namespace UMLDesigner
 
         public void ChangeShape(Point point, int deltaX, int deltaY)
         {
-
-            EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
-
-            foreach (AbstractPointer pointer in ConnectionsEnd)
+            if ((EndPoint.X + deltaX) > 50)
             {
-                if(pointer.EndPoint.X > StartPoint.X+EndPoint.X/2)
-                {
-                    pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y);
-                }
-            }
-            foreach (AbstractPointer pointer in ConnectionsStart)
-            {
-                if (pointer.StartPoint.X > StartPoint.X + EndPoint.X / 2)
-                {
-                    pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y);
-                }
+                EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
 
+                foreach (BasePointer pointer in ConnectionsEnd)
+                {
+                    if (pointer.EndPoint.X > StartPoint.X + EndPoint.X / 2)
+                    {
+                        pointer.EndPoint = new Point(pointer.EndPoint.X + deltaX, pointer.EndPoint.Y);
+                    }
+                }
+                foreach (BasePointer pointer in ConnectionsStart)
+                {
+                    if (pointer.StartPoint.X > StartPoint.X + EndPoint.X / 2)
+                    {
+                        pointer.StartPoint = new Point(pointer.StartPoint.X + deltaX, pointer.StartPoint.Y);
+                    }
+                }
             }
 
             MyGraphics.GetInstance().GetMainGraphics();
